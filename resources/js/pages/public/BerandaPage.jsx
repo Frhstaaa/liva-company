@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useSite } from '../../context/SiteContext';
 import SolutionMatrix from '../../components/SolutionMatrix';
 import ProductCockpitShowcase from '../../components/ProductCockpitShowcase';
 import BrandTrustAndShowcase from '../../components/BrandTrustAndShowcase';
+import HospitalNetworkMap from '../../components/HospitalNetworkMap';
+import FaqProcurementSection from '../../components/FaqProcurementSection';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -95,7 +97,7 @@ export default function BerandaPage({ onNavigate }) {
                             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#EBF4FF] border border-[#CCE2FF] text-[#2F8BFF] text-xs sm:text-[13px] font-semibold shadow-2xs">
                                 <span className="w-2.5 h-2.5 rounded-full bg-[#FF8A2B] shrink-0"></span>
                                 <span>Solusi SIMRS Generasi Baru</span>
-                                <span className="text-slate-400">•</span>
+                                <span className="text-slate-400">â€¢</span>
                                 <span>Terhubung SATUSEHAT &amp; BPJS</span>
                             </div>
 
@@ -263,7 +265,7 @@ export default function BerandaPage({ onNavigate }) {
                                     </div>
 
                                     <div className="flex items-center justify-between text-[11px] text-slate-500 font-mono">
-                                        <span>Patient • Encounter • Condition</span>
+                                        <span>Patient â€¢ Encounter â€¢ Condition</span>
                                         <span className="text-emerald-600 font-bold">100% Terverifikasi</span>
                                     </div>
                                 </div>
@@ -500,7 +502,17 @@ export default function BerandaPage({ onNavigate }) {
             </section>
 
             {/* ========================================================================= */}
-            {/* 7. BOTTOM CONSULTATION CALL TO ACTION (Luminous Navy Tech Theme) */}
+            {/* 7. JARINGAN SEBARAN FASKES NASIONAL */}
+            {/* ========================================================================= */}
+            <HospitalNetworkMap onNavigate={onNavigate} onOpenDemo={openDemoModal} />
+
+            {/* ========================================================================= */}
+            {/* 8. FAQ INTERAKTIF & PANDUAN PENGADAAN RS */}
+            {/* ========================================================================= */}
+            <FaqProcurementSection onNavigate={onNavigate} onOpenDemo={openDemoModal} />
+
+            {/* ========================================================================= */}
+            {/* 9. BOTTOM CONSULTATION CALL TO ACTION (Luminous Navy Tech Theme) */}
             {/* ========================================================================= */}
             <section className="py-18 sm:py-24 bg-gradient-to-b from-[#EEF5FF] via-white to-[#F8FAFC] relative overflow-hidden">
                 {/* Top Smooth White Blur Boundary */}
@@ -552,4 +564,5 @@ export default function BerandaPage({ onNavigate }) {
         </div>
     );
 }
+
 

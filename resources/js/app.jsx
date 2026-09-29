@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { SiteProvider, useSite } from './context/SiteContext';
@@ -10,6 +10,7 @@ import DemoModal from './components/DemoModal';
 import AssessmentModal from './components/AssessmentModal';
 import ModuleDetailModal from './components/ModuleDetailModal';
 import Toast from './components/Toast';
+import WhatsAppWidget from './components/WhatsAppWidget';
 
 // Public Pages
 import BerandaPage from './pages/public/BerandaPage';
@@ -80,7 +81,7 @@ function MainApp() {
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                     <span className="font-headline-sm text-sm font-bold text-primary tracking-tight">
-                        Liva SIMRS • Hospital Intelligence Platform
+                        Liva SIMRS â€¢ Hospital Intelligence Platform
                     </span>
                 </div>
             </div>
@@ -151,6 +152,7 @@ function MainApp() {
             <AssessmentModal />
             <ModuleDetailModal />
             <Toast />
+            <WhatsAppWidget />
         </div>
     );
 }
@@ -171,3 +173,4 @@ if (container) {
     const root = createRoot(container);
     root.render(<App />);
 }
+
