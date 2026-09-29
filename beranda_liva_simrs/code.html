@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Liva SIMRS - Sistem Informasi Manajemen Rumah Sakit Terintegrasi</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-low": "#eff4ff", "surface-bright": "#f8f9ff", "inverse-surface": "#27313f", "on-primary-fixed-variant": "#00468d", "tertiary": "#00628d", "surface-variant": "#d9e3f6", "primary-container": "#0073e0", "on-surface-variant": "#414754", "outline-variant": "#c1c6d6", "error-container": "#ffdad6", "secondary": "#964900", "background": "#f8f9ff", "on-tertiary-container": "#fcfcff", "on-secondary": "#ffffff", "on-primary-fixed": "#001b3e", "on-surface": "#121c2a", "on-tertiary": "#ffffff", "primary-fixed": "#d6e3ff", "error": "#ba1a1a", "on-primary-container": "#fefcff", "secondary-fixed": "#ffdcc7", "tertiary-fixed-dim": "#89ceff", "surface-container-lowest": "#ffffff", "on-secondary-container": "#642f00", "surface": "#f8f9ff", "surface-container-high": "#dee9fc", "on-background": "#121c2a", "on-secondary-fixed-variant": "#723600", "surface-container-highest": "#d9e3f6", "primary-fixed-dim": "#aac7ff", "primary": "#005ab3", "surface-tint": "#005db8", "surface-container": "#e6eeff", "on-tertiary-fixed-variant": "#004c6e", "on-error-container": "#93000a", "on-secondary-fixed": "#311300", "on-tertiary-fixed": "#001e2f", "secondary-fixed-dim": "#ffb787", "surface-dim": "#d0dbed", "tertiary-container": "#007cb1", "outline": "#717785", "on-error": "#ffffff", "tertiary-fixed": "#c9e6ff", "on-primary": "#ffffff", "inverse-on-surface": "#eaf1ff", "secondary-container": "#fe8a2a", "inverse-primary": "#aac7ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xl": "2rem", "margin-sm": "1rem", "margin": "2rem", "gutter-sm": "1rem", "space-md": "1rem", "space-3xl": "4rem", "space-2xs": "0.25rem", "gutter-lg": "2rem", "space-sm": "0.75rem", "space-2xl": "3rem", "margin-lg": "4rem", "space-xs": "0.5rem", "gutter": "1.5rem", "space-lg": "1.5rem" }, "fontFamily": { "headline-sm": ["Plus Jakarta Sans"], "body-md": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "display-hero": ["Plus Jakarta Sans"], "label-lg": ["Inter"], "display-hero-mobile": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "headline-xl": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "body-xl": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "label-md": ["Inter"] }, "fontSize": { "headline-sm": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "600"}], "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}], "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}], "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}], "display-hero": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}], "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}], "display-hero-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700"}], "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}], "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}], "headline-xl-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}], "body-xl": ["18px", {"lineHeight": "28px", "fontWeight": "400"}], "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600"}], "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}] } } } }</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl border-b border-surface-variant"><div class="bg-primary text-on-primary py-1 px-4 text-center"><div class="max-w-7xl mx-auto flex items-center justify-center gap-2 font-label-sm text-label-sm"><span class="material-symbols-outlined text-[15px]">verified</span><span>Kepatuhan Rekam Medis Elektronik Nasional: Terintegrasi Penuh dengan SATUSEHAT Kemenkes &amp; BPJS Kesehatan Bridging VClaim 2.0</span><span class="hidden md:inline-block font-label-md text-label-md underline ml-2 cursor-pointer">Pelajari Regulasi</span></div></div><div class="h-20 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between"><div class="flex items-center gap-3"><a class="flex items-center gap-3" data-path="beranda" href="#"><img alt="Liva SIMRS Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XAHIn1996QD1vNDMJOI8vdcD23fhuJ9R1JA7IQBDBpCleoEmx9kMbyYdRUDT0uLi7_REF8zQVaH0To8_w471zcowmSdXjp2znm9RnHL5dtzXY8dA103emK9CmIDNTLY41jkXa8FVs-gZ80YgXohNYtPSkgXFfEBGxyU4w0aGxkITySYI_yEPJOhgmzNIOLyTBXTg1IMhQsGD2dUtkAOrYDyjtEFtFHLVJZjFyOSJIPWo5i2pitZyCQXaIH"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">Liva SIMRS</span><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase mt-1">Hospital Intelligence Platform</span></div></a></div><nav class="hidden xl:flex items-center gap-6" data-active-classes="text-primary font-label-lg border-b-2 border-primary"><a aria-current="page" class="transition-colors py-2 text-primary font-label-lg border-b-2 border-primary" data-path="beranda" href="#">Beranda</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors py-2" data-path="modul-simrs" href="#">Modul SIMRS</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors py-2" data-path="keunggulan" href="#">Keunggulan</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors py-2" data-path="solusi-khusus" href="#">Solusi Khusus</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors py-2" data-path="studi-kasus" href="#">Studi Kasus</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors py-2" data-path="tentang-kami" href="#">Tentang Kami</a></nav><div class="flex items-center gap-4"><a class="hidden sm:flex items-center gap-1.5 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-surface-container-low" data-path="portal-klien" href="#"><span class="material-symbols-outlined text-[18px]">login</span><span>Portal Klien</span></a><a class="hidden md:flex items-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2.5 rounded-lg shadow-sm transition-all hover:shadow-md" data-path="jadwalkan-demo" href="#"><span class="material-symbols-outlined text-[18px]">calendar_month</span><span>Jadwalkan Demo SIMRS</span></a><div class="h-8 w-px bg-surface-variant hidden sm:block"></div><div class="flex items-center gap-2 pl-1"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-fixed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1qFBFfpt3Fu5veYNX_JqFcXpmq4FwVfgAzNNF1r_FPQp1F0AK5_D2wm_e2M-ipM0i2hCvPiusMBfpwHvVFoQWR3yVNK29Cgln82JTnL8Z4-kz5vqGMiQ7Mrteh2C8EApMRR5aDmR5M9B2IZO0q-IO8oEu14gxPsa8jhEzBh2Ppy7-YRPvvAv5_JLRxLrD0DclM2ZUV4l_rC07yI6QJkkm9Rkqu2w8t403Zqm_eVFy0gJR_p2fBmfd2A"/><div class="hidden 2xl:flex flex-col text-left"><span class="font-label-sm text-label-sm text-on-surface font-bold leading-none">dr. Hendra W.</span><span class="font-label-sm text-label-sm text-on-surface-variant text-[10px] leading-tight">Direktur Medis &amp; Implementasi</span></div></div></div></div></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-20rem)]"><div class="flex flex-col w-full">
+<!-- HERO SECTION -->
+<section class="relative overflow-hidden bg-gradient-to-b from-surface-container-low via-surface to-background px-6 lg:px-12 pt-8 pb-20">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Hero Text & Pitch -->
+<div class="lg:col-span-6 space-y-6">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-primary shadow-sm">
+<span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+<span class="font-label-md text-label-md tracking-wide">Solusi SIMRS Generasi Baru • Terhubung SATUSEHAT &amp; BPJS</span>
+</div>
+<h1 class="font-display-hero text-headline-xl lg:text-display-hero text-on-surface tracking-tight leading-tight">
+            Transformasi Digital Rumah Sakit yang <span class="text-primary">Lebih Cepat</span>, Terintegrasi, &amp; <span class="text-secondary-container">Berstandar Nasional</span>
+</h1>
+<p class="font-body-xl text-body-xl text-on-surface-variant max-w-xl">
+            Liva SIMRS menghubungkan seluruh alur pelayanan mulai dari IGD, Rawat Jalan, Rawat Inap, Farmasi, Laboratorium hingga Rekam Medis Elektronik (RME) dalam satu ekosistem cloud yang aman &amp; patuh regulasi.
+          </p>
+<!-- CTAs -->
+<div class="flex flex-wrap items-center gap-4 pt-2">
+<a class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:shadow-xl transition-all duration-200" href="#demo-form">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+<span>Jadwalkan Demo Gratis</span>
+</a>
+<a class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-lg text-label-lg shadow-sm hover:shadow transition-all duration-200" href="#modul-section">
+<span class="material-symbols-outlined text-secondary-container text-[22px]">play_circle</span>
+<span>Lihat Simulasi Modul</span>
+</a>
+</div>
+<!-- Micro Badge Support -->
+<div class="flex items-center gap-4 pt-4 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+<span class="font-label-md text-label-md">Sesuai Permenkes No. 24/2022</span>
+</div>
+<div class="w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+<span class="font-label-md text-label-md">Server Cloud Domestik Tier 3/4</span>
+</div>
+</div>
+</div>
+<!-- Hero Interactive Dashboard Visual Mockup -->
+<div class="lg:col-span-6 relative">
+<!-- Ambient Glow Aura -->
+<div class="absolute -top-12 -right-12 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-8 -left-8 w-72 h-72 bg-secondary-container/15 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Mockup Shell Container -->
+<div class="relative bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden">
+<!-- Simulated Browser/Window Ribbon -->
+<div class="bg-surface-container px-5 py-3.5 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-error/70"></span>
+<span class="w-3 h-3 rounded-full bg-secondary-container/70"></span>
+<span class="w-3 h-3 rounded-full bg-primary/70"></span>
+<span class="ml-3 font-label-sm text-label-sm text-on-surface-variant">SIMRS Real-time Central Node • RSUD Sehat Terpadu</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-lowest font-label-sm text-label-sm text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+                  Bridging Aktif
+                </span>
+</div>
+</div>
+<!-- Dashboard Internal Cockpit -->
+<div class="p-6 space-y-5 bg-surface-container-lowest">
+<!-- Top Metrics Cards in Mockup -->
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-surface-container-low p-3.5 rounded-xl">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Bed Occupancy (BOR)</span>
+<span class="material-symbols-outlined text-primary text-[18px]">bed</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface">78.4%</div>
+<span class="font-label-sm text-label-sm text-primary">Status: Optimal</span>
+</div>
+<div class="bg-surface-container-low p-3.5 rounded-xl">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Antrean Poli Hari Ini</span>
+<span class="material-symbols-outlined text-secondary-container text-[18px]">group</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface">412 <span class="font-body-sm text-body-sm text-on-surface-variant">pasien</span></div>
+<span class="font-label-sm text-label-sm text-secondary">386 Terlayani (93%)</span>
+</div>
+<div class="bg-surface-container-low p-3.5 rounded-xl">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sync SATUSEHAT</span>
+<span class="material-symbols-outlined text-primary text-[18px]">sync_saved_locally</span>
+</div>
+<div class="font-headline-md text-headline-md text-primary">100%</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">0 Respon Tertunda</span>
+</div>
+</div>
+<!-- Main Mockup Clinical Row: Active Patient & EMR -->
+<div class="bg-surface p-4 rounded-xl space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-headline-sm text-headline-sm">
+                      RM
+                    </div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm text-base text-on-surface">Ny. Ratna Kusuma (42 Thn)</h4>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">BPJS Kelas 1</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">No. RM: 08-33-19 • Poli Jantung • DPJP: dr. Faisal Sp.JP</p>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container-low text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">bolt</span> SEP VClaim Terbit
+                    </span>
+</div>
+</div>
+<!-- Visual Data Pill Row -->
+<div class="grid grid-cols-4 gap-2 pt-2">
+<div class="bg-surface-container-lowest p-2 rounded-lg text-center">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Tekanan Darah</span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">124/82 mmHg</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded-lg text-center">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">ICD-10 Primary</span>
+<span class="font-label-lg text-label-lg text-primary font-semibold">I25.1</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded-lg text-center">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">E-Resep Farmasi</span>
+<span class="font-label-lg text-label-lg text-secondary-container font-semibold">3 Obat (Siap)</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded-lg text-center">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Eklaim Verifikasi</span>
+<span class="font-label-lg text-label-lg text-primary font-semibold">Valid (Siap Kirim)</span>
+</div>
+</div>
+</div>
+<!-- Live Queue Stream in Card -->
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Antrean Farmasi &amp; Kasir Terkini</span>
+<span class="font-label-sm text-label-sm text-primary">Rata-rata Waktu Tunggu: 7.2 Menit</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden flex">
+<div class="bg-primary h-full" style="width: 65%;"></div>
+<div class="bg-secondary-container h-full" style="width: 25%;"></div>
+<div class="bg-outline-variant h-full" style="width: 10%;"></div>
+</div>
+</div>
+</div>
+<!-- Bottom Floating Tag -->
+<div class="bg-surface-container-low px-5 py-3 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Enkripsi Data: SHA-256 AES Hybrid Encryption</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-primary">
+<span class="material-symbols-outlined text-[16px]">security</span> Audit Trail Aktif
+              </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Trust Proof Stats Bar -->
+<div class="mt-16 bg-surface-container-lowest rounded-2xl p-6 lg:p-8 shadow-sm">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+<div class="space-y-1">
+<div class="font-display-hero-mobile text-headline-xl text-primary font-bold">150+</div>
+<div class="font-label-lg text-label-lg text-on-surface">RS &amp; Klinik Mitra</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">RSUD, RS Swasta Tipe A/B/C/D</div>
+</div>
+<div class="space-y-1">
+<div class="font-display-hero-mobile text-headline-xl text-secondary-container font-bold">99.98%</div>
+<div class="font-label-lg text-label-lg text-on-surface">Uptime SLA Keandalan</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Cloud Server Multi-Zone Redundant</div>
+</div>
+<div class="space-y-1">
+<div class="font-display-hero-mobile text-headline-xl text-primary font-bold">100%</div>
+<div class="font-label-lg text-label-lg text-on-surface">Bridging BPJS &amp; SATUSEHAT</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">VClaim 2.0, PCare, Antrean WS</div>
+</div>
+<div class="space-y-1">
+<div class="font-display-hero-mobile text-headline-xl text-on-surface font-bold">2.5 Juta+</div>
+<div class="font-label-lg text-label-lg text-on-surface">Pasien Terlayani Tiap Bulan</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Transaksi RME Cepat &amp; Aman</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- PROBLEM VS SOLUTION GRID (Tantangan RS & Solusi Liva) -->
+<section class="py-20 px-6 lg:px-12 bg-surface">
+<div class="max-w-7xl mx-auto space-y-12">
+<div class="text-center max-w-3xl mx-auto space-y-3">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-container font-bold">Hambatan Operasional vs Modernisasi</span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">
+          Hentikan Kebocoran Biaya &amp; Antrean yang Melelahkan
+        </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+          Rumah sakit membutuhkan arsitektur sistem yang menghilangkan friksi kerja antar-divisi, mempercepat klaim, serta memuaskan pasien dan auditor.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1: Antrean -->
+<div class="bg-surface-container-lowest rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-200">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-error/10 text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">timer_off</span>
+</div>
+<div class="space-y-3 w-full">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase text-error font-bold tracking-wide">Tantangan Konvensional</span>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">trending_down</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Antrean Menumpuk di Loket Pendaftaran &amp; Farmasi</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                Pasien datang sejak subuh, verifikasi identitas lambat, terjadi penumpukan massal di ruang tunggu dan memicu komplain layanan publik.
+              </p>
+<!-- The Liva Solution Box -->
+<div class="mt-4 p-4 rounded-xl bg-surface-container-low space-y-2">
+<div class="flex items-center gap-2 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Solusi Liva: Antrean Mandiri &amp; Mobile JKN Bridging</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Kiosk check-in mandiri dengan fingerprint/KTP, terhubung otomatis ke kuota Mobile JKN BPJS. Pasien tahu estimasi jam dilayani secara presisi.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Rekam Medis -->
+<div class="bg-surface-container-lowest rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-200">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-error/10 text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">folder_off</span>
+</div>
+<div class="space-y-3 w-full">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase text-error font-bold tracking-wide">Tantangan Konvensional</span>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">trending_down</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Berkas Rekam Medis Kertas Rusak, Hilang &amp; Sulit Dicari</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                Ruang penyimpanan arsip rekam medis manual penuh sesak, proses retrieval butuh 20-40 menit, dan riwayat klinis pasien sering tidak terbaca.
+              </p>
+<!-- The Liva Solution Box -->
+<div class="mt-4 p-4 rounded-xl bg-surface-container-low space-y-2">
+<div class="flex items-center gap-2 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Solusi Liva: RME Terenkripsi Standar SNOMED CT &amp; ICD</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Akses riwayat medis pasien dalam hitungan detik via tablet/PC dokter. Terstandar FHIR Kemenkes, dilengkapi tanda tangan digital dokter tersertifikasi.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: Klaim BPJS -->
+<div class="bg-surface-container-lowest rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-200">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-error/10 text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">pending_actions</span>
+</div>
+<div class="space-y-3 w-full">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase text-error font-bold tracking-wide">Tantangan Konvensional</span>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">trending_down</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Klaim BPJS Tertunda (Pending) Memicu Defisit Cashflow RS</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                Dispute koding ICD-9/ICD-10, berkas pendukung terlewat, dan entri ganda manual yang melelahkan bagi tim casemix rumah sakit.
+              </p>
+<!-- The Liva Solution Box -->
+<div class="mt-4 p-4 rounded-xl bg-surface-container-low space-y-2">
+<div class="flex items-center gap-2 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Solusi Liva: Auto-Bridging Eklaim 5.4 &amp; VClaim Validator</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Pre-audit koding otomatis sebelum berkas dikirim ke verifikator BPJS. Mereduksi tingkat klaim pending hingga 82% dan mempercepat pencairan klaim.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4: Farmasi -->
+<div class="bg-surface-container-lowest rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-200">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-error/10 text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">medication_liquid</span>
+</div>
+<div class="space-y-3 w-full">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase text-error font-bold tracking-wide">Tantangan Konvensional</span>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">trending_down</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Stok Obat Expired &amp; Kebocoran Logistik Medis</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                Pencatatan kartu stok fisik sering selisih dengan persediaan nyata di depo rawat jalan, rawat inap, dan gudang utama farmasi.
+              </p>
+<!-- The Liva Solution Box -->
+<div class="mt-4 p-4 rounded-xl bg-surface-container-low space-y-2">
+<div class="flex items-center gap-2 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Solusi Liva: Logistik Farmasi Real-time FIFO/FEFO</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Pelacakan batch &amp; tanggal kedaluwarsa secara otomatis saat dokter meresepkan via E-Resep. Notifikasi stok menipis dan sistem PO otomatis.
+                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- MODUL UNGGULAN SIMRS TERPADU (Interactive Feature Grid) -->
+<section class="py-20 px-6 lg:px-12 bg-surface-container-low" id="modul-section">
+<div class="max-w-7xl mx-auto space-y-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-3 max-w-2xl">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Modul Inti Pelayanan Rumah Sakit</span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">
+            Ekosistem SIMRS Lengkap Dari Ujung Pendaftaran Hingga Laporan Keuangan
+          </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+            Dirancang secara modular dan dapat disesuaikan dengan kebutuhan rumah sakit tipe A, B, C, D, maupun klinik pratama/utama.
+          </p>
+</div>
+<div class="shrink-0">
+<a class="inline-flex items-center gap-2 font-label-lg text-label-lg text-primary hover:text-primary-container font-semibold transition-colors" data-path="modul-simrs" href="#">
+<span>Pelajari Semua 24+ Modul</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Grid of 6 Main Clinical Modules -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- 1. IGD & Triase Digital -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">emergency</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Modul IGD &amp; Triase Digital</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Klasifikasi kegawatdaruratan ATS (Australasian Triage Scale) dan ESI otomatis. Terhubung langsung dengan aktivasi ruang operasi cito dan tim resusitasi.
+            </p>
+<ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant pt-2">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+<span>Fast Track SPGDT &amp; Rujukan Ambulans</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+<span>Penginputan EMR Cepat Mode Layar Sentuh</span>
+</li>
+</ul>
+</div>
+<div class="pt-6">
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">Triase &amp; Bed Cito</span>
+</div>
+</div>
+<!-- 2. Rawat Jalan & Poli Spesialis -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">stethoscope</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Rawat Jalan &amp; Poli Spesialis</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Manajemen antrean per dokter spesialis, riwayat konsultasi multi-visit, form asesmen klinis spesifik per spesialisasi (Bedah, Obgyn, Anak, Penyakit Dalam).
+            </p>
+<ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant pt-2">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+<span>Bridging Antrean Mobile JKN Real-time</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+<span>Template SOAP Dokter Cepat Sesuai PPA</span>
+</li>
+</ul>
+</div>
+<div class="pt-6">
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">Poliklinik &amp; Spesialis</span>
+</div>
+</div>
+<!-- 3. Rawat Inap & Bed Management -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-container/15 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">hotel</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Rawat Inap &amp; Bed Management</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Visualisasi ketersediaan ranap interaktif (ICU, HCU, Isolasi, Kelas 1-3, VIP). Perhitungan otomatis indikator efisiensi rumah sakit (BOR, LOS, TOI, BTO).
+            </p>
+<ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant pt-2">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-[16px]">check</span>
+<span>CPPT (Catatan Perkembangan Pasien Terintegrasi)</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-[16px]">check</span>
+<span>Sinkronisasi Kamar Kosong ke Aplikasi Siranap</span>
+</li>
+</ul>
+</div>
+<div class="pt-6">
+<span class="inline-block px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-container font-label-sm text-label-sm">Kapasitas &amp; CPPT</span>
+</div>
+</div>
+<!-- 4. Farmasi & E-Resep Otomatis -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">prescriptions</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Farmasi &amp; E-Resep Otomatis</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Dokter input resep langsung diteruskan ke printer etiket apotek. Dilengkapi pemeriksa otomatis interaksi obat, alergi, dan batas dosis maksimal (CPOE).
+            </p>
+<ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant pt-2">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+<span>Telaah Resep 7 Benar Berstandar KARS</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+<span>Pemantauan Stok Gudang Induk &amp; Satelit</span>
+</li>
+</ul>
+</div>
+<div class="pt-6">
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">CPOE &amp; Farmasi Klinis</span>
+</div>
+</div>
+<!-- 5. Lab (LIS) & Radiologi (RIS/PACS) -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">chips</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Laboratorium (LIS) &amp; Radiologi (RIS)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Integrasi barcode analyzer lab &amp; viewer DICOM radiologi langsung tertaut ke EMR pasien. Hasil tes otomatis terunggah tanpa perlu input manual berkas.
+            </p>
+<ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant pt-2">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+<span>Bridging Mesin Hemato, Kimia Klinik &amp; X-Ray</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+<span>Nilai Kritis Otomatis Kirim Notifikasi ke DPJP</span>
+</li>
+</ul>
+</div>
+<div class="pt-6">
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">LIS, RIS &amp; PACS</span>
+</div>
+</div>
+<!-- 6. Billing, Kasir & Akuntansi BLUD -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-container/15 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">account_balance_wallet</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Billing, Kasir &amp; Akuntansi BLUD</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Pemisahan tagihan BPJS, asuransi swasta korporat, dan pasien umum mandiri secara otomatis. Lengkap dengan jurnal akuntansi standar BLUD dan laporan laba-rugi RS.
+            </p>
+<ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant pt-2">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-[16px]">check</span>
+<span>Split-payment &amp; Integrasi QRIS / EDC Kasir</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-[16px]">check</span>
+<span>Otomatisasi Remunerasi Dokter &amp; Perawat</span>
+</li>
+</ul>
+</div>
+<div class="pt-6">
+<span class="inline-block px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-container font-label-sm text-label-sm">Casemix &amp; BLUD</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- KEPATUHAN & SERTIFIKASI KEAMANAN (Badges & Trust) -->
+<section class="py-16 px-6 lg:px-12 bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="bg-surface-container-lowest rounded-3xl p-8 lg:p-12 shadow-sm">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<div class="lg:col-span-4 space-y-3">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Kepatuhan Regulasi Nasional</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">
+              Jaminan 100% Patuh Standar Kemenkes &amp; BPJS Kesehatan
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Rumah sakit Anda bebas dari sanksi administratif dan siap menjalani penilaian akreditasi STARKES / LAM-KPRS tanpa hambatan sistem.
+            </p>
+</div>
+<div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Badge 1 -->
+<div class="bg-surface p-5 rounded-2xl text-center flex flex-col items-center justify-center space-y-2.5">
+<div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]">health_and_safety</span>
+</div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">SATUSEHAT</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Terdaftar &amp; Terverifikasi Kemenkes RI</p>
+</div>
+<!-- Badge 2 -->
+<div class="bg-surface p-5 rounded-2xl text-center flex flex-col items-center justify-center space-y-2.5">
+<div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]">sync_alt</span>
+</div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">BPJS Bridging</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">VClaim 2.0, Antrean WS, PCare Ready</p>
+</div>
+<!-- Badge 3 -->
+<div class="bg-surface p-5 rounded-2xl text-center flex flex-col items-center justify-center space-y-2.5">
+<div class="w-12 h-12 rounded-full bg-secondary-container/15 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]">lock</span>
+</div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">ISO/IEC 27001</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Standar Sistem Keamanan Informasi Medis</p>
+</div>
+<!-- Badge 4 -->
+<div class="bg-surface p-5 rounded-2xl text-center flex flex-col items-center justify-center space-y-2.5">
+<div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]">workspace_premium</span>
+</div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">STARKES 2024</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Memenuhi Elemen Penilaian Akreditasi</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- TESTIMONIALS (Direktur RS & Case Studies) -->
+<section class="py-20 px-6 lg:px-12 bg-surface">
+<div class="max-w-7xl mx-auto space-y-12">
+<div class="text-center max-w-3xl mx-auto space-y-3">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Bukti Transformasi Nyata</span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">
+          Dipercaya Lebih Dari 150 Pemimpin Rumah Sakit di Indonesia
+        </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+          Dengarkan bagaimana pimpinan medis dan pengelola BLUD mengoptimalkan alur kerja klinis dan kesehatan fiskal rumah sakit bersama Liva SIMRS.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Testimonial 1 -->
+<div class="bg-surface-container-lowest rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-6">
+<div class="space-y-4">
+<div class="flex items-center gap-1 text-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-xl text-body-xl text-on-surface italic leading-relaxed">
+              “Migrasi ke Liva SIMRS adalah keputusan terbaik RSUD kami tahun ini. Proses bridging BPJS VClaim dan Eklaim yang sebelumnya memakan waktu berhari-hari kini selesai otomatis dalam hitungan menit. Angka klaim pending kami turun hingga 75% di bulan kedua.”
+            </p>
+</div>
+<div class="flex items-center gap-4 pt-4 border-t border-surface-variant/30">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A portrait of a male medical director in white doctor coat with stethoscope, professional hospital director headshot, clean medical interior background, soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANx8ECTbGrIMLJX-QkpDT_cv6EtjYAbrMxYOqM6UNa8kJnpeez-DrD-CPI2CrTICAxHuqEfoo7pk-X5tP3TQWrn2MfD3dKqx_njyL9qY_yEKGpx-iKOfOEyhl9Au-omPl4GoXB4xkjwPG1vnmUv8rbaP4-ESq-2t6cC7ml3smpH4AL9yBC0FTgnwGXvYA5g-W2GFymjTF26NIgzvQ-BtxGvELlj66uI6er0TBcqKtX92R8zkS6CxafQg"/>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-base text-on-surface">dr. Bambang Prasetyo, Sp.A, M.Kes</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Direktur Utama RSUD Praja Husada (Tipe B, Jawa Tengah)</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-surface-container-lowest rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-6">
+<div class="space-y-4">
+<div class="flex items-center gap-1 text-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-xl text-body-xl text-on-surface italic leading-relaxed">
+              “Para dokter spesialis kami awalnya ragu beralih dari kertas ke RME digital. Namun UX Liva yang sangat intuitif membuat adopsi sangat cepat dalam tempo 2 minggu. Waktu tunggu pasien rawat jalan berkurang dari 90 menit menjadi hanya 25 menit!”
+            </p>
+</div>
+<div class="flex items-center gap-4 pt-4 border-t border-surface-variant/30">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A portrait of an Indonesian female hospital executive wearing elegant healthcare managerial attire and hijab in a modern clean private hospital setting with tablet in hands" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5kufUPyRMns_3i2piQo-AtQvPhtqioCKeSjKYVPWSX45JOjQecTEzSsQZzy9KNCypzQKeLX_BRaxH9qmxYEAnoeXmTyMWGbdlK_5fm06DoWVg2omNk13AVDDft3fxodbMxlEaj8aYYIzIVAhmxDCpFyObHsPEdQJ1rxHAV0AM9TpkaCaA2MC0uV2AfZV2Lk1WfE85ouNdEzjwhoOsgD3ocXW8my_EfqEtytCk2X1WM2qpIRPx2YRTCQ"/>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-base text-on-surface">drg. Sintia Wardhani, MARS</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">COO PT Medika Sejahtera Hospital Network (3 Cabang RS Swasta)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- INTERACTIVE SIMULATION & DEMO REQUEST BANNER -->
+<section class="py-20 px-6 lg:px-12 bg-surface-container-high" id="demo-form">
+<div class="max-w-7xl mx-auto">
+<div class="bg-surface-container-lowest rounded-3xl p-8 lg:p-14 shadow-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Text pitch -->
+<div class="lg:col-span-6 space-y-6">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">support_agent</span> Konsultasi Ahli &amp; Demo Eksklusif
+            </span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface leading-snug">
+              Siap Tingkatkan Akreditasi &amp; Efisiensi Rumah Sakit Anda?
+            </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+              Diskusikan arsitektur sistem informasi rumah sakit Anda bersama konsultan IT medis kami. Kami siap menghadirkan simulasi langsung data rumah sakit Anda tanpa komitmen.
+            </p>
+<div class="space-y-4 pt-2">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[22px] mt-0.5">verified</span>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Migrasi Data Tanpa Downtime</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tim teknis kami mengawal migrasi data dari sistem lama tanpa mengganggu pelayanan 24 jam RS.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[22px] mt-0.5">school</span>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Pelatihan PPA &amp; Dokter Lengkap</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Pendampingan on-site dan modul pelatihan interaktif untuk perawat, kasir, farmasis, dan dokter spesialis.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[22px] mt-0.5">headset_mic</span>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Dedicated 24/7 SLA Hospital Support</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Dukungan teknis tanggap darurat 24 jam setiap hari untuk memastikan operasional IGD &amp; Ranap terus berjalan stabil.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Demo Request Form -->
+<div class="lg:col-span-6 bg-surface p-8 rounded-2xl shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Jadwalkan Konsultasi &amp; Demo Sistem</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">Isi formulir di bawah ini, tim IT Medis Liva akan menghubungi dalam maksimal 12 jam kerja.</p>
+<form class="space-y-4" id="livaDemoForm" onsubmit="event.preventDefault(); document.getElementById('demoSuccessToast').classList.remove('hidden');">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface font-medium">Nama Lengkap &amp; Gelar</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" placeholder="dr. Ahmad Santoso, Sp.B" required="" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface font-medium">Jabatan di RS</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" placeholder="Direktur / Tim IT / Manajer Medis" required="" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface font-medium">Nama Institusi Rumah Sakit</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" placeholder="RSUD / RS Swasta ..." required="" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface font-medium">Tipe Institusi &amp; Jumlah Bed</label>
+<select class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm">
+<option>RS Tipe A / B (&gt; 200 Bed)</option>
+<option>RS Tipe C (100 - 200 Bed)</option>
+<option>RS Tipe D (&lt; 100 Bed)</option>
+<option>RS Khusus (Ibu &amp; Anak, Mata, Jiwa)</option>
+<option>Klinik Utama / Sentra Diagnostik</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface font-medium">Nomor WhatsApp Aktif</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" placeholder="0812-3456-xxxx" required="" type="tel"/>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface font-medium">Email Resmi Institusi</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" placeholder="direksi@rssehat.co.id" required="" type="email"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface font-medium">Modul Prioritas yang Ingin Diuji Coba</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" placeholder="Contoh: RME Rawat Jalan, Bridging BPJS VClaim, E-Resep, atau Billing BLUD" type="text"/>
+</div>
+<button class="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-semibold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 mt-2" type="submit">
+<span class="material-symbols-outlined text-[20px]">send</span>
+<span>Kirim Permintaan Demo &amp; Jadwal Audiensi</span>
+</button>
+</form>
+<div class="hidden mt-4 p-4 rounded-xl bg-surface-container-low text-primary flex items-center gap-3" id="demoSuccessToast">
+<span class="material-symbols-outlined text-[24px]">task_alt</span>
+<div class="text-left font-body-sm text-body-sm">
+<span class="font-semibold block text-on-surface">Permintaan Terkirim dengan Sukses!</span>
+                Konsultan Medis Liva akan menghubungi nomor WhatsApp Anda dalam waktu singkat.
+              </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div></main><footer class="w-full bg-surface-container-low border-t border-surface-variant pt-16 pb-12"><div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12"><div class="lg:col-span-2 space-y-4"><div class="flex items-center gap-2"><img alt="Liva SIMRS Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XAHIn1996QD1vNDMJOI8vdcD23fhuJ9R1JA7IQBDBpCleoEmx9kMbyYdRUDT0uLi7_REF8zQVaH0To8_w471zcowmSdXjp2znm9RnHL5dtzXY8dA103emK9CmIDNTLY41jkXa8FVs-gZ80YgXohNYtPSkgXFfEBGxyU4w0aGxkITySYI_yEPJOhgmzNIOLyTBXTg1IMhQsGD2dUtkAOrYDyjtEFtFHLVJZjFyOSJIPWo5i2pitZyCQXaIH"/><span class="font-headline-sm text-headline-sm text-primary">Liva SIMRS</span></div><p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Platform Sistem Informasi Manajemen Rumah Sakit (SIMRS) Cloud Generasi Baru yang dirancang khusus untuk memodernisasi efisiensi tata kelola klinis, operasional, farmasi, dan finansial rumah sakit di seluruh Indonesia.</p><div class="flex flex-wrap gap-2 pt-2"><span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest text-on-surface border border-surface-variant rounded-full font-label-sm text-label-sm"><span class="material-symbols-outlined text-primary text-[14px]">verified_user</span> Terdaftar Kemenkes RI</span><span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest text-on-surface border border-surface-variant rounded-full font-label-sm text-label-sm"><span class="material-symbols-outlined text-primary text-[14px]">lock</span> Sertifikasi ISO 27001</span><span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest text-on-surface border border-surface-variant rounded-full font-label-sm text-label-sm"><span class="material-symbols-outlined text-secondary-container text-[14px]">bolt</span> BPJS Bridging Ready</span></div></div><div><h4 class="font-headline-sm text-headline-sm text-on-surface text-base mb-4">Modul Unggulan</h4><ul class="space-y-2.5 font-body-md text-body-md text-on-surface-variant"><li><a class="hover:text-primary transition-colors" data-path="modul-simrs" href="#">Rekam Medis Elektronik (RME)</a></li><li><a class="hover:text-primary transition-colors" data-path="modul-simrs" href="#">Rawat Jalan &amp; Rawat Inap</a></li><li><a class="hover:text-primary transition-colors" data-path="modul-simrs" href="#">Farmasi &amp; Gudang Logistik</a></li><li><a class="hover:text-primary transition-colors" data-path="modul-simrs" href="#">Bridging BPJS &amp; SATUSEHAT</a></li><li><a class="hover:text-primary transition-colors" data-path="modul-simrs" href="#">Laboratorium &amp; Radiologi (LIS/RIS)</a></li><li><a class="hover:text-primary transition-colors" data-path="modul-simrs" href="#">Billing &amp; Akuntansi Rumah Sakit</a></li></ul></div><div><h4 class="font-headline-sm text-headline-sm text-on-surface text-base mb-4">Solusi &amp; Institusi</h4><ul class="space-y-2.5 font-body-md text-body-md text-on-surface-variant"><li><a class="hover:text-primary transition-colors" data-path="solusi-khusus" href="#">Rumah Sakit Tipe A &amp; B</a></li><li><a class="hover:text-primary transition-colors" data-path="solusi-khusus" href="#">RSUD &amp; BLUD Pemda</a></li><li><a class="hover:text-primary transition-colors" data-path="solusi-khusus" href="#">Jaringan RS Swasta &amp; Korporasi</a></li><li><a class="hover:text-primary transition-colors" data-path="solusi-khusus" href="#">Klinik Utama &amp; Sentra Diagnostik</a></li><li><a class="hover:text-primary transition-colors" data-path="studi-kasus" href="#">Kisah Sukses Transformasi Digital</a></li></ul></div><div><h4 class="font-headline-sm text-headline-sm text-on-surface text-base mb-4">Kantor Operasional</h4><div class="space-y-3 font-body-md text-body-md text-on-surface-variant"><div class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">location_on</span><span>Cyber 2 Tower Lt. 18, Jl. H. R. Rasuna Said Blok X-5 Kav. 13, Kuningan, Jakarta Selatan 12950</span></div><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0">call</span><span>+62 21 5088 9200 (Hotline 24/7)</span></div><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0">mail</span><span>kerjasama@livasimrs.id</span></div></div></div></div><div class="max-w-7xl mx-auto px-6 lg:px-12 pt-8 border-t border-surface-variant flex flex-col md:flex-row items-center justify-between gap-4 font-body-sm text-body-sm text-on-surface-variant"><p>© 2025 PT Liva Medika Telematika. Seluruh hak cipta dilindungi undang-undang.</p><div class="flex items-center gap-6"><a class="hover:text-primary transition-colors" href="#">Kebijakan Privasi Pasien</a><a class="hover:text-primary transition-colors" href="#">Standar Kepatuhan ISO</a><a class="hover:text-primary transition-colors" href="#">SLA &amp; Garansi Sistem</a><a class="hover:text-primary transition-colors" href="#">Status Server API</a></div></div></footer></body></html>
