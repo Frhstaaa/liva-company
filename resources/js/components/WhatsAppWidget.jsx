@@ -73,10 +73,10 @@ export default function WhatsAppWidget() {
     };
 
     return (
-        <div className="fixed bottom-6 right-6 z-50 font-sans">
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 font-sans">
             {/* Expanded Consultation Card */}
             {isOpen && (
-                <div className="absolute bottom-16 right-0 w-[340px] sm:w-[380px] bg-white rounded-2xl shadow-2xl border border-slate-200/90 overflow-hidden animate-scale-in">
+                <div className="absolute bottom-14 sm:bottom-16 right-0 w-[calc(100vw-32px)] max-w-[360px] sm:w-[380px] bg-white rounded-2xl shadow-2xl border border-slate-200/90 overflow-hidden animate-scale-in">
                     
                     {/* Header with Doctor/Expert Profile Lockup */}
                     <div className="bg-gradient-to-r from-[#0F172A] via-[#1E293B] to-[#0F172A] p-4 text-white relative">
@@ -192,7 +192,7 @@ export default function WhatsAppWidget() {
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={`relative flex items-center gap-2.5 px-4 py-3 rounded-full shadow-xl transition-all duration-300 cursor-pointer active:scale-95 btn-spring focus-ring ${
+                className={`relative flex items-center gap-2.5 p-3 sm:px-4 sm:py-3 rounded-full shadow-xl transition-all duration-300 cursor-pointer active:scale-95 btn-spring focus-ring ${
                     isOpen 
                         ? 'bg-slate-800 text-white' 
                         : 'bg-[#25D366] hover:bg-[#20bd5a] text-white hover:shadow-2xl hover:shadow-emerald-500/30'

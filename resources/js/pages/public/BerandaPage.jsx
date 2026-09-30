@@ -96,8 +96,12 @@ export default function BerandaPage({ onNavigate }) {
         const heroStyles = getSectionCustomStyles(getSetting, 'beranda', 'hero', {
             defaultBgClass: 'bg-gradient-to-b from-white via-[#F0F6FE] to-[#F8FAFC]',
             accent: '#1B84FF',
-            defaultPaddingClass: 'pt-6 sm:pt-10 pb-10 sm:pb-14',
+            defaultPaddingClass: 'pt-4 sm:pt-10 pb-8 sm:pb-14',
         });
+
+        // Ensure highlight string does not have trailing comma that duplicates in render
+        const rawHighlight = heroStyles.highlight || getSetting('hero_title_highlight_1', 'Lebih Cepat');
+        const cleanHighlight = (rawHighlight || '').replace(/[,.\s]+$/, '');
 
         return (
             <section
@@ -120,27 +124,27 @@ export default function BerandaPage({ onNavigate }) {
                     <div className="absolute inset-0 bg-clinical-grid opacity-60 pointer-events-none" />
                 )}
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-2 sm:pt-4">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-1 sm:pt-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
                         
                         {/* LEFT COLUMN: BADGE, HEADLINE, DESCRIPTION & ACTIONS */}
-                        <div className="lg:col-span-6 space-y-6 animate-slide-up">
+                        <div className="lg:col-span-6 space-y-4 sm:space-y-6 animate-slide-up">
                             
                             {/* Pill Badge */}
                             {heroStyles.showBadge && (
-                                <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#EBF2FE] border border-[#BFDBFE] text-[#1E60D5] text-xs font-semibold shadow-xs">
-                                    <span className="w-2 h-2 rounded-full animate-pulse shrink-0" style={{ backgroundColor: heroStyles.accentColor }}></span>
-                                    <span>{heroStyles.badge || getSetting('hero_badge_text', 'Solusi SIMRS Generasi Baru • Terhubung SATUSEHAT & BPJS')}</span>
+                                <div className="inline-flex max-w-full items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#EBF2FE] border border-[#BFDBFE] text-[#1E60D5] text-[11px] sm:text-xs font-semibold shadow-2xs leading-snug">
+                                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full animate-pulse shrink-0" style={{ backgroundColor: heroStyles.accentColor }}></span>
+                                    <span className="truncate sm:whitespace-normal">{heroStyles.badge || getSetting('hero_badge_text', 'Solusi SIMRS Generasi Baru • Terhubung SATUSEHAT & BPJS')}</span>
                                 </div>
                             )}
 
                             {/* Main Headline */}
-                            <h1 className={`text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight leading-[1.18] font-display ${heroStyles.titleTextClass}`}>
+                            <h1 className={`text-[25px] xs:text-[28px] sm:text-4xl lg:text-[44px] font-extrabold tracking-tight leading-[1.2] sm:leading-[1.18] font-display ${heroStyles.titleTextClass}`}>
                                 {heroStyles.title || getSetting('hero_title_prefix', 'Transformasi Digital Rumah Sakit yang')}{' '}
                                 <span className="relative inline-block whitespace-nowrap" style={{ color: heroStyles.accentColor }}>
-                                    {heroStyles.highlight || getSetting('hero_title_highlight_1', 'Lebih Cepat')},
+                                    {cleanHighlight},
                                     <svg
-                                        className="absolute -bottom-1.5 left-0 w-full h-2.5 text-[#F97316] overflow-visible"
+                                        className="absolute -bottom-1 left-0 w-full h-2 text-[#F97316] overflow-visible"
                                         viewBox="0 0 160 12"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -158,12 +162,12 @@ export default function BerandaPage({ onNavigate }) {
                             </h1>
 
                             {/* Lead Subtitle */}
-                            <p className={`text-sm sm:text-base leading-relaxed max-w-xl ${heroStyles.bodyTextClass}`}>
+                            <p className={`text-xs sm:text-sm lg:text-base leading-relaxed text-slate-600 max-w-xl ${heroStyles.bodyTextClass}`}>
                                 {heroStyles.description || getSetting('hero_description', 'Liva SIMRS menghubungkan seluruh alur pelayanan mulai dari IGD, Rawat Jalan, Rawat Inap, Farmasi, Laboratorium hingga Rekam Medis Elektronik (RME) dalam satu ekosistem cloud yang aman, andal, dan patuh regulasi Permenkes No. 24/2022.')}
                             </p>
 
                             {/* Action CTA Buttons */}
-                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 pt-0.5 sm:pt-1">
                                 {heroStyles.showCta && (
                                     <button
                                         type="button"
@@ -174,11 +178,11 @@ export default function BerandaPage({ onNavigate }) {
                                                 openDemoModal();
                                             }
                                         }}
-                                        className={`${heroStyles.ctaClass} h-12 px-7 rounded-full text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2.5 shadow-md cursor-pointer focus-ring`}
+                                        className={`${heroStyles.ctaClass} h-11 sm:h-12 px-6 sm:px-7 rounded-full text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md cursor-pointer focus-ring`}
                                     >
-                                        <Rocket className="h-4 w-4 text-white" />
+                                        <Rocket className="h-4 w-4 text-white shrink-0" />
                                         <span>{heroStyles.ctaPrimaryText || getSetting('hero_cta_primary_text', 'Jadwalkan Live Demo RS')}</span>
-                                        <ArrowRight className="h-4 w-4" />
+                                        <ArrowRight className="h-4 w-4 shrink-0" />
                                     </button>
                                 )}
 
@@ -192,48 +196,48 @@ export default function BerandaPage({ onNavigate }) {
                                                 onNavigate('modul-simrs');
                                             }
                                         }}
-                                        className="btn-spring h-12 px-6 rounded-full bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs sm:text-sm border border-slate-200/90 hover:border-slate-300 shadow-xs flex items-center justify-center gap-2.5 cursor-pointer focus-ring"
+                                        className="btn-spring h-11 sm:h-12 px-5 sm:px-6 rounded-full bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs sm:text-sm border border-slate-200/90 hover:border-slate-300 shadow-2xs flex items-center justify-center gap-2 cursor-pointer focus-ring"
                                     >
-                                        <BookOpen className="h-4 w-4 text-[#1E60D5]" />
+                                        <BookOpen className="h-4 w-4 text-[#1E60D5] shrink-0" />
                                         <span>{heroStyles.ctaSecondaryText || getSetting('hero_cta_secondary_text', 'Katalog 36 Modul')}</span>
                                     </button>
                                 )}
                             </div>
 
                             {/* Accreditation & Compliance Strip */}
-                            <div className="pt-6 border-t border-slate-200/70 flex items-center gap-4 sm:gap-6">
+                            <div className="pt-4 sm:pt-6 border-t border-slate-200/70 flex items-center justify-between sm:justify-start gap-2 sm:gap-6">
                                 {/* Badge 1: Permenkes 24/2022 */}
-                                <div className="flex items-center gap-2.5">
-                                    <div className="w-9 h-9 rounded-full bg-blue-50 text-[#1E60D5] flex items-center justify-center shrink-0">
-                                        <Cloud className="h-4 w-4" />
+                                <div className="flex items-center gap-1.5 sm:gap-2.5">
+                                    <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-blue-50 text-[#1E60D5] flex items-center justify-center shrink-0">
+                                        <Cloud className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                                     </div>
-                                    <div className="flex flex-col text-[11px] sm:text-xs">
+                                    <div className="flex flex-col text-[10px] sm:text-xs">
                                         <span className="font-bold text-slate-800 leading-tight">{getSetting('hero_badge_1_title', 'Permenkes')}</span>
                                         <span className="text-slate-500 leading-tight">{getSetting('hero_badge_1_sub', '24/2022')}</span>
                                     </div>
                                 </div>
 
-                                <div className="h-7 w-px bg-slate-200"></div>
+                                <div className="h-6 sm:h-7 w-px bg-slate-200"></div>
 
                                 {/* Badge 2: SATUSEHAT FHIR R4 */}
-                                <div className="flex items-center gap-2.5">
-                                    <div className="w-9 h-9 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                                        <ShieldCheck className="h-4 w-4" />
+                                <div className="flex items-center gap-1.5 sm:gap-2.5">
+                                    <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                                        <ShieldCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                                     </div>
-                                    <div className="flex flex-col text-[11px] sm:text-xs">
+                                    <div className="flex flex-col text-[10px] sm:text-xs">
                                         <span className="font-bold text-slate-800 leading-tight">{getSetting('hero_badge_2_title', 'SATUSEHAT')}</span>
                                         <span className="text-slate-500 leading-tight">{getSetting('hero_badge_2_sub', 'FHIR R4')}</span>
                                     </div>
                                 </div>
 
-                                <div className="h-7 w-px bg-slate-200"></div>
+                                <div className="h-6 sm:h-7 w-px bg-slate-200"></div>
 
                                 {/* Badge 3: ISO 27001 & BSrE */}
-                                <div className="flex items-center gap-2.5">
-                                    <div className="w-9 h-9 rounded-full bg-orange-50 text-[#F97316] flex items-center justify-center shrink-0">
-                                        <Award className="h-4 w-4" />
+                                <div className="flex items-center gap-1.5 sm:gap-2.5">
+                                    <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-orange-50 text-[#F97316] flex items-center justify-center shrink-0">
+                                        <Award className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                                     </div>
-                                    <div className="flex flex-col text-[11px] sm:text-xs">
+                                    <div className="flex flex-col text-[10px] sm:text-xs">
                                         <span className="font-bold text-slate-800 leading-tight">{getSetting('hero_badge_3_title', 'ISO 27001 &')}</span>
                                         <span className="text-slate-500 leading-tight">{getSetting('hero_badge_3_sub', 'BSrE BSSN')}</span>
                                     </div>
@@ -257,54 +261,54 @@ export default function BerandaPage({ onNavigate }) {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="card-clinical p-6 sm:p-7 space-y-4 relative bg-white/95 backdrop-blur-sm border border-slate-200/90 shadow-md">
+                                <div className="card-clinical p-4 sm:p-7 space-y-3.5 sm:space-y-4 relative bg-white/95 backdrop-blur-sm border border-slate-200/90 shadow-md">
                                     {/* Header inside Node Card */}
-                                    <div className="flex items-center justify-between border-b border-slate-100 pb-3.5">
-                                        <div className="flex items-center gap-2.5">
-                                            <span className="w-2.5 h-2.5 rounded-full bg-[#1E60D5] animate-pulse"></span>
-                                            <span className="text-slate-900 font-bold tracking-wider text-xs font-mono">
+                                    <div className="flex items-center justify-between border-b border-slate-100 pb-3 sm:pb-3.5">
+                                        <div className="flex items-center gap-2 sm:gap-2.5">
+                                            <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#1E60D5] animate-pulse"></span>
+                                            <span className="text-slate-900 font-bold tracking-wider text-[11px] sm:text-xs font-mono">
                                                 {getSetting('hub_node_header', 'LIVA CLINICAL INTELLIGENCE HUB')}
                                             </span>
                                         </div>
-                                        <span className="text-[11px] text-emerald-700 font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200/70 flex items-center gap-1.5">
+                                        <span className="text-[10px] sm:text-[11px] text-emerald-700 font-semibold px-2 py-0.5 sm:px-2.5 rounded-full bg-emerald-50 border border-emerald-200/70 flex items-center gap-1 sm:gap-1.5">
                                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                                             {getSetting('hub_node_sla', 'SLA 99.98% Active')}
                                         </span>
                                     </div>
 
                                     {/* Two Side-by-Side Light Feature Cards */}
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5">
                                         {/* Card 1: Rekam Medis (RME) */}
-                                        <div className="p-4 bg-[#F8FAFC] rounded-xl border border-slate-200/70 hover:border-[#BFDBFE] hover:bg-white transition-all flex items-start gap-3.5 group">
-                                            <div className="w-10 h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                                                <FileText className="h-5 w-5" />
+                                        <div className="p-3.5 sm:p-4 bg-[#F8FAFC] rounded-xl border border-slate-200/70 hover:border-[#BFDBFE] hover:bg-white transition-all flex items-start gap-3 sm:gap-3.5 group">
+                                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                                                <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
                                             </div>
                                             <div className="space-y-0.5 min-w-0">
-                                                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
+                                                <span className="text-[9.5px] sm:text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
                                                     REKAM MEDIS (RME):
                                                 </span>
-                                                <div className="text-[13.5px] font-bold text-slate-900 group-hover:text-[#1E60D5] transition-colors leading-tight">
+                                                <div className="text-[13px] sm:text-[13.5px] font-bold text-slate-900 group-hover:text-[#1E60D5] transition-colors leading-tight">
                                                     {getSetting('hub_card_1_title', 'SOAP & CPPT Digital')}
                                                 </div>
-                                                <p className="text-[11.5px] text-[#1E60D5] font-medium leading-tight">
+                                                <p className="text-[11px] sm:text-[11.5px] text-[#1E60D5] font-medium leading-tight">
                                                     {getSetting('hub_card_1_sub', 'Terstandar ICD-10 Kemenkes')}
                                                 </p>
                                             </div>
                                         </div>
 
                                         {/* Card 2: Klaim BPJS */}
-                                        <div className="p-4 bg-[#F8FAFC] rounded-xl border border-slate-200/70 hover:border-emerald-300 hover:bg-white transition-all flex items-start gap-3.5 group">
-                                            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                                                <Users className="h-5 w-5" />
+                                        <div className="p-3.5 sm:p-4 bg-[#F8FAFC] rounded-xl border border-slate-200/70 hover:border-emerald-300 hover:bg-white transition-all flex items-start gap-3 sm:gap-3.5 group">
+                                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                                                <Users className="h-4 w-4 sm:h-5 sm:w-5" />
                                             </div>
                                             <div className="space-y-0.5 min-w-0">
-                                                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
+                                                <span className="text-[9.5px] sm:text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
                                                     KLAIM BPJS:
                                                 </span>
-                                                <div className="text-[13.5px] font-bold text-slate-900 group-hover:text-emerald-600 transition-colors leading-tight">
+                                                <div className="text-[13px] sm:text-[13.5px] font-bold text-slate-900 group-hover:text-emerald-600 transition-colors leading-tight">
                                                     {getSetting('hub_card_2_title', 'Auto-Grouping CBGs')}
                                                 </div>
-                                                <p className="text-[11.5px] text-emerald-600 font-medium leading-tight">
+                                                <p className="text-[11px] sm:text-[11.5px] text-emerald-600 font-medium leading-tight">
                                                     {getSetting('hub_card_2_sub', 'Dispute Rate < 0.3%')}
                                                 </p>
                                             </div>
@@ -312,23 +316,23 @@ export default function BerandaPage({ onNavigate }) {
                                     </div>
 
                                     {/* Bottom SATUSEHAT Integration Card */}
-                                    <div className="p-4 bg-[#F8FAFC] rounded-xl border border-slate-200/70 space-y-2.5">
-                                        <div className="flex items-center justify-between text-xs">
-                                            <span className="text-slate-700 font-medium">Sinkronisasi SATUSEHAT Kemenkes:</span>
-                                            <span className="text-[#F97316] font-semibold text-xs flex items-center gap-1.5 font-mono">
+                                    <div className="p-3 sm:p-4 bg-[#F8FAFC] rounded-xl border border-slate-200/70 space-y-2 sm:space-y-2.5">
+                                        <div className="flex items-center justify-between text-[11px] sm:text-xs">
+                                            <span className="text-slate-700 font-medium">Sinkronisasi SATUSEHAT:</span>
+                                            <span className="text-[#F97316] font-semibold flex items-center gap-1.5 font-mono">
                                                 <Link2 className="h-3.5 w-3.5 text-[#F97316]" />
                                                 Native HL7 FHIR R4
                                             </span>
                                         </div>
 
                                         {/* Progress Bar with Smooth Medical Gradient */}
-                                        <div className="w-full bg-slate-200/80 h-2 rounded-full overflow-hidden p-0.5">
+                                        <div className="w-full bg-slate-200/80 h-1.5 sm:h-2 rounded-full overflow-hidden p-0.5">
                                             <div className="bg-gradient-to-r from-[#1E60D5] via-[#4D8BFF] to-[#059669] h-full w-full rounded-full"></div>
                                         </div>
 
-                                        <div className="flex items-center justify-between text-[11px] text-slate-500 font-mono">
-                                            <span>Patient • Encounter • Condition • Medication</span>
-                                            <span className="text-emerald-600 font-semibold">100% Terverifikasi</span>
+                                        <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 font-mono">
+                                            <span className="truncate mr-2">Patient • Encounter • Condition</span>
+                                            <span className="text-emerald-600 font-semibold shrink-0">100% Terverifikasi</span>
                                         </div>
                                     </div>
 

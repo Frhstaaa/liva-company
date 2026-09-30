@@ -115,22 +115,22 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
                         </h3>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3.5">
                         {trustCredentials.map((cred, i) => {
                             const Icon = cred.icon;
                             return (
                                 <div
                                     key={i}
-                                    className="p-4 rounded-2xl bg-[#F8FAFC] border border-slate-200/70 hover:border-blue-200 hover:bg-white transition-all flex flex-col items-center text-center space-y-2.5 group card-interactive shadow-xs"
+                                    className={`p-3.5 sm:p-4 rounded-2xl bg-[#F8FAFC] border border-slate-200/70 hover:border-blue-200 hover:bg-white transition-all flex flex-col items-center text-center space-y-2 sm:space-y-2.5 group card-interactive shadow-xs ${i === 4 ? 'col-span-2 sm:col-span-1' : ''}`}
                                 >
-                                    <div className="w-10 h-10 rounded-xl bg-white border border-slate-200/60 text-[#1E60D5] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-xs">
-                                        <Icon className={`w-5 h-5 ${cred.color}`} />
+                                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white border border-slate-200/60 text-[#1E60D5] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-xs">
+                                        <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${cred.color}`} />
                                     </div>
                                     <div>
                                         <h4 className="text-xs font-bold text-[#0F172A] leading-tight font-display">
                                             {cred.title}
                                         </h4>
-                                        <p className="text-[10.5px] text-slate-500 font-mono mt-0.5">
+                                        <p className="text-[10px] sm:text-[10.5px] text-slate-500 font-mono mt-0.5">
                                             {cred.desc}
                                         </p>
                                     </div>

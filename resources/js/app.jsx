@@ -163,7 +163,7 @@ function MainApp() {
         <div className="flex flex-col min-h-screen bg-surface">
             <Navbar currentPath={currentPath} onNavigate={navigateTo} />
 
-            <main className="flex-1 pt-24">
+            <main className="flex-1 pt-20 sm:pt-24">
                 {currentPath === 'beranda' && <BerandaPage onNavigate={navigateTo} />}
                 {currentPath === 'modul-simrs' && <KatalogModulPage onNavigate={navigateTo} />}
                 {currentPath === 'ris-pacs' && <RisPacsPage onNavigate={navigateTo} />}

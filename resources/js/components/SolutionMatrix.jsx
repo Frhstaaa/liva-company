@@ -101,8 +101,8 @@ export default function SolutionMatrix({ onNavigate, onScheduleDemo }) {
     return (
         <div className="space-y-6">
             {/* Horizontal Segment Navigation Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
-                {Object.values(solutions).map((sol) => {
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5">
+                {Object.values(solutions).map((sol, idx) => {
                     const isSelected = selectedSolution === sol.id;
                     const IconComp = sol.icon;
                     return (
@@ -110,24 +110,26 @@ export default function SolutionMatrix({ onNavigate, onScheduleDemo }) {
                             key={sol.id}
                             type="button"
                             onClick={() => setSelectedSolution(sol.id)}
-                            className={`p-3.5 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between gap-3 btn-spring focus-ring ${
+                            className={`p-3 sm:p-3.5 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2.5 sm:gap-3 btn-spring focus-ring ${
+                                idx === 4 ? 'col-span-2 sm:col-span-1' : ''
+                            } ${
                                 isSelected
                                     ? 'bg-[#1E60D5] text-white border-[#1E60D5] shadow-md shadow-blue-500/20'
                                     : 'bg-white border-slate-200/90 text-slate-700 hover:border-blue-200 hover:bg-slate-50'
                             }`}
                         >
-                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-transform ${
+                            <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center shrink-0 transition-transform ${
                                 isSelected ? 'bg-white/20 text-white' : 'bg-[#EBF2FE] text-[#1E60D5]'
                             }`}>
-                                <IconComp className="h-4 w-4" />
+                                <IconComp className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                             </div>
                             <div>
-                                <span className={`text-xs font-bold font-display block leading-tight ${
+                                <span className={`text-[11.5px] sm:text-xs font-bold font-display block leading-tight ${
                                     isSelected ? 'text-white' : 'text-[#0F172A]'
                                 }`}>
                                     {sol.title.split(' ')[0]} {sol.title.split(' ')[1]}
                                 </span>
-                                <span className={`text-[10.5px] block mt-0.5 line-clamp-1 ${
+                                <span className={`text-[10px] sm:text-[10.5px] block mt-0.5 line-clamp-1 ${
                                     isSelected ? 'text-blue-100' : 'text-slate-500'
                                 }`}>
                                     {sol.badge}
@@ -141,12 +143,12 @@ export default function SolutionMatrix({ onNavigate, onScheduleDemo }) {
             {/* Detailed Selected Solution Card */}
             <div
                 key={selectedSolution}
-                className="card-clinical p-6 sm:p-8 space-y-6 animate-scale-in"
+                className="card-clinical p-4 sm:p-8 space-y-4 sm:space-y-6 animate-scale-in"
             >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4 sm:pb-5">
                     <div className="space-y-1.5">
-                        <div className="flex items-center gap-2">
-                            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#EBF2FE] text-[#1E60D5] border border-[#BFDBFE]">
+                        <div className="flex flex-wrap items-center gap-2">
+                            <span className="px-2.5 py-0.5 rounded-full text-[10.5px] sm:text-[11px] font-semibold bg-[#EBF2FE] text-[#1E60D5] border border-[#BFDBFE]">
                                 {current.badge}
                             </span>
                             <span className="text-[11.5px] font-mono text-emerald-600 font-semibold">

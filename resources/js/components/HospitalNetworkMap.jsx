@@ -71,44 +71,44 @@ export default function HospitalNetworkMap({ onNavigate, onOpenDemo }) {
     const currentData = REGIONS.find(r => r.id === activeRegion) || REGIONS[0];
 
     return (
-        <section className="py-20 sm:py-28 bg-white border-t border-slate-200/80 relative overflow-hidden font-sans">
+        <section className="py-10 sm:py-20 bg-white border-t border-slate-200/80 relative overflow-hidden font-sans">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 {/* Header */}
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 sm:mb-14">
                     <div className="max-w-2xl">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-wide mb-3 shadow-2xs font-mono">
                             <MapPin className="w-3.5 h-3.5 text-emerald-600" />
                             <span>{getSetting('network_badge_text', 'JARINGAN NASIONAL KEPERCAYAAN FASKES')}</span>
                         </div>
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F172A] tracking-tight font-display">
+                        <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F172A] tracking-tight font-display">
                             {getSetting('network_headline_prefix', 'Dipercaya Puluhan Rumah Sakit')} <br className="hidden sm:inline" />
                             <span className="text-[#1E60D5]">{getSetting('network_headline_highlight', 'Dari Sabang Hingga Merauke')}</span>
                         </h2>
-                        <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+                        <p className="mt-2.5 sm:mt-3 text-xs sm:text-base text-slate-600 leading-relaxed font-sans">
                             {getSetting('network_subheadline', 'Liva SIMRS diimplementasikan secara terbukti di berbagai fasyankes: RSUD pemerintah, rumah sakit swasta, RSIA khusus ibu & anak, hingga klinik industri pertambangan.')}
                         </p>
                     </div>
 
                     {/* Quick Metric Ribbon */}
-                    <div className="flex items-center gap-3 shrink-0">
-                        <div className="px-4 py-3 rounded-2xl bg-slate-50/80 border border-slate-200/80 text-center">
-                            <span className="block text-2xl font-black text-[#1E60D5] leading-none tabular-nums font-display">{getSetting('network_total_faskes', '40+')}</span>
-                            <span className="text-[11px] text-slate-600 font-medium mt-1 block">Mitra Faskes Aktif</span>
+                    <div className="grid grid-cols-3 gap-2 sm:flex sm:items-center sm:gap-3 shrink-0">
+                        <div className="px-2.5 py-2 sm:px-4 sm:py-3 rounded-2xl bg-slate-50/80 border border-slate-200/80 text-center">
+                            <span className="block text-xl sm:text-2xl font-black text-[#1E60D5] leading-none tabular-nums font-display">{getSetting('network_total_faskes', '40+')}</span>
+                            <span className="text-[10px] sm:text-[11px] text-slate-600 font-medium mt-1 block">Mitra Faskes</span>
                         </div>
-                        <div className="px-4 py-3 rounded-2xl bg-slate-50/80 border border-slate-200/80 text-center">
-                            <span className="block text-2xl font-black text-emerald-700 leading-none tabular-nums font-display">{getSetting('network_total_rme', '1.2M+')}</span>
-                            <span className="text-[11px] text-slate-600 font-medium mt-1 block">Rekam Medis Pasien</span>
+                        <div className="px-2.5 py-2 sm:px-4 sm:py-3 rounded-2xl bg-slate-50/80 border border-slate-200/80 text-center">
+                            <span className="block text-xl sm:text-2xl font-black text-emerald-700 leading-none tabular-nums font-display">{getSetting('network_total_rme', '1.2M+')}</span>
+                            <span className="text-[10px] sm:text-[11px] text-slate-600 font-medium mt-1 block">RME Pasien</span>
                         </div>
-                        <div className="px-4 py-3 rounded-2xl bg-slate-50/80 border border-slate-200/80 text-center">
-                            <span className="block text-2xl font-black text-[#EA580C] leading-none tabular-nums font-display">{getSetting('network_cloud_sla', '99.98%')}</span>
-                            <span className="text-[11px] text-slate-600 font-medium mt-1 block">Cloud Uptime SLA</span>
+                        <div className="px-2.5 py-2 sm:px-4 sm:py-3 rounded-2xl bg-slate-50/80 border border-slate-200/80 text-center">
+                            <span className="block text-xl sm:text-2xl font-black text-[#EA580C] leading-none tabular-nums font-display">{getSetting('network_cloud_sla', '99.98%')}</span>
+                            <span className="text-[10px] sm:text-[11px] text-slate-600 font-medium mt-1 block">Cloud SLA</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Region Selector Pills */}
-                <div className="flex flex-wrap items-center gap-2 mb-8 border-b border-slate-200/80 pb-4" role="tablist">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 border-b border-slate-200/80 pb-3 sm:pb-4" role="tablist">
                     {REGIONS.map((reg) => {
                         const isSelected = activeRegion === reg.id;
                         return (

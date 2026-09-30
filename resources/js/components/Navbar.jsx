@@ -109,27 +109,27 @@ export default function Navbar({ currentPath = 'beranda', onNavigate }) {
                 const isEnabled = val === true || val === '1' || val === 'true';
                 if (!isEnabled) return null;
                 return (
-                    <div className="bg-gradient-to-r from-[#F0F6FE] via-[#F8FAFC] to-[#FFF7ED] text-slate-700 h-8 px-4 sm:px-6 lg:px-8 border-b border-slate-200/60 flex items-center">
-                        <div className="max-w-7xl w-full mx-auto flex items-center justify-between gap-4 text-[11px]">
-                            <div className="flex items-center gap-2.5 truncate">
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 font-semibold text-[10px] shrink-0">
+                    <div className="bg-gradient-to-r from-[#F0F6FE] via-[#F8FAFC] to-[#FFF7ED] text-slate-700 h-7 sm:h-8 px-3 sm:px-6 lg:px-8 border-b border-slate-200/60 flex items-center">
+                        <div className="max-w-7xl w-full mx-auto flex items-center justify-between gap-2 sm:gap-4 text-[10.5px] sm:text-[11px]">
+                            <div className="flex items-center gap-2 truncate">
+                                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 font-semibold text-[9.5px] sm:text-[10px] shrink-0">
                                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                                     {getSetting('top_announcement_badge', 'SATUSEHAT FHIR R4')}
                                 </span>
-                                <span className="text-slate-600 font-normal truncate text-[11.5px]">
+                                <span className="text-slate-600 font-normal truncate text-[11px] hidden md:inline">
                                     {topAnnouncement}
                                 </span>
                             </div>
 
-                            <div className="flex items-center gap-3 shrink-0 text-[11px]">
+                            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 text-[10.5px] sm:text-[11px]">
                                 <button
                                     type="button"
                                     onClick={() => openAssessmentModal()}
                                     className="text-[#1E60D5] hover:text-[#164DB0] font-semibold flex items-center gap-1 cursor-pointer transition-colors focus-ring rounded"
                                 >
-                                    <Sparkles className="h-3 w-3 text-[#F97316]" />
+                                    <Sparkles className="h-3 w-3 text-[#F97316] shrink-0" />
                                     <span>{topAnnouncementLinkText}</span>
-                                    <ArrowRight className="h-3 w-3" />
+                                    <ArrowRight className="h-3 w-3 shrink-0" />
                                 </button>
                                 <span className="text-slate-300 hidden md:inline">|</span>
                                 <div className="hidden md:flex items-center gap-1.5 text-slate-500 text-[11px]">
@@ -144,26 +144,26 @@ export default function Navbar({ currentPath = 'beranda', onNavigate }) {
             })()}
 
             {/* Main Navigation Bar */}
-            <div className="h-16 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+            <div className="h-14 sm:h-16 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
                 {/* Brand Logo Lockup */}
                 <div className="flex items-center shrink-0">
                     <button
                         type="button"
                         onClick={() => handleNavClick('beranda')}
-                        className="flex items-center gap-3 text-left group cursor-pointer focus-ring rounded-lg"
+                        className="flex items-center gap-2.5 sm:gap-3 text-left group cursor-pointer focus-ring rounded-lg"
                         aria-label="Kembali ke Beranda"
                     >
                         <img
                             alt={`${siteName} Logo`}
-                            className="h-8 w-auto object-contain transition-transform group-hover:scale-102 shrink-0"
+                            className="h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-102 shrink-0"
                             src={siteLogo}
                         />
                         <div className="flex flex-col">
-                            <div className="font-bold text-[16px] text-slate-900 tracking-tight leading-none flex items-center gap-1 font-display">
+                            <div className="font-bold text-[15px] sm:text-[16px] text-slate-900 tracking-tight leading-none flex items-center gap-1 font-display">
                                 <span>{siteName}</span>
                                 <span className="w-1.5 h-1.5 rounded-full bg-[#F97316] shrink-0"></span>
                             </div>
-                            <span className="text-slate-400 tracking-wider uppercase text-[8.5px] font-semibold mt-0.5">
+                            <span className="text-slate-400 tracking-wider uppercase text-[8px] sm:text-[8.5px] font-semibold mt-0.5">
                                 {siteTagline}
                             </span>
                         </div>
