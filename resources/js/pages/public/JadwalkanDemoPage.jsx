@@ -95,10 +95,10 @@ export default function JadwalkanDemoPage({ onNavigate }) {
     }[theme] || 'bg-[#F8FAFC] text-[#0F172A]';
 
     const pyDensity = {
-        compact: 'py-8 sm:py-12',
-        normal: 'py-12 sm:py-16',
-        spacious: 'py-18 sm:py-24',
-    }[density] || 'py-12 sm:py-16';
+        compact: 'py-6 sm:py-8',
+        normal: 'py-8 sm:py-12',
+        spacious: 'py-12 sm:py-16',
+    }[density] || 'py-8 sm:py-12';
 
     // Parse Dynamic Section Order
     const rawOrder = getSetting('page_jadwalkan-demo_section_order');
@@ -122,7 +122,7 @@ export default function JadwalkanDemoPage({ onNavigate }) {
     });
 
     const renderHero = () => (
-        <section key="hero" className={`relative w-full pt-10 pb-16 sm:pb-20 overflow-hidden border-b border-slate-200/70 ${heroStyles.bgClasses}`} style={heroStyles.bgStyle}>
+        <section key="hero" className={`relative w-full pt-6 pb-10 sm:pb-12 overflow-hidden border-b border-slate-200/70 ${heroStyles.bgClasses}`} style={heroStyles.bgStyle}>
             {/* Architectural Hospital Background Image Overlay */}
             {heroStyles.showImage && (
                 <div 

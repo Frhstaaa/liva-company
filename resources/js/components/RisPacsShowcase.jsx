@@ -186,7 +186,7 @@ export default function RisPacsShowcase({ onScheduleDemo, onConsultIntegrator })
     ];
 
     return (
-        <section id="ris-pacs-spotlight" className="py-20 sm:py-28 bg-[#F8FAFC] border-b border-slate-200/70 relative overflow-hidden">
+        <section id="ris-pacs-spotlight" className="py-10 sm:py-14 bg-[#F8FAFC] border-b border-slate-200/70 relative overflow-hidden">
             
             {/* Ambient Background Lighting - Clean CSS Radial without blur bleed */}
             <div

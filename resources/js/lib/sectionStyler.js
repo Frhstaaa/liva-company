@@ -155,13 +155,14 @@ export function getSectionCustomStyles(settingProvider, pageId, secId, defaults 
     // 4. Layout Variant
     const layout = getSetting(prefix + 'layout', defaults.layout || 'default');
 
-    // 5. Padding
+    // 5. Padding (Tight, seamless spacing without giant gaps)
     const padding = getSetting(prefix + 'padding', defaults.padding || 'normal');
     const paddingClass = {
-        compact: 'py-8 sm:py-12',
-        normal: 'py-16 sm:py-24',
-        spacious: 'py-24 sm:py-32',
-    }[padding] || (defaults.defaultPaddingClass || 'py-16 sm:py-24');
+        none: 'py-0',
+        compact: 'py-6 sm:py-8',
+        normal: 'py-10 sm:py-14',
+        spacious: 'py-14 sm:py-18',
+    }[padding] || (defaults.defaultPaddingClass || 'py-10 sm:py-14');
 
     // 6. Corner Radius
     const radius = getSetting(prefix + 'radius', defaults.radius || 'rounded-2xl');

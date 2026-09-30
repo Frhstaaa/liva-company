@@ -124,7 +124,7 @@ export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
     };
 
     return (
-        <section className="py-20 sm:py-28 bg-gradient-to-b from-[#F8FAFC] via-white to-[#F4F8FE] border-t border-slate-200/80 relative overflow-hidden font-sans">
+        <section className="py-10 sm:py-14 bg-gradient-to-b from-[#F8FAFC] via-white to-[#F4F8FE] border-t border-slate-200/80 relative overflow-hidden font-sans">
             {/* Ambient Background Accents - Clean CSS Radial without blur bleed */}
             <div
                 className="absolute inset-0 pointer-events-none opacity-30"

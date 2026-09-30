@@ -63,10 +63,10 @@ export default function StudiKasusPage({ onNavigate }) {
     }[theme] || 'bg-[#F8FAFC] text-[#0F172A]';
 
     const pyDensity = {
-        compact: 'py-10 sm:py-16',
-        normal: 'py-16 sm:py-24',
-        spacious: 'py-22 sm:py-32',
-    }[density] || 'py-16 sm:py-24';
+        compact: 'py-6 sm:py-8',
+        normal: 'py-10 sm:py-14',
+        spacious: 'py-14 sm:py-18',
+    }[density] || 'py-10 sm:py-14';
 
     // Parse Dynamic Section Order
     const rawOrder = getSetting('page_studi-kasus_section_order');
@@ -87,7 +87,7 @@ export default function StudiKasusPage({ onNavigate }) {
         const heroStyles = getSectionCustomStyles(getSetting, 'studi-kasus', 'hero', {
             defaultBgClass: 'bg-gradient-to-b from-white via-[#F8FAFC] to-[#EEF5FF]',
             accent: '#1B84FF',
-            defaultPaddingClass: 'pt-10 pb-16 sm:pb-24',
+            defaultPaddingClass: 'pt-6 pb-10 sm:pb-14',
         });
 
         return (

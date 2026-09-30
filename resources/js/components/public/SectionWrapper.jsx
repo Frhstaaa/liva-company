@@ -171,6 +171,43 @@ export default function SectionWrapper({
         return content;
     };
 
+    if (!showContainer) {
+        return (
+            <div
+                id={`sec-${pageId}-${secId}`}
+                className={`relative transition-all duration-300 ${styles.bgClass || ''} ${styles.borderClass || ''} ${className}`}
+                style={styles.bgStyle}
+            >
+                {/* Background Image Cover Overlay */}
+                {styles.showImage && styles.imageUrl && styles.imagePosition === 'background' && (
+                    <div
+                        className="absolute inset-0 pointer-events-none z-0 bg-cover bg-center bg-no-repeat opacity-15 mix-blend-multiply"
+                        style={{
+                            backgroundImage: `url('${styles.imageUrl}')`,
+                        }}
+                    />
+                )}
+
+                {/* Ambient Radial Glow Effect */}
+                {styles.hasAmbientGlow && (
+                    <div
+                        className="absolute inset-0 pointer-events-none opacity-30"
+                        style={{
+                            background: `radial-gradient(ellipse 60% 50% at 75% 0%, ${styles.accentColor || '#1B84FF'}22 0%, transparent 70%)`,
+                        }}
+                    />
+                )}
+
+                {/* Medical Grid Lines */}
+                {styles.hasGridLines && (
+                    <div className="absolute inset-0 bg-clinical-grid opacity-40 pointer-events-none" />
+                )}
+
+                <div className="relative z-10">{renderInnerContent()}</div>
+            </div>
+        );
+    }
+
     return (
         <section
             id={`sec-${pageId}-${secId}`}
@@ -203,13 +240,9 @@ export default function SectionWrapper({
             )}
 
             {/* Container */}
-            {showContainer ? (
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    {renderInnerContent()}
-                </div>
-            ) : (
-                <div className="relative z-10">{renderInnerContent()}</div>
-            )}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                {renderInnerContent()}
+            </div>
         </section>
     );
 }

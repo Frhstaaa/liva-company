@@ -158,10 +158,10 @@ export default function TentangKamiPage({ onNavigate }) {
     }[theme] || 'bg-[#F8FAFC] text-[#0F172A]';
 
     const pyDensity = {
-        compact: 'py-10 sm:py-16',
-        normal: 'py-16 sm:py-24',
-        spacious: 'py-22 sm:py-32',
-    }[density] || 'py-16 sm:py-24';
+        compact: 'py-6 sm:py-8',
+        normal: 'py-10 sm:py-14',
+        spacious: 'py-14 sm:py-18',
+    }[density] || 'py-10 sm:py-14';
 
     // Parse Dynamic Section Order
     const rawOrder = getSetting('page_tentang-kami_section_order');
@@ -187,7 +187,7 @@ export default function TentangKamiPage({ onNavigate }) {
     });
 
     const renderHero = () => (
-        <section key="hero" className={`py-14 sm:py-20 relative overflow-hidden border-b border-slate-200/70 ${heroStyles.bgClasses}`} style={heroStyles.bgStyle}>
+        <section key="hero" className={`py-8 sm:py-12 relative overflow-hidden border-b border-slate-200/70 ${heroStyles.bgClasses}`} style={heroStyles.bgStyle}>
             {/* Clean Ambient Lights */}
             {heroStyles.showAmbientGlow && (
                 <div

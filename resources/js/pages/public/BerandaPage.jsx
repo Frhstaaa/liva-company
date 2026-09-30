@@ -87,16 +87,16 @@ export default function BerandaPage({ onNavigate }) {
     const finalOrderedKeys = orderedKeys.filter(key => isVisible('show_' + key, true));
 
     const pyDensity = {
-        compact: 'py-10 sm:py-14',
-        normal: 'py-18 sm:py-26',
-        spacious: 'py-24 sm:py-32',
-    }[density] || 'py-18 sm:py-26';
+        compact: 'py-6 sm:py-8',
+        normal: 'py-10 sm:py-14',
+        spacious: 'py-14 sm:py-18',
+    }[density] || 'py-10 sm:py-14';
 
     const renderHero = () => {
         const heroStyles = getSectionCustomStyles(getSetting, 'beranda', 'hero', {
             defaultBgClass: 'bg-gradient-to-b from-white via-[#F0F6FE] to-[#F8FAFC]',
             accent: '#1B84FF',
-            defaultPaddingClass: 'pt-8 sm:pt-14 pb-18 sm:pb-26',
+            defaultPaddingClass: 'pt-6 sm:pt-10 pb-10 sm:pb-14',
         });
 
         return (

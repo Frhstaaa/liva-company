@@ -72,10 +72,10 @@ export default function KatalogModulPage({ onNavigate }) {
     }[theme] || 'bg-[#F8FAFC] text-[#0F172A]';
 
     const pyDensity = {
-        compact: 'py-8 sm:py-12',
-        normal: 'py-12 sm:py-18',
-        spacious: 'py-18 sm:py-26',
-    }[density] || 'py-12 sm:py-18';
+        compact: 'py-6 sm:py-8',
+        normal: 'py-8 sm:py-12',
+        spacious: 'py-12 sm:py-16',
+    }[density] || 'py-8 sm:py-12';
 
     // Parse Dynamic Section Order
     const rawOrder = getSetting('page_modul-simrs_section_order');
@@ -96,7 +96,7 @@ export default function KatalogModulPage({ onNavigate }) {
         const heroStyles = getSectionCustomStyles(getSetting, 'modul-simrs', 'hero', {
             defaultBgClass: 'bg-gradient-to-b from-white via-[#F0F6FE] to-[#F8FAFC]',
             accent: '#1B84FF',
-            defaultPaddingClass: 'pt-8 pb-12 sm:pb-16',
+            defaultPaddingClass: 'pt-6 pb-8 sm:pb-10',
         });
 
         return (

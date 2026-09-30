@@ -103,7 +103,7 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
     return (
         <div className="space-y-0">
             {/* 1. Trust & Accreditation Strip */}
-            <section className="bg-white py-14 border-b border-slate-200/60 relative">
+            <section className="bg-white py-8 sm:py-10 border-b border-slate-200/60 relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
                     <div className="text-center space-y-1.5">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/70 text-emerald-700 text-[10.5px] font-mono font-semibold tracking-wider uppercase">
@@ -142,7 +142,7 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
             </section>
 
             {/* 2. Spotlight 3 Core Highlights */}
-            <section className="py-18 sm:py-26 bg-[#F8FAFC] border-b border-slate-200/60 relative">
+            <section className="py-10 sm:py-14 bg-[#F8FAFC] border-b border-slate-200/60 relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative z-10">
                     <div className="text-center max-w-2xl mx-auto space-y-2.5">
                         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF7ED] text-[#F97316] text-xs font-semibold border border-[#FFEDD5]">
@@ -199,7 +199,7 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
             </section>
 
             {/* 3. Transformation Stories (Testimonials) */}
-            <section className="py-18 sm:py-26 bg-white border-b border-slate-200/60 relative">
+            <section className="py-10 sm:py-14 bg-white border-b border-slate-200/60 relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative z-10">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div className="space-y-1.5 max-w-xl">

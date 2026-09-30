@@ -227,7 +227,7 @@ export default function ProductCockpitShowcase({ onScheduleDemo }) {
     const currentTab = tabs.find(t => t.id === activeTab) || tabs[0];
 
     return (
-        <section className="py-18 sm:py-26 bg-gradient-to-b from-[#F8FAFC] via-white to-[#F0F6FE] relative overflow-hidden border-b border-slate-200/60">
+        <section className="py-10 sm:py-14 bg-gradient-to-b from-[#F8FAFC] via-white to-[#F0F6FE] relative overflow-hidden border-b border-slate-200/60">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative z-10">
                 
                 {/* Section Header */}
