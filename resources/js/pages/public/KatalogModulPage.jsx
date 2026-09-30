@@ -13,7 +13,12 @@ import {
     CheckCircle2,
     Shield,
     Sparkles,
-    Rocket
+    Rocket,
+    Check,
+    Zap,
+    ShieldCheck,
+    Clock,
+    TrendingUp
 } from 'lucide-react';
 
 export default function KatalogModulPage({ onNavigate }) {
@@ -240,45 +245,114 @@ export default function KatalogModulPage({ onNavigate }) {
                         </button>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                        {filteredModules.map((mod) => (
-                            <div
-                                key={mod.id}
-                                onClick={() => openModuleModal(mod)}
-                                className={`card-clinical p-5 sm:p-6 flex flex-col justify-between cursor-pointer group ${cardRadius}`}
-                            >
-                                <div className="space-y-3.5">
-                                    <div className="flex items-center justify-between">
-                                        <div className="w-10 h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center font-bold text-xs group-hover:scale-105 transition-transform shadow-xs">
-                                            <Activity className="h-5 w-5" />
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
+                        {filteredModules.map((mod, idx) => {
+                            // Asymmetrical Bento Rhythm:
+                            // idx % 7 === 0: Prominent Flagship card (col-span-12 lg:col-span-8)
+                            // idx % 7 === 1: Complementary card (col-span-12 lg:col-span-4)
+                            // idx % 7 >= 2: Curated 4-col cards (col-span-12 sm:col-span-6 lg:col-span-4)
+                            const isFeatureHero = (idx % 7 === 0);
+                            const isFeatureSub = (idx % 7 === 1);
+                            const colSpan = isFeatureHero
+                                ? 'col-span-12 lg:col-span-8'
+                                : isFeatureSub
+                                    ? 'col-span-12 lg:col-span-4'
+                                    : 'col-span-12 sm:col-span-6 lg:col-span-4';
+
+                            return (
+                                <div
+                                    key={mod.id}
+                                    onClick={() => openModuleModal(mod)}
+                                    className={`${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 cursor-pointer group ${
+                                        isFeatureHero
+                                            ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-xs hover:border-blue-400'
+                                            : isFeatureSub
+                                                ? 'bg-gradient-to-br from-indigo-100/80 via-slate-100/70 to-indigo-50/40 border border-indigo-200/80 shadow-xs hover:border-indigo-400'
+                                                : 'bg-slate-100/80 hover:bg-slate-200/60 border border-slate-200/90 shadow-2xs hover:border-slate-300'
+                                    }`}
+                                >
+                                    <div className="p-6 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] relative overflow-hidden">
+                                        {/* Subtle ambient lighting for flagship bento */}
+                                        {isFeatureHero && (
+                                            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+                                        )}
+
+                                        <div className="space-y-4 relative z-10">
+                                            {/* Header inside card */}
+                                            <div className="flex items-center justify-between gap-3">
+                                                <div className="flex items-center gap-2.5">
+                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-xs transition-transform group-hover:scale-105 shadow-xs ${
+                                                        isFeatureHero
+                                                            ? 'bg-[#EBF2FE] text-[#1E60D5]'
+                                                            : isFeatureSub
+                                                                ? 'bg-indigo-50 text-indigo-700'
+                                                                : 'bg-slate-100 text-slate-700'
+                                                    }`}>
+                                                        <Activity className="h-5 w-5" />
+                                                    </div>
+                                                    <span className={`font-mono text-[10.5px] font-bold px-2.5 py-0.5 rounded-full border ${
+                                                        isFeatureHero
+                                                            ? 'bg-blue-50 border-blue-200 text-[#1E60D5]'
+                                                            : 'bg-slate-100 border-slate-200 text-slate-700'
+                                                    }`}>
+                                                        {mod.module_code}
+                                                    </span>
+                                                </div>
+
+                                                <div className="flex items-center gap-2">
+                                                    {isFeatureHero && (
+                                                        <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[10px] font-mono font-bold text-emerald-700">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                                            MODUL FLAGSHIP
+                                                        </span>
+                                                    )}
+                                                    <span className="text-[10px] font-mono font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200/80">
+                                                        {mod.category_name || 'Modul Inti'}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Title & Description */}
+                                            <div>
+                                                <h3 className={`font-bold text-[#0F172A] group-hover:text-[#1E60D5] transition-colors leading-snug font-display ${
+                                                    isFeatureHero ? 'text-lg sm:text-xl lg:text-2xl' : 'text-base sm:text-lg'
+                                                }`}>
+                                                    {mod.title}
+                                                </h3>
+                                                <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed mt-2 line-clamp-3">
+                                                    {mod.short_description}
+                                                </p>
+                                            </div>
+
+                                            {/* Rich telemetry badges on flagship bento card */}
+                                            {isFeatureHero && (
+                                                <div className="pt-2 flex flex-wrap items-center gap-2 text-[11px] font-mono">
+                                                    <span className="px-2.5 py-1 rounded-lg bg-blue-50/80 border border-blue-200/70 text-[#1E60D5] font-semibold flex items-center gap-1.5">
+                                                        <Check className="h-3.5 w-3.5" />
+                                                        Standar STARKES Paripurna
+                                                    </span>
+                                                    <span className="px-2.5 py-1 rounded-lg bg-emerald-50/80 border border-emerald-200/70 text-emerald-700 font-semibold flex items-center gap-1.5">
+                                                        <Zap className="h-3.5 w-3.5" />
+                                                        Native Cloud Sync
+                                                    </span>
+                                                    <span className="px-2.5 py-1 rounded-lg bg-amber-50/80 border border-amber-200/70 text-amber-800 font-semibold flex items-center gap-1.5">
+                                                        <ShieldCheck className="h-3.5 w-3.5" />
+                                                        Audit Trail Enkripsi AES-256
+                                                    </span>
+                                                </div>
+                                            )}
                                         </div>
-                                        <span className="font-mono text-[10px] font-semibold text-slate-600 px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200">
-                                            {mod.module_code}
-                                        </span>
-                                    </div>
 
-                                    <div>
-                                        <h3 className="text-base font-bold text-[#0F172A] group-hover:text-[#1E60D5] transition-colors leading-snug font-display">
-                                            {mod.title}
-                                        </h3>
-                                        <div className="mt-1.5">
-                                            <span className="text-[10px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1E60D5] border border-blue-100">
-                                                {mod.category_name || 'Modul Inti'}
-                                            </span>
+                                        <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#1E60D5] relative z-10">
+                                            <span>Detail Alur Kerja & Integrasi</span>
+                                            <div className="w-7 h-7 rounded-full bg-blue-50 group-hover:bg-[#1E60D5] group-hover:text-white flex items-center justify-center transition-all">
+                                                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
-                                        {mod.short_description}
-                                    </p>
                                 </div>
-
-                                <div className="pt-3.5 mt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#1E60D5]">
-                                    <span>Eksplorasi Alur Kerja</span>
-                                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                                </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 )}
             </div>

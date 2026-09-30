@@ -24,7 +24,8 @@ import {
     Globe2,
     Calendar,
     ChevronRight,
-    BadgeCheck
+    BadgeCheck,
+    Zap
 } from 'lucide-react';
 import { useSite } from '../../context/SiteContext';
 import SectionWrapper from '../../components/public/SectionWrapper';
@@ -458,28 +459,80 @@ export default function TentangKamiPage({ onNavigate }) {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
                     {coreValues.map((val, idx) => {
                         const Icon = val.icon;
+                        const isPrimary = (idx === 0 || idx === 3);
+                        const colSpan = isPrimary ? 'col-span-12 lg:col-span-7' : 'col-span-12 lg:col-span-5';
+
                         return (
                             <div 
                                 key={idx} 
-                                className={`card-clinical p-5 sm:p-6 space-y-4 ${cardRadius}`}
+                                className={`${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
+                                    idx === 0
+                                        ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-sm hover:border-blue-400'
+                                        : idx === 1
+                                            ? 'bg-gradient-to-br from-emerald-100/80 via-slate-100/70 to-emerald-50/40 border border-emerald-200/80 shadow-sm hover:border-emerald-400'
+                                            : idx === 2
+                                                ? 'bg-gradient-to-br from-indigo-100/80 via-slate-100/70 to-indigo-50/40 border border-indigo-200/80 shadow-sm hover:border-indigo-400'
+                                                : 'bg-gradient-to-br from-amber-100/80 via-slate-100/70 to-amber-50/40 border border-amber-200/80 shadow-sm hover:border-amber-400'
+                                }`}
                             >
-                                <div className={`w-12 h-12 rounded-xl ${val.bg} flex items-center justify-center ${val.color}`}>
-                                    <Icon className="w-6 h-6" />
+                                <div className="p-6 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] relative overflow-hidden">
+                                    {isPrimary && (
+                                        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+                                    )}
+
+                                    <div className="space-y-4 relative z-10">
+                                        <div className="flex items-center justify-between">
+                                            <div className={`w-12 h-12 rounded-xl ${val.bg} flex items-center justify-center ${val.color} group-hover:scale-105 transition-transform shadow-xs`}>
+                                                <Icon className="w-6 h-6" />
+                                            </div>
+                                            <span className="text-[10.5px] font-mono font-bold text-slate-600 uppercase px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200">
+                                                {val.tag}
+                                            </span>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <h3 className={`font-bold text-[#0F172A] font-display leading-snug group-hover:text-[#1E60D5] transition-colors ${
+                                                isPrimary ? 'text-lg sm:text-xl lg:text-2xl' : 'text-base sm:text-lg'
+                                            }`}>
+                                                {val.title}
+                                            </h3>
+                                            <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                                                {val.desc}
+                                            </p>
+                                        </div>
+
+                                        {idx === 0 && (
+                                            <div className="pt-2 flex flex-wrap gap-1.5 text-[11px] font-mono">
+                                                <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-[#1E60D5] border border-blue-200 font-semibold">
+                                                    ISO 27001 Certified
+                                                </span>
+                                                <span className="px-2.5 py-1 rounded-lg bg-slate-50 text-slate-700 border border-slate-200">
+                                                    UU PDP Kemenkominfo
+                                                </span>
+                                            </div>
+                                        )}
+
+                                        {idx === 3 && (
+                                            <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/80 flex items-center justify-between text-xs text-amber-950 font-mono">
+                                                <span>⚡ Pendampingan On-Site &amp; Gladi Bersih</span>
+                                                <span className="text-amber-800 font-bold">100% Terkawal</span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono relative z-10">
+                                        <div className="flex items-center gap-1.5">
+                                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                                            <span className="text-slate-700 font-medium">Standar Keunggulan Liva</span>
+                                        </div>
+                                        <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#1E60D5] group-hover:text-white text-slate-500 flex items-center justify-center transition-all duration-200">
+                                            <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="space-y-1">
-                                    <span className="text-[10.5px] font-mono font-bold text-slate-500 uppercase">
-                                        {val.tag}
-                                    </span>
-                                    <h3 className="text-base sm:text-lg font-bold text-[#0F172A] font-display">
-                                        {val.title}
-                                    </h3>
-                                </div>
-                                <p className="text-xs text-slate-600 leading-relaxed">
-                                    {val.desc}
-                                </p>
                             </div>
                         );
                     })}
@@ -504,48 +557,74 @@ export default function TentangKamiPage({ onNavigate }) {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {leadership.map((person, idx) => (
-                        <div 
-                            key={idx} 
-                            className={`card-clinical overflow-hidden group flex flex-col justify-between ${cardRadius}`}
-                        >
-                            <div>
-                                <div className="aspect-4/3 overflow-hidden bg-slate-100 relative">
-                                    <img 
-                                        src={person.photo} 
-                                        alt={person.name} 
-                                        className="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-500"
-                                    />
-                                    <div className="absolute top-2.5 right-2.5 bg-white/95 backdrop-blur-md px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold text-[#1E60D5] border border-white/80 shadow-2xs">
-                                        {person.cert}
+                {/* Bento Grid Leadership Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
+                    {leadership.map((person, idx) => {
+                        const colSpan = 'col-span-12 lg:col-span-6';
+
+                        return (
+                            <div 
+                                key={idx} 
+                                className={`${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
+                                    idx === 0
+                                        ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-xs hover:border-blue-400'
+                                        : idx === 1
+                                            ? 'bg-gradient-to-br from-indigo-100/80 via-slate-100/70 to-indigo-50/40 border border-indigo-200/80 shadow-xs hover:border-indigo-400'
+                                            : 'bg-slate-100/80 hover:bg-slate-200/60 border border-slate-200/90 shadow-2xs hover:border-slate-300'
+                                }`}
+                            >
+                                <div className="p-5 sm:p-6 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col sm:flex-row gap-5 items-start justify-between shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                                    {/* Portrait Photo Frame */}
+                                    <div className="w-full sm:w-44 aspect-square sm:aspect-auto sm:h-52 rounded-2xl overflow-hidden shrink-0 relative bg-slate-100 border border-slate-200/80">
+                                        <img 
+                                            src={person.photo} 
+                                            alt={person.name} 
+                                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                        <div className="absolute top-2.5 right-2.5 bg-white/95 backdrop-blur-md px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold text-[#1E60D5] border border-white/80 shadow-2xs">
+                                            {person.cert}
+                                        </div>
+                                    </div>
+
+                                    {/* Bio & Details */}
+                                    <div className="flex-1 flex flex-col justify-between h-full space-y-3 min-w-0">
+                                        <div className="space-y-1.5">
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-[10px] font-mono uppercase font-bold text-slate-500">
+                                                    Dewan Eksekutif Liva
+                                                </span>
+                                                <span className="flex items-center gap-1 text-[10.5px] text-emerald-700 font-semibold font-mono bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                                                    <Check className="w-3 h-3" />
+                                                    Verified
+                                                </span>
+                                            </div>
+
+                                            <h3 className="text-base sm:text-lg font-bold text-[#0F172A] font-display group-hover:text-[#1E60D5] transition-colors leading-snug">
+                                                {person.name}
+                                            </h3>
+                                            <div className="text-xs font-bold text-[#1E60D5]">
+                                                {person.role}
+                                            </div>
+                                            <div className="text-[11px] text-slate-500 font-mono">
+                                                {person.sub}
+                                            </div>
+
+                                            <p className="text-xs text-slate-600 leading-relaxed pt-1 line-clamp-3 sm:line-clamp-4">
+                                                {person.bio}
+                                            </p>
+                                        </div>
+
+                                        <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono">
+                                            <span>Pakar SIMRS &amp; Kesehatan</span>
+                                            <div className="w-6 h-6 rounded-full bg-slate-100 group-hover:bg-[#1E60D5] group-hover:text-white flex items-center justify-center transition-all">
+                                                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="p-4 space-y-2">
-                                    <div>
-                                        <h3 className="text-sm font-bold text-[#0F172A] font-display">
-                                            {person.name}
-                                        </h3>
-                                        <div className="text-xs font-bold text-[#1E60D5]">
-                                            {person.role}
-                                        </div>
-                                        <div className="text-[11px] text-slate-500 font-mono">
-                                            {person.sub}
-                                        </div>
-                                    </div>
-                                    <p className="text-xs text-slate-600 leading-relaxed pt-1">
-                                        {person.bio}
-                                    </p>
-                                </div>
                             </div>
-                            <div className="px-4 py-2.5 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-mono">
-                                <span className="flex items-center gap-1 text-emerald-700 font-semibold">
-                                    <Check className="w-3.5 h-3.5" />
-                                    Verified Expert
-                                </span>
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

@@ -22,7 +22,13 @@ import {
     Link2,
     Activity,
     Layers,
-    CheckCircle2
+    CheckCircle2,
+    Check,
+    Zap,
+    Database,
+    Clock,
+    TrendingUp,
+    ChevronRight
 } from 'lucide-react';
 
 export default function BerandaPage({ onNavigate }) {
@@ -376,117 +382,332 @@ export default function BerandaPage({ onNavigate }) {
         />
     );
 
-    const renderPillars = () => (
-        <section className={`${pyDensity} bg-[#F8FAFC] border-b border-slate-200/60 relative`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative z-10">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <div className="space-y-1.5 max-w-xl">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2FE] text-[#1E60D5] text-xs font-semibold border border-[#BFDBFE]">
-                            <span>{getSetting('pillars_badge_text', 'ARSITEKTUR MISI-KRITIS')}</span>
-                        </div>
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight font-display">
-                            {getSetting('pillars_headline', '6 Pilar Keunggulan Solusi Liva SIMRS')}
-                        </h2>
-                    </div>
-                    <button
-                        type="button"
-                        onClick={() => onNavigate('keunggulan')}
-                        className="text-xs font-semibold text-[#1E60D5] hover:underline flex items-center gap-1 cursor-pointer self-start md:self-auto font-mono btn-spring focus-ring rounded"
-                    >
-                        <span>Lihat Matriks Komparasi KLAS</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
-                    </button>
-                </div>
+    const renderPillars = () => {
+        const defaultPillars = [
+            {
+                pillar_number: '01',
+                badge: 'REKAM MEDIS ELEKTRONIK TERPADU',
+                title: 'Rekam Medis Elektronik (RME) Paripurna & SOAP Terstandar',
+                description: 'Dokumentasi klinis terintegrasi SOAP, CPPT multidisiplin, resume medis otomatis, dan penomoran rekam medis terpadu sesuai Permenkes No. 24/2022.',
+                metric_value: '< 2.4 mnt',
+                metric_label: 'Waktu Input SOAP Dokter',
+                tag: 'FLAGSHIP RME'
+            },
+            {
+                pillar_number: '02',
+                badge: 'INTEROPERABILITAS NASIONAL',
+                title: 'Interoperabilitas Native SATUSEHAT Kemenkes & HL7 FHIR R4',
+                description: 'Pertukaran data klinis otomatis (Encounter, Condition, Medication, Observation) langsung ke cloud SATUSEHAT tanpa middleware pihak ketiga.',
+                metric_value: '100% FHIR',
+                metric_label: 'Kepatuhan Standar Kemenkes',
+                tag: 'HL7 FHIR R4'
+            },
+            {
+                pillar_number: '03',
+                badge: 'BRIDGING ASURANSI & KLAIM',
+                title: 'Bridging BPJS VClaim 2.0 & Auto-Grouping INA-CBGs',
+                description: 'Verifikasi SEP instan, sinkronisasi klaim digital e-Klaim, dan validasi pre-klaim real-time untuk memangkas potensi dispute berkas.',
+                metric_value: '< 0.3%',
+                metric_label: 'Dispute Rate Klaim',
+                tag: 'BPJS VCLAIM'
+            },
+            {
+                pillar_number: '04',
+                badge: 'IMAGING & RADIOLOGI CLOUD',
+                title: 'Cloud RIS/PACS & Zero-Footprint DICOM Web Viewer',
+                description: 'Akses hasil radiologi CT-Scan, MRI, dan USG langsung dari lembar kerja dokter dengan rendering berkecepatan tinggi tanpa instalasi software rumit.',
+                metric_value: 'Sub-detik',
+                metric_label: 'Akses Citra Diagnostik',
+                tag: 'DICOM 3.0'
+            },
+            {
+                pillar_number: '05',
+                badge: 'KEAMANAN SIBER & PRIVASI DATA',
+                title: 'Sertifikasi ISO 27001 & Arsitektur Zero-Trust Kemenkes',
+                description: 'Enkripsi data at-rest & in-transit AES-256, tanda tangan digital tersertifikasi BSrE BSSN, dan audit trail klinis anti-tamper.',
+                metric_value: '99.98%',
+                metric_label: 'High Availability SLA',
+                tag: 'ISO 27001'
+            },
+            {
+                pillar_number: '06',
+                badge: 'MANAJEMEN CASEMIX & AKUNTANSI',
+                title: 'Otomasi Casemix, Farmasi E-Prescription & Keuangan RS',
+                description: 'Pengendalian biaya riil terhadap tarif INA-CBGs, manajemen multi-depo farmasi pintar, dan pelaporan keuangan RS terpadu secara real-time.',
+                metric_value: '100% Real-Time',
+                metric_label: 'Pelaporan Casemix',
+                tag: 'FINANSIAL RS'
+            }
+        ];
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {pillars.map((pillar, idx) => (
-                        <div
-                            key={idx}
-                            className={`card-clinical p-6 flex flex-col justify-between space-y-4 group ${cardRadius}`}
+        const activePillars = pillars && pillars.length > 0 ? pillars : defaultPillars;
+
+        return (
+            <section className={`${pyDensity} bg-[#F8FAFC] border-b border-slate-200/60 relative`}>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                        <div className="space-y-2 max-w-xl">
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2FE] text-[#1E60D5] text-xs font-semibold border border-[#BFDBFE]">
+                                <Sparkles className="h-3.5 w-3.5 text-[#F97316]" />
+                                <span>{getSetting('pillars_badge_text', 'ARSITEKTUR MISI-KRITIS')}</span>
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight font-display">
+                                {getSetting('pillars_headline', '6 Pilar Keunggulan Solusi Liva SIMRS')}
+                            </h2>
+                            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                Fondasi teknologi kesehatan masa depan yang menggabungkan efisiensi alur klinis, integrasi regulasi Kemenkes, dan ketangguhan arsitektur cloud.
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => onNavigate('keunggulan')}
+                            className="btn-spring px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 text-xs font-semibold text-[#1E60D5] border border-blue-200/80 shadow-xs flex items-center gap-2 cursor-pointer self-start md:self-auto font-mono focus-ring"
                         >
-                            <div className="space-y-3.5">
-                                <div className="flex items-center justify-between">
-                                    <div className="w-10 h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center group-hover:scale-105 transition-transform">
-                                        <Activity className="h-5 w-5" />
-                                    </div>
-                                    <span className="font-mono text-[10px] text-slate-500 font-semibold px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">
-                                        PILAR 0{idx + 1}
-                                    </span>
-                                </div>
-                                <h3 className="text-base font-bold text-[#0F172A] group-hover:text-[#1E60D5] transition-colors leading-snug font-display">
-                                    {pillar.title}
-                                </h3>
-                                <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
-                                    {pillar.description}
-                                </p>
+                            <span>Lihat Matriks Komparasi KLAS</span>
+                            <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center">
+                                <ArrowRight className="h-3 w-3 text-[#1E60D5]" />
                             </div>
-                            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-mono">
-                                <span>Standar Akreditasi</span>
-                                <span className="text-emerald-600 font-semibold">Paripurna Ready</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-
-    const renderModules = () => (
-        <section className={`${pyDensity} bg-white border-b border-slate-200/60 relative`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative z-10">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <div className="space-y-1.5 max-w-xl">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF7ED] text-[#F97316] text-xs font-semibold border border-[#FFEDD5]">
-                            <span>{getSetting('modules_badge_text', 'MODULAR & TERPADU')}</span>
-                        </div>
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight font-display">
-                            {getSetting('modules_headline', 'Katalog 36 Modul SIMRS & Klinik Terpadu')}
-                        </h2>
+                        </button>
                     </div>
-                    <button
-                        type="button"
-                        onClick={() => onNavigate('modul-simrs')}
-                        className="btn-spring text-xs font-semibold text-slate-700 hover:text-[#1E60D5] border border-slate-200 hover:border-blue-300 rounded-full h-10 px-5 flex items-center gap-2 cursor-pointer bg-white shadow-xs focus-ring"
-                    >
-                        <span>Lihat Semua 36 Modul</span>
-                        <ArrowRight className="h-3.5 w-3.5 text-[#1E60D5]" />
-                    </button>
-                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {modules.slice(0, 4).map((mod, i) => (
-                        <div
-                            key={mod.id || i}
-                            onClick={() => openModuleModal(mod)}
-                            className={`card-clinical p-5 flex flex-col justify-between cursor-pointer group ${cardRadius}`}
-                        >
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between">
-                                    <div className="w-8 h-8 rounded-lg bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center font-bold text-xs group-hover:scale-105 transition-transform">
-                                        <Activity className="h-4 w-4" />
+                    {/* Asymmetric Bento Architecture */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
+                        {activePillars.map((pillar, idx) => {
+                            const isHero = idx === 0;
+                            const isSecondary = idx === 1;
+                            const colSpan = isHero 
+                                ? 'col-span-12 lg:col-span-7' 
+                                : isSecondary 
+                                    ? 'col-span-12 lg:col-span-5' 
+                                    : 'col-span-12 sm:col-span-6 lg:col-span-4';
+
+                            const numStr = pillar.pillar_number || String(idx + 1).padStart(2, '0');
+                            const tagLabel = pillar.badge || (isHero ? 'FLAGSHIP RME' : isSecondary ? 'SATUSEHAT FHIR' : `PILAR ${numStr}`);
+                            const metricVal = pillar.metric_value || (isHero ? '< 2.4 mnt' : isSecondary ? '100% FHIR' : idx === 2 ? '< 0.3%' : '99.98%');
+                            const metricTxt = pillar.metric_label || (isHero ? 'Entri SOAP Dokter' : isSecondary ? 'HL7 Standar Nasional' : idx === 2 ? 'Dispute Klaim BPJS' : 'SLA Ketersediaan');
+
+                            return (
+                                <div
+                                    key={pillar.id || idx}
+                                    className={`${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
+                                        isHero
+                                            ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-sm hover:border-blue-400'
+                                            : isSecondary
+                                                ? 'bg-gradient-to-br from-emerald-100/80 via-slate-100/80 to-emerald-50/50 border border-emerald-200/80 shadow-sm hover:border-emerald-400'
+                                                : 'bg-slate-100/80 hover:bg-slate-200/60 border border-slate-200/90 shadow-2xs hover:border-slate-300'
+                                    }`}
+                                >
+                                    <div className="p-6 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] relative overflow-hidden">
+                                        {isHero && (
+                                            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+                                        )}
+                                        {isSecondary && (
+                                            <div className="absolute top-0 right-0 w-56 h-56 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
+                                        )}
+
+                                        <div className="space-y-4 relative z-10">
+                                            {/* Header inside card */}
+                                            <div className="flex items-center justify-between gap-3">
+                                                <div className="flex items-center gap-2.5">
+                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 ${
+                                                        isHero 
+                                                            ? 'bg-[#EBF2FE] text-[#1E60D5] shadow-xs' 
+                                                            : isSecondary 
+                                                                ? 'bg-emerald-50 text-emerald-700 shadow-xs' 
+                                                                : 'bg-slate-100 text-slate-700'
+                                                    }`}>
+                                                        {isHero ? <FileText className="h-5 w-5" /> : isSecondary ? <Cloud className="h-5 w-5" /> : <Activity className="h-5 w-5" />}
+                                                    </div>
+                                                    <span className={`text-[10.5px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${
+                                                        isHero 
+                                                            ? 'bg-blue-50 border-blue-200 text-[#1E60D5]' 
+                                                            : isSecondary 
+                                                                ? 'bg-emerald-50 border-emerald-200 text-emerald-700' 
+                                                                : 'bg-slate-50 border-slate-200 text-slate-600'
+                                                    }`}>
+                                                        {tagLabel}
+                                                    </span>
+                                                </div>
+
+                                                <div className="text-right">
+                                                    <span className="text-[11px] font-mono font-bold text-slate-900 block leading-tight">
+                                                        {metricVal}
+                                                    </span>
+                                                    <span className="text-[9.5px] text-slate-500 font-mono block">
+                                                        {metricTxt}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Title & Description */}
+                                            <div className="space-y-2">
+                                                <h3 className={`font-extrabold text-[#0F172A] tracking-tight font-display transition-colors leading-snug ${
+                                                    isHero ? 'text-lg sm:text-xl lg:text-2xl group-hover:text-[#1E60D5]' : isSecondary ? 'text-base sm:text-lg group-hover:text-emerald-700' : 'text-base group-hover:text-[#1E60D5]'
+                                                }`}>
+                                                    {pillar.title}
+                                                </h3>
+                                                <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                                                    {pillar.description}
+                                                </p>
+                                            </div>
+
+                                            {isHero && (
+                                                <div className="pt-2">
+                                                    <div className="text-[10px] font-mono uppercase text-slate-500 font-semibold mb-2">
+                                                        Alur Kerja Klinis Terintegrasi:
+                                                    </div>
+                                                    <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-medium text-slate-700">
+                                                        <span className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80">Triase IGD</span>
+                                                        <span className="text-slate-400">➔</span>
+                                                        <span className="px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200/80 text-[#1E60D5] font-semibold">SOAP & CPPT</span>
+                                                        <span className="text-slate-400">➔</span>
+                                                        <span className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80">E-Prescription</span>
+                                                        <span className="text-slate-400">➔</span>
+                                                        <span className="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200/80 text-emerald-700 font-semibold">Klaim Terverifikasi</span>
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {isSecondary && (
+                                                <div className="p-3 rounded-xl bg-emerald-50/60 border border-emerald-100 space-y-1.5">
+                                                    <div className="flex items-center justify-between text-[11px] font-semibold text-emerald-900">
+                                                        <span>Kemenkes SATUSEHAT Sync</span>
+                                                        <span className="text-emerald-700 font-mono">100% Verified</span>
+                                                    </div>
+                                                    <div className="w-full bg-emerald-200/60 h-1.5 rounded-full overflow-hidden">
+                                                        <div className="bg-emerald-600 h-full w-full rounded-full" />
+                                                    </div>
+                                                    <div className="text-[10px] text-emerald-800 font-mono">
+                                                        Encounter • Condition • Medication
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono relative z-10">
+                                            <div className="flex items-center gap-1.5">
+                                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                                                <span className="text-slate-700 font-medium">Standar Akreditasi KARS STARKES</span>
+                                            </div>
+                                            <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#1E60D5] group-hover:text-white text-slate-500 flex items-center justify-center transition-all duration-200">
+                                                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span className="font-mono text-[10px] font-semibold text-slate-600 px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">
-                                        {mod.module_code}
-                                    </span>
                                 </div>
-                                <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-[#1E60D5] transition-colors leading-snug font-display">
-                                    {mod.title}
-                                </h3>
-                                <p className="text-[11.5px] text-slate-600 line-clamp-3 leading-relaxed">
-                                    {mod.short_description}
-                                </p>
-                            </div>
-
-                            <div className="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#1E60D5]">
-                                <span>Detail Alur Kerja</span>
-                                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                            </div>
-                        </div>
-                    ))}
+                            );
+                        })}
+                    </div>
                 </div>
-            </div>
-        </section>
-    );
+            </section>
+        );
+    };
+
+    const renderModules = () => {
+        const previewModules = modules.slice(0, 4);
+
+        return (
+            <section className={`${pyDensity} bg-white border-b border-slate-200/60 relative`}>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                        <div className="space-y-2 max-w-xl">
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF7ED] text-[#F97316] text-xs font-semibold border border-[#FFEDD5]">
+                                <Layers className="h-3.5 w-3.5" />
+                                <span>{getSetting('modules_badge_text', 'MODULAR & TERPADU')}</span>
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight font-display">
+                                {getSetting('modules_headline', 'Katalog 36 Modul SIMRS & Klinik Terpadu')}
+                            </h2>
+                            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                Seluruh modul saling terhubung secara native untuk efisiensi menyeluruh di instalasi rawat jalan, rawat inap, farmasi, kasir, dan penunjang medis.
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => onNavigate('modul-simrs')}
+                            className="btn-spring text-xs font-semibold text-slate-700 hover:text-[#1E60D5] border border-slate-200 hover:border-blue-300 rounded-full h-11 px-5 flex items-center gap-2.5 cursor-pointer bg-white shadow-xs focus-ring"
+                        >
+                            <span>Eksplorasi Seluruh 36 Modul</span>
+                            <div className="w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center">
+                                <ArrowRight className="h-3.5 w-3.5 text-[#1E60D5]" />
+                            </div>
+                        </button>
+                    </div>
+
+                    {/* Asymmetric Bento Architecture for Modules */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
+                        {previewModules.map((mod, i) => {
+                            const isPrimary = i === 0;
+                            const isSecondary = i === 1;
+                            const colSpan = isPrimary
+                                ? 'col-span-12 lg:col-span-7'
+                                : isSecondary
+                                    ? 'col-span-12 lg:col-span-5'
+                                    : 'col-span-12 sm:col-span-6 lg:col-span-6';
+
+                            return (
+                                <div
+                                    key={mod.id || i}
+                                    onClick={() => openModuleModal(mod)}
+                                    className={`${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 cursor-pointer group ${
+                                        isPrimary
+                                            ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-xs hover:border-blue-400'
+                                            : isSecondary
+                                                ? 'bg-gradient-to-br from-indigo-100/80 via-slate-100/80 to-indigo-50/40 border border-indigo-200/80 shadow-xs hover:border-indigo-400'
+                                                : 'bg-slate-100/80 hover:bg-slate-200/60 border border-slate-200/90 shadow-2xs hover:border-slate-300'
+                                    }`}
+                                >
+                                    <div className="p-6 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                                        <div className="space-y-4">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-2.5">
+                                                    <div className="w-10 h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center font-bold text-xs group-hover:scale-105 transition-transform shadow-xs">
+                                                        <Activity className="h-5 w-5" />
+                                                    </div>
+                                                    <span className="font-mono text-[10.5px] font-bold text-[#1E60D5] px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/70">
+                                                        {mod.module_code || `MOD-0${i + 1}`}
+                                                    </span>
+                                                </div>
+
+                                                <span className="text-[11px] font-mono text-slate-500 font-semibold px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200/70">
+                                                    {mod.category_name || (isPrimary ? 'Modul Pelayanan Klinis' : 'Integrasi Faskes')}
+                                                </span>
+                                            </div>
+
+                                            <div className="space-y-1.5">
+                                                <h3 className={`font-bold text-[#0F172A] group-hover:text-[#1E60D5] transition-colors leading-snug font-display ${
+                                                    isPrimary ? 'text-lg sm:text-xl' : 'text-base sm:text-lg'
+                                                }`}>
+                                                    {mod.title}
+                                                </h3>
+                                                <p className="text-xs sm:text-[13px] text-slate-600 line-clamp-3 leading-relaxed">
+                                                    {mod.short_description}
+                                                </p>
+                                            </div>
+
+                                            {isPrimary && (
+                                                <div className="p-3 rounded-xl bg-blue-50/60 border border-blue-100 flex items-center justify-between text-xs text-blue-900 font-mono">
+                                                    <span>⚡ Terkoneksi SATUSEHAT & BPJS VClaim</span>
+                                                    <span className="text-emerald-700 font-bold">Aktif</span>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#1E60D5]">
+                                            <span>Lihat Alur Kerja & Spesifikasi</span>
+                                            <div className="w-7 h-7 rounded-full bg-blue-50 group-hover:bg-[#1E60D5] group-hover:text-white flex items-center justify-center transition-all">
+                                                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+        );
+    };
 
     const renderNetworkMap = () => (
         <HospitalNetworkMap onNavigate={onNavigate} onOpenDemo={openDemoModal} />

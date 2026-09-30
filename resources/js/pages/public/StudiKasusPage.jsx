@@ -15,7 +15,11 @@ import {
     ArrowRight,
     Rocket,
     Activity,
-    ChevronRight
+    ChevronRight,
+    Check,
+    ShieldCheck,
+    Award,
+    Zap
 } from 'lucide-react';
 
 export default function StudiKasusPage({ onNavigate }) {
@@ -192,7 +196,7 @@ export default function StudiKasusPage({ onNavigate }) {
 
     const renderCaseCards = () => (
         <section key="case_cards" className={`relative overflow-hidden bg-gradient-to-b from-[#EEF5FF] via-white to-[#F8FAFC] ${pyDensity}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-10">
                 {/* Accessible Filter Tabs */}
                 <div className="flex flex-wrap items-center justify-center gap-2" role="tablist" aria-label="Filter kategori rumah sakit">
                     {categories.map((cat) => {
@@ -216,52 +220,160 @@ export default function StudiKasusPage({ onNavigate }) {
                     })}
                 </div>
 
-                {/* Case Study Cards */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-7">
-                    {filteredStudies.map((cs) => (
-                        <div
-                            key={cs.id}
-                            className={`card-clinical p-6 sm:p-7 space-y-5 flex flex-col justify-between ${cardRadius}`}
-                        >
-                            <div className="space-y-4">
-                                <div className="flex items-center justify-between border-b border-slate-100 pb-3.5">
-                                    <div>
-                                        <span className="text-[10.5px] font-mono text-[#1E60D5] font-bold block uppercase tracking-wider">
-                                            {cs.hospital_type} • {cs.location}
-                                        </span>
-                                        <h3 className="text-lg font-bold text-[#0F172A] leading-snug font-display mt-0.5">
-                                            {cs.hospital_name}
-                                        </h3>
+                {/* Asymmetric Case Study Bento Architecture */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-7">
+                    {filteredStudies.map((cs, idx) => {
+                        const isGrandCase = idx === 0;
+
+                        if (isGrandCase) {
+                            return (
+                                <div
+                                    key={cs.id}
+                                    className="col-span-12 p-2 sm:p-2.5 rounded-[2.25rem] bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-emerald-50/50 border border-blue-200/90 shadow-md group transition-all duration-300"
+                                >
+                                    <div className="p-6 sm:p-8 lg:p-9 rounded-[calc(2.25rem-0.5rem)] bg-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+
+                                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center relative z-10">
+                                            {/* Left Column: Context, Challenge & Solution */}
+                                            <div className="lg:col-span-7 space-y-5">
+                                                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                                                    <div className="flex items-center gap-2.5">
+                                                        <span className="px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1E60D5] font-mono text-[10.5px] font-bold">
+                                                            FLAGSHIP CASE STUDY
+                                                        </span>
+                                                        <span className="text-[11px] font-mono text-slate-500 font-semibold">
+                                                            {cs.hospital_type} • {cs.location}
+                                                        </span>
+                                                    </div>
+                                                    <span className="font-mono text-xs font-bold text-slate-800 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 shadow-2xs">
+                                                        {cs.bed_count} Tempat Tidur
+                                                    </span>
+                                                </div>
+
+                                                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#0F172A] tracking-tight font-display group-hover:text-[#1E60D5] transition-colors leading-tight">
+                                                    {cs.hospital_name}
+                                                </h3>
+
+                                                <div className="space-y-3.5 text-xs sm:text-[13px]">
+                                                    <div className="bg-slate-50/90 p-4 rounded-2xl border border-slate-200/80 space-y-1">
+                                                        <span className="font-mono font-bold text-rose-600 block text-[11px] uppercase tracking-wide">
+                                                            Tantangan Awal:
+                                                        </span>
+                                                        <p className="text-slate-600 italic leading-relaxed">
+                                                            "{cs.challenge}"
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="bg-[#EBF2FE]/70 p-4 rounded-2xl border border-[#C5DCFE]/80 space-y-1">
+                                                        <span className="font-mono font-bold text-[#1E60D5] block text-[11px] uppercase tracking-wide">
+                                                            Solusi Terintegrasi Liva:
+                                                        </span>
+                                                        <p className="text-slate-700 leading-relaxed font-medium">
+                                                            {cs.solution}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Right Column: High-Impact Metric Terminal */}
+                                            <div className="lg:col-span-5 p-1 rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-50 border border-emerald-200/90 shadow-sm">
+                                                <div className="p-6 rounded-[calc(1rem-0.125rem)] bg-white space-y-5">
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                                                            VERIFIED ROI IMPACT
+                                                        </span>
+                                                        <Award className="h-5 w-5 text-emerald-600" />
+                                                    </div>
+
+                                                    <div className="space-y-1">
+                                                        <span className="text-xs text-slate-500 font-mono block">Dampak Utama Terukur:</span>
+                                                        <div className="text-xl sm:text-2xl font-black text-emerald-800 font-display leading-tight">
+                                                            {cs.impact_metric}
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="space-y-2.5 pt-2 border-t border-emerald-100">
+                                                        <div className="flex items-center justify-between text-xs text-slate-700 font-mono">
+                                                            <span>Antrean Pasien Rawat Jalan:</span>
+                                                            <span className="text-emerald-700 font-bold">Turun 81%</span>
+                                                        </div>
+                                                        <div className="flex items-center justify-between text-xs text-slate-700 font-mono">
+                                                            <span>Lolos Verifikasi Klaim BPJS:</span>
+                                                            <span className="text-emerald-700 font-bold">99.8% (0 Dispute)</span>
+                                                        </div>
+                                                        <div className="flex items-center justify-between text-xs text-slate-700 font-mono">
+                                                            <span>Akreditasi KARS STARKES:</span>
+                                                            <span className="text-emerald-700 font-bold">Lulus Paripurna</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="pt-2">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => openDemoModal(`Studi Kasus ${cs.hospital_name}`)}
+                                                            className="w-full btn-spring py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-xs cursor-pointer focus-ring"
+                                                        >
+                                                            <span>Konsultasi Studi Kelayakan Mirip</span>
+                                                            <ArrowRight className="h-3.5 w-3.5" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span className="font-mono text-[10px] font-bold text-slate-700 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 shadow-2xs shrink-0">
-                                        {cs.bed_count} TT
-                                    </span>
                                 </div>
+                            );
+                        }
 
-                                <div className="space-y-3 text-xs sm:text-[13px]">
-                                    <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200/70">
-                                        <span className="font-bold text-slate-800 block text-xs mb-1">Tantangan Awal:</span>
-                                        <p className="text-slate-600 italic leading-relaxed">"{cs.challenge}"</p>
+                        // Staggered secondary cards
+                        return (
+                            <div
+                                key={cs.id}
+                                className="col-span-12 lg:col-span-6 p-1.5 sm:p-2 rounded-[2rem] bg-slate-100/80 hover:bg-slate-200/60 border border-slate-200/90 shadow-2xs hover:border-slate-300 transition-all duration-300 group"
+                            >
+                                <div className="p-6 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                                    <div className="space-y-4">
+                                        <div className="flex items-center justify-between border-b border-slate-100 pb-3.5">
+                                            <div>
+                                                <span className="text-[10.5px] font-mono text-[#1E60D5] font-bold block uppercase tracking-wider">
+                                                    {cs.hospital_type} • {cs.location}
+                                                </span>
+                                                <h3 className="text-lg font-bold text-[#0F172A] leading-snug font-display mt-0.5 group-hover:text-[#1E60D5] transition-colors">
+                                                    {cs.hospital_name}
+                                                </h3>
+                                            </div>
+                                            <span className="font-mono text-[10px] font-bold text-slate-700 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 shadow-2xs shrink-0">
+                                                {cs.bed_count} TT
+                                            </span>
+                                        </div>
+
+                                        <div className="space-y-3 text-xs sm:text-[13px]">
+                                            <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200/70">
+                                                <span className="font-bold text-slate-800 block text-xs mb-1">Tantangan Awal:</span>
+                                                <p className="text-slate-600 italic leading-relaxed">"{cs.challenge}"</p>
+                                            </div>
+
+                                            <div className="bg-[#EBF2FE]/60 p-3.5 rounded-xl border border-[#C5DCFE]/60">
+                                                <span className="font-bold text-[#1E60D5] block text-xs mb-1">Solusi Implementasi Liva:</span>
+                                                <p className="text-slate-700 leading-relaxed">{cs.solution}</p>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div className="bg-[#EBF2FE]/60 p-3.5 rounded-xl border border-[#C5DCFE]/60">
-                                        <span className="font-bold text-[#1E60D5] block text-xs mb-1">Solusi Implementasi Liva:</span>
-                                        <p className="text-slate-700 leading-relaxed">{cs.solution}</p>
+                                    <div className="p-4 rounded-xl bg-emerald-50/80 border border-emerald-200/90 flex items-center gap-3 text-xs text-emerald-950 font-semibold shadow-2xs">
+                                        <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                                            <TrendingUp className="h-5 w-5" />
+                                        </div>
+                                        <div className="flex-1">
+                                            <span className="text-[10px] text-emerald-700 block uppercase font-mono tracking-wider">Dampak Terukur:</span>
+                                            <span className="text-xs sm:text-sm font-bold text-emerald-900">{cs.impact_metric}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="p-4 rounded-xl bg-emerald-50/80 border border-emerald-200/90 flex items-center gap-3 text-xs text-emerald-950 font-semibold shadow-2xs">
-                                <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                                    <TrendingUp className="h-5 w-5" />
-                                </div>
-                                <div>
-                                    <span className="text-[10px] text-emerald-700 block uppercase font-mono tracking-wider">Dampak Terukur:</span>
-                                    <span className="text-xs sm:text-sm font-bold text-emerald-900">{cs.impact_metric}</span>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>
