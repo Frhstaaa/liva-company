@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { useSite } from '../../context/SiteContext';
 import SolutionMatrix from '../../components/SolutionMatrix';
 import ProductCockpitShowcase from '../../components/ProductCockpitShowcase';
@@ -28,6 +28,7 @@ import {
     Database,
     Clock,
     TrendingUp,
+    ChevronLeft,
     ChevronRight
 } from 'lucide-react';
 
@@ -36,6 +37,11 @@ export default function BerandaPage({ onNavigate }) {
 
     const modules = siteData.modules || [];
     const pillars = siteData.pillars || [];
+
+    const [activePillarIdx, setActivePillarIdx] = useState(0);
+    const [activeModuleIdx, setActiveModuleIdx] = useState(0);
+    const pillarScrollRef = useRef(null);
+    const moduleScrollRef = useRef(null);
 
     const isVisible = (key, defaultVal = true) => {
         const val = getSetting(key, defaultVal);
@@ -446,11 +452,32 @@ export default function BerandaPage({ onNavigate }) {
             }
         ];
 
-        const activePillars = pillars && pillars.length > 0 ? pillars : defaultPillars;
+        const scrollPillarTo = (idx) => {
+            const nextIdx = Math.max(0, Math.min(activePillars.length - 1, idx));
+            setActivePillarIdx(nextIdx);
+            if (pillarScrollRef.current) {
+                const card = pillarScrollRef.current.children[nextIdx];
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            }
+        };
+
+        const handlePillarScroll = (e) => {
+            const container = e.currentTarget;
+            const scrollLeft = container.scrollLeft;
+            const width = container.offsetWidth;
+            if (width > 0) {
+                const newIndex = Math.round(scrollLeft / (width * 0.85));
+                if (newIndex !== activePillarIdx && newIndex >= 0 && newIndex < activePillars.length) {
+                    setActivePillarIdx(newIndex);
+                }
+            }
+        };
 
         return (
-            <section className={`${pyDensity} bg-[#F8FAFC] border-b border-slate-200/60 relative`}>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
+            <section className={`${pyDensity} bg-[#F8FAFC] border-b border-slate-200/60 relative overflow-hidden`}>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-10 relative z-10">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div className="space-y-2 max-w-xl">
                             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2FE] text-[#1E60D5] text-xs font-semibold border border-[#BFDBFE]">
@@ -476,8 +503,34 @@ export default function BerandaPage({ onNavigate }) {
                         </button>
                     </div>
 
-                    {/* Asymmetric Bento Architecture */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
+                    {/* Mobile Pillar Quick Category Switcher */}
+                    <div className="flex md:hidden items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
+                        {activePillars.map((p, pIdx) => {
+                            const isSelected = activePillarIdx === pIdx;
+                            const numStr = p.pillar_number || String(pIdx + 1).padStart(2, '0');
+                            return (
+                                <button
+                                    key={pIdx}
+                                    type="button"
+                                    onClick={() => scrollPillarTo(pIdx)}
+                                    className={`px-3 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                                        isSelected
+                                            ? 'bg-[#1E60D5] text-white shadow-xs'
+                                            : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                                    }`}
+                                >
+                                    <span>{numStr} • {p.tag || p.badge?.split(' ')[0] || `Pilar ${pIdx + 1}`}</span>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Asymmetric Bento Architecture (Horizontal Snap Carousel on mobile, Bento on Desktop) */}
+                    <div
+                        ref={pillarScrollRef}
+                        onScroll={handlePillarScroll}
+                        className="flex md:grid md:grid-cols-12 gap-4 sm:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-2 pt-1"
+                    >
                         {activePillars.map((pillar, idx) => {
                             const isHero = idx === 0;
                             const isSecondary = idx === 1;
@@ -495,7 +548,7 @@ export default function BerandaPage({ onNavigate }) {
                             return (
                                 <div
                                     key={pillar.id || idx}
-                                    className={`${colSpan} relative overflow-hidden p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
+                                    className={`w-[88vw] xs:w-[330px] md:w-auto shrink-0 snap-center ${colSpan} relative overflow-hidden p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
                                         isHero
                                             ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-sm hover:border-blue-400'
                                             : isSecondary
@@ -503,7 +556,7 @@ export default function BerandaPage({ onNavigate }) {
                                                 : 'bg-slate-100/80 hover:bg-slate-200/60 border border-slate-200/90 shadow-2xs hover:border-slate-300'
                                     }`}
                                 >
-                                    <div className="p-6 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] relative overflow-hidden">
+                                    <div className="p-5 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-4 sm:space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] relative overflow-hidden">
                                         {isHero && (
                                             <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(30,96,213,0.08)_0%,transparent_70%)] pointer-events-none" />
                                         )}
@@ -511,20 +564,20 @@ export default function BerandaPage({ onNavigate }) {
                                             <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(16,185,129,0.08)_0%,transparent_70%)] pointer-events-none" />
                                         )}
 
-                                        <div className="space-y-4 relative z-10">
+                                        <div className="space-y-3.5 sm:space-y-4 relative z-10">
                                             {/* Header inside card */}
                                             <div className="flex items-center justify-between gap-3">
-                                                <div className="flex items-center gap-2.5">
-                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 ${
+                                                <div className="flex items-center gap-2 sm:gap-2.5">
+                                                    <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 ${
                                                         isHero 
                                                             ? 'bg-[#EBF2FE] text-[#1E60D5] shadow-xs' 
                                                             : isSecondary 
                                                                 ? 'bg-emerald-50 text-emerald-700 shadow-xs' 
                                                                 : 'bg-slate-100 text-slate-700'
                                                     }`}>
-                                                        {isHero ? <FileText className="h-5 w-5" /> : isSecondary ? <Cloud className="h-5 w-5" /> : <Activity className="h-5 w-5" />}
+                                                        {isHero ? <FileText className="h-4 w-4 sm:h-5 sm:w-5" /> : isSecondary ? <Cloud className="h-4 w-4 sm:h-5 sm:w-5" /> : <Activity className="h-4 w-4 sm:h-5 sm:w-5" />}
                                                     </div>
-                                                    <span className={`text-[10.5px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${
+                                                    <span className={`text-[10px] sm:text-[10.5px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${
                                                         isHero 
                                                             ? 'bg-blue-50 border-blue-200 text-[#1E60D5]' 
                                                             : isSecondary 
@@ -539,16 +592,16 @@ export default function BerandaPage({ onNavigate }) {
                                                     <span className="text-[11px] font-mono font-bold text-slate-900 block leading-tight">
                                                         {metricVal}
                                                     </span>
-                                                    <span className="text-[9.5px] text-slate-500 font-mono block">
+                                                    <span className="text-[9px] sm:text-[9.5px] text-slate-500 font-mono block">
                                                         {metricTxt}
                                                     </span>
                                                 </div>
                                             </div>
 
                                             {/* Title & Description */}
-                                            <div className="space-y-2">
+                                            <div className="space-y-1.5 sm:space-y-2">
                                                 <h3 className={`font-extrabold text-[#0F172A] tracking-tight font-display transition-colors leading-snug ${
-                                                    isHero ? 'text-lg sm:text-xl lg:text-2xl group-hover:text-[#1E60D5]' : isSecondary ? 'text-base sm:text-lg group-hover:text-emerald-700' : 'text-base group-hover:text-[#1E60D5]'
+                                                    isHero ? 'text-base sm:text-xl lg:text-2xl group-hover:text-[#1E60D5]' : isSecondary ? 'text-[15px] sm:text-lg group-hover:text-emerald-700' : 'text-sm sm:text-base group-hover:text-[#1E60D5]'
                                                 }`}>
                                                     {pillar.title}
                                                 </h3>
@@ -558,44 +611,44 @@ export default function BerandaPage({ onNavigate }) {
                                             </div>
 
                                             {isHero && (
-                                                <div className="pt-2">
-                                                    <div className="text-[10px] font-mono uppercase text-slate-500 font-semibold mb-2">
+                                                <div className="pt-1 sm:pt-2">
+                                                    <div className="text-[9.5px] sm:text-[10px] font-mono uppercase text-slate-500 font-semibold mb-1.5 sm:mb-2">
                                                         Alur Kerja Klinis Terintegrasi:
                                                     </div>
-                                                    <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-medium text-slate-700">
-                                                        <span className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80">Triase IGD</span>
+                                                    <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-medium text-slate-700">
+                                                        <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-slate-50 border border-slate-200/80">Triase IGD</span>
                                                         <span className="text-slate-400">➔</span>
-                                                        <span className="px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200/80 text-[#1E60D5] font-semibold">SOAP & CPPT</span>
+                                                        <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-blue-50 border border-blue-200/80 text-[#1E60D5] font-semibold">SOAP & CPPT</span>
                                                         <span className="text-slate-400">➔</span>
-                                                        <span className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80">E-Prescription</span>
+                                                        <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-slate-50 border border-slate-200/80">E-Prescription</span>
                                                         <span className="text-slate-400">➔</span>
-                                                        <span className="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200/80 text-emerald-700 font-semibold">Klaim Terverifikasi</span>
+                                                        <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-emerald-50 border border-emerald-200/80 text-emerald-700 font-semibold">Klaim Valid</span>
                                                     </div>
                                                 </div>
                                             )}
 
                                             {isSecondary && (
-                                                <div className="p-3 rounded-xl bg-emerald-50/60 border border-emerald-100 space-y-1.5">
-                                                    <div className="flex items-center justify-between text-[11px] font-semibold text-emerald-900">
+                                                <div className="p-2.5 sm:p-3 rounded-xl bg-emerald-50/60 border border-emerald-100 space-y-1.5">
+                                                    <div className="flex items-center justify-between text-[10.5px] sm:text-[11px] font-semibold text-emerald-900">
                                                         <span>Kemenkes SATUSEHAT Sync</span>
                                                         <span className="text-emerald-700 font-mono">100% Verified</span>
                                                     </div>
                                                     <div className="w-full bg-emerald-200/60 h-1.5 rounded-full overflow-hidden">
                                                         <div className="bg-emerald-600 h-full w-full rounded-full" />
                                                     </div>
-                                                    <div className="text-[10px] text-emerald-800 font-mono">
+                                                    <div className="text-[9.5px] sm:text-[10px] text-emerald-800 font-mono">
                                                         Encounter • Condition • Medication
                                                     </div>
                                                 </div>
                                             )}
                                         </div>
 
-                                        <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono relative z-10">
+                                        <div className="pt-3 sm:pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono relative z-10">
                                             <div className="flex items-center gap-1.5">
-                                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-                                                <span className="text-slate-700 font-medium">Standar Akreditasi KARS STARKES</span>
+                                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                                                <span className="text-slate-700 font-medium text-[11px] sm:text-xs">Akreditasi STARKES</span>
                                             </div>
-                                            <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#1E60D5] group-hover:text-white text-slate-500 flex items-center justify-center transition-all duration-200">
+                                            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-100 group-hover:bg-[#1E60D5] group-hover:text-white text-slate-500 flex items-center justify-center transition-all duration-200">
                                                 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                                             </div>
                                         </div>
@@ -603,6 +656,46 @@ export default function BerandaPage({ onNavigate }) {
                                 </div>
                             );
                         })}
+                    </div>
+
+                    {/* Mobile Dot Indicators & Control */}
+                    <div className="flex md:hidden items-center justify-between pt-1">
+                        <div className="flex items-center gap-1">
+                            {activePillars.map((_, dotIdx) => (
+                                <button
+                                    key={dotIdx}
+                                    type="button"
+                                    onClick={() => scrollPillarTo(dotIdx)}
+                                    className={`h-2 rounded-full transition-all duration-300 ${
+                                        activePillarIdx === dotIdx
+                                            ? 'w-6 bg-[#1E60D5]'
+                                            : 'w-2 bg-slate-300 hover:bg-slate-400'
+                                    }`}
+                                    aria-label={`Pindah ke pilar ${dotIdx + 1}`}
+                                />
+                            ))}
+                        </div>
+
+                        <div className="flex items-center gap-1.5">
+                            <button
+                                type="button"
+                                onClick={() => scrollPillarTo(activePillarIdx - 1)}
+                                disabled={activePillarIdx === 0}
+                                className="p-1.5 rounded-full border border-slate-200 bg-white text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-2xs"
+                                aria-label="Pilar sebelumnya"
+                            >
+                                <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => scrollPillarTo(activePillarIdx + 1)}
+                                disabled={activePillarIdx === activePillars.length - 1}
+                                className="p-1.5 rounded-full border border-slate-200 bg-white text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-2xs"
+                                aria-label="Pilar berikutnya"
+                            >
+                                <ChevronRight className="w-4 h-4" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -612,9 +705,32 @@ export default function BerandaPage({ onNavigate }) {
     const renderModules = () => {
         const previewModules = modules.slice(0, 4);
 
+        const scrollModuleTo = (idx) => {
+            const nextIdx = Math.max(0, Math.min(previewModules.length - 1, idx));
+            setActiveModuleIdx(nextIdx);
+            if (moduleScrollRef.current) {
+                const card = moduleScrollRef.current.children[nextIdx];
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            }
+        };
+
+        const handleModuleScroll = (e) => {
+            const container = e.currentTarget;
+            const scrollLeft = container.scrollLeft;
+            const width = container.offsetWidth;
+            if (width > 0) {
+                const newIndex = Math.round(scrollLeft / (width * 0.85));
+                if (newIndex !== activeModuleIdx && newIndex >= 0 && newIndex < previewModules.length) {
+                    setActiveModuleIdx(newIndex);
+                }
+            }
+        };
+
         return (
-            <section className={`${pyDensity} bg-white border-b border-slate-200/60 relative`}>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
+            <section className={`${pyDensity} bg-white border-b border-slate-200/60 relative overflow-hidden`}>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-12 relative z-10">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div className="space-y-2 max-w-xl">
                             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF7ED] text-[#F97316] text-xs font-semibold border border-[#FFEDD5]">
@@ -640,8 +756,12 @@ export default function BerandaPage({ onNavigate }) {
                         </button>
                     </div>
 
-                    {/* Asymmetric Bento Architecture for Modules */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
+                    {/* Asymmetric Bento Architecture for Modules (Snap Carousel on Mobile, Bento on Desktop) */}
+                    <div
+                        ref={moduleScrollRef}
+                        onScroll={handleModuleScroll}
+                        className="flex md:grid md:grid-cols-12 gap-4 sm:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-2 pt-1"
+                    >
                         {previewModules.map((mod, i) => {
                             const isPrimary = i === 0;
                             const isSecondary = i === 1;
@@ -655,7 +775,7 @@ export default function BerandaPage({ onNavigate }) {
                                 <div
                                     key={mod.id || i}
                                     onClick={() => openModuleModal(mod)}
-                                    className={`${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 cursor-pointer group ${
+                                    className={`w-[85vw] xs:w-[300px] md:w-auto shrink-0 snap-center ${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 cursor-pointer group ${
                                         isPrimary
                                             ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-xs hover:border-blue-400'
                                             : isSecondary
@@ -663,26 +783,26 @@ export default function BerandaPage({ onNavigate }) {
                                                 : 'bg-slate-100/80 hover:bg-slate-200/60 border border-slate-200/90 shadow-2xs hover:border-slate-300'
                                     }`}
                                 >
-                                    <div className="p-6 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                                        <div className="space-y-4">
+                                    <div className="p-5 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-4 sm:space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                                        <div className="space-y-3.5 sm:space-y-4">
                                             <div className="flex items-center justify-between">
-                                                <div className="flex items-center gap-2.5">
-                                                    <div className="w-10 h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center font-bold text-xs group-hover:scale-105 transition-transform shadow-xs">
-                                                        <Activity className="h-5 w-5" />
+                                                <div className="flex items-center gap-2 sm:gap-2.5">
+                                                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center font-bold text-xs group-hover:scale-105 transition-transform shadow-xs">
+                                                        <Activity className="h-4 w-4 sm:h-5 sm:w-5" />
                                                     </div>
-                                                    <span className="font-mono text-[10.5px] font-bold text-[#1E60D5] px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/70">
+                                                    <span className="font-mono text-[10px] sm:text-[10.5px] font-bold text-[#1E60D5] px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/70">
                                                         {mod.module_code || `MOD-0${i + 1}`}
                                                     </span>
                                                 </div>
 
-                                                <span className="text-[11px] font-mono text-slate-500 font-semibold px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200/70">
-                                                    {mod.category_name || (isPrimary ? 'Modul Pelayanan Klinis' : 'Integrasi Faskes')}
+                                                <span className="text-[10px] sm:text-[11px] font-mono text-slate-500 font-semibold px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200/70">
+                                                    {mod.category_name || (isPrimary ? 'Modul Pelayanan' : 'Integrasi')}
                                                 </span>
                                             </div>
 
                                             <div className="space-y-1.5">
                                                 <h3 className={`font-bold text-[#0F172A] group-hover:text-[#1E60D5] transition-colors leading-snug font-display ${
-                                                    isPrimary ? 'text-lg sm:text-xl' : 'text-base sm:text-lg'
+                                                    isPrimary ? 'text-base sm:text-xl' : 'text-sm sm:text-lg'
                                                 }`}>
                                                     {mod.title}
                                                 </h3>
@@ -692,16 +812,16 @@ export default function BerandaPage({ onNavigate }) {
                                             </div>
 
                                             {isPrimary && (
-                                                <div className="p-3 rounded-xl bg-blue-50/60 border border-blue-100 flex items-center justify-between text-xs text-blue-900 font-mono">
-                                                    <span>⚡ Terkoneksi SATUSEHAT & BPJS VClaim</span>
-                                                    <span className="text-emerald-700 font-bold">Aktif</span>
+                                                <div className="p-2.5 sm:p-3 rounded-xl bg-blue-50/60 border border-blue-100 flex items-center justify-between text-[11px] sm:text-xs text-blue-900 font-mono">
+                                                    <span className="truncate mr-2">⚡ SATUSEHAT & BPJS VClaim</span>
+                                                    <span className="text-emerald-700 font-bold shrink-0">Aktif</span>
                                                 </div>
                                             )}
                                         </div>
 
-                                        <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#1E60D5]">
-                                            <span>Lihat Alur Kerja & Spesifikasi</span>
-                                            <div className="w-7 h-7 rounded-full bg-blue-50 group-hover:bg-[#1E60D5] group-hover:text-white flex items-center justify-center transition-all">
+                                        <div className="pt-3 sm:pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#1E60D5]">
+                                            <span>Spesifikasi Modul</span>
+                                            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-blue-50 group-hover:bg-[#1E60D5] group-hover:text-white flex items-center justify-center transition-all">
                                                 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                                             </div>
                                         </div>
@@ -709,6 +829,46 @@ export default function BerandaPage({ onNavigate }) {
                                 </div>
                             );
                         })}
+                    </div>
+
+                    {/* Mobile Dot Indicators & Control */}
+                    <div className="flex md:hidden items-center justify-between pt-1">
+                        <div className="flex items-center gap-1">
+                            {previewModules.map((_, dotIdx) => (
+                                <button
+                                    key={dotIdx}
+                                    type="button"
+                                    onClick={() => scrollModuleTo(dotIdx)}
+                                    className={`h-2 rounded-full transition-all duration-300 ${
+                                        activeModuleIdx === dotIdx
+                                            ? 'w-6 bg-[#1E60D5]'
+                                            : 'w-2 bg-slate-300 hover:bg-slate-400'
+                                    }`}
+                                    aria-label={`Pindah ke modul ${dotIdx + 1}`}
+                                />
+                            ))}
+                        </div>
+
+                        <div className="flex items-center gap-1.5">
+                            <button
+                                type="button"
+                                onClick={() => scrollModuleTo(activeModuleIdx - 1)}
+                                disabled={activeModuleIdx === 0}
+                                className="p-1.5 rounded-full border border-slate-200 bg-white text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-2xs"
+                                aria-label="Modul sebelumnya"
+                            >
+                                <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => scrollModuleTo(activeModuleIdx + 1)}
+                                disabled={activeModuleIdx === previewModules.length - 1}
+                                className="p-1.5 rounded-full border border-slate-200 bg-white text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-2xs"
+                                aria-label="Modul berikutnya"
+                            >
+                                <ChevronRight className="w-4 h-4" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>

@@ -464,6 +464,15 @@ input[type=range]::-webkit-slider-thumb:hover {
     box-shadow: 0 4px 10px rgba(30, 96, 213, 0.5);
 }
 
+/* Hide scrollbar for Chrome, Safari, Opera and Firefox */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 /* Accessibility Reduced Motion Guardrail */
 @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {

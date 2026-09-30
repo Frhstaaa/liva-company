@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSite } from '../context/SiteContext';
 import { 
     MapPin, 
@@ -10,7 +10,9 @@ import {
     Sparkles, 
     CheckCircle2, 
     ArrowRight,
-    Award
+    Award,
+    ChevronLeft,
+    ChevronRight
 } from 'lucide-react';
 
 const REGIONS = [
@@ -67,8 +69,42 @@ const REGIONS = [
 export default function HospitalNetworkMap({ onNavigate, onOpenDemo }) {
     const { getSetting } = useSite();
     const [activeRegion, setActiveRegion] = useState('nasional');
+    const [activeClientIdx, setActiveClientIdx] = useState(0);
+    const clientScrollRef = useRef(null);
 
     const currentData = REGIONS.find(r => r.id === activeRegion) || REGIONS[0];
+
+    // Reset carousel index when region changes
+    useEffect(() => {
+        setActiveClientIdx(0);
+        if (clientScrollRef.current) {
+            clientScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        }
+    }, [activeRegion]);
+
+    const scrollClientTo = (idx) => {
+        const nextIdx = Math.max(0, Math.min(currentData.activeClients.length - 1, idx));
+        setActiveClientIdx(nextIdx);
+        if (clientScrollRef.current) {
+            const container = clientScrollRef.current;
+            const card = container.children[nextIdx];
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+    };
+
+    const handleClientScroll = (e) => {
+        const container = e.currentTarget;
+        const scrollLeft = container.scrollLeft;
+        const width = container.offsetWidth;
+        if (width > 0) {
+            const newIndex = Math.round(scrollLeft / (width * 0.85));
+            if (newIndex !== activeClientIdx && newIndex >= 0 && newIndex < currentData.activeClients.length) {
+                setActiveClientIdx(newIndex);
+            }
+        }
+    };
 
     return (
         <section className="py-10 sm:py-20 bg-white border-t border-slate-200/80 relative overflow-hidden font-sans">
@@ -107,8 +143,8 @@ export default function HospitalNetworkMap({ onNavigate, onOpenDemo }) {
                     </div>
                 </div>
 
-                {/* Region Selector Pills */}
-                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 border-b border-slate-200/80 pb-3 sm:pb-4" role="tablist">
+                {/* Region Selector Pills (Scrollable on mobile) */}
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 border-b border-slate-200/80 pb-3 sm:pb-4 overflow-x-auto no-scrollbar" role="tablist">
                     {REGIONS.map((reg) => {
                         const isSelected = activeRegion === reg.id;
                         return (
@@ -118,7 +154,7 @@ export default function HospitalNetworkMap({ onNavigate, onOpenDemo }) {
                                 role="tab"
                                 aria-selected={isSelected}
                                 onClick={() => setActiveRegion(reg.id)}
-                                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 btn-spring focus-ring ${
+                                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 btn-spring focus-ring ${
                                     isSelected
                                         ? 'bg-[#0F172A] text-white shadow-md'
                                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
@@ -135,12 +171,43 @@ export default function HospitalNetworkMap({ onNavigate, onOpenDemo }) {
                     })}
                 </div>
 
-                {/* Hospital Client Spotlight Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                {/* Mobile Navigation Header */}
+                <div className="flex sm:hidden items-center justify-between mb-3 px-1">
+                    <span className="text-xs font-mono font-semibold text-slate-500">
+                        Mitra <strong className="text-[#1E60D5]">{activeClientIdx + 1}</strong> dari {currentData.activeClients.length}
+                    </span>
+                    <div className="flex items-center gap-1.5">
+                        <button
+                            type="button"
+                            onClick={() => scrollClientTo(activeClientIdx - 1)}
+                            disabled={activeClientIdx === 0}
+                            className="p-1.5 rounded-full border border-slate-200 bg-white text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-2xs active:scale-95"
+                            aria-label="Mitra sebelumnya"
+                        >
+                            <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => scrollClientTo(activeClientIdx + 1)}
+                            disabled={activeClientIdx === currentData.activeClients.length - 1}
+                            className="p-1.5 rounded-full border border-slate-200 bg-white text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-2xs active:scale-95"
+                            aria-label="Mitra berikutnya"
+                        >
+                            <ChevronRight className="w-4 h-4" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Hospital Client Spotlight Track: Carousel on Mobile, Grid on Desktop */}
+                <div
+                    ref={clientScrollRef}
+                    onScroll={handleClientScroll}
+                    className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar pb-2 pt-1"
+                >
                     {currentData.activeClients.map((client, idx) => (
                         <div 
                             key={idx}
-                            className="card-clinical p-5 flex flex-col justify-between group"
+                            className="w-[85vw] xs:w-[300px] sm:w-auto shrink-0 snap-center card-clinical p-5 flex flex-col justify-between group bg-white border border-slate-200/90 shadow-xs"
                         >
                             <div>
                                 <div className="flex items-center justify-between gap-2 mb-3">
@@ -177,8 +244,25 @@ export default function HospitalNetworkMap({ onNavigate, onOpenDemo }) {
                     ))}
                 </div>
 
+                {/* Mobile Dot Indicators */}
+                <div className="flex sm:hidden justify-center items-center gap-1.5 pt-2">
+                    {currentData.activeClients.map((_, dotIdx) => (
+                        <button
+                            key={dotIdx}
+                            type="button"
+                            onClick={() => scrollClientTo(dotIdx)}
+                            className={`h-2 rounded-full transition-all duration-300 ${
+                                activeClientIdx === dotIdx
+                                    ? 'w-6 bg-[#1E60D5]'
+                                    : 'w-2 bg-slate-300 hover:bg-slate-400'
+                            }`}
+                            aria-label={`Pindah ke mitra ${dotIdx + 1}`}
+                        />
+                    ))}
+                </div>
+
                 {/* Bottom Trust Assurance Ribbon */}
-                <div className="mt-12 p-6 rounded-2xl bg-blue-50/60 border border-blue-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="mt-8 sm:mt-12 p-5 sm:p-6 rounded-2xl bg-blue-50/60 border border-blue-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                         <div className="p-2.5 rounded-xl bg-[#1E60D5] text-white shadow-xs">
                             <Award className="w-5 h-5" />
@@ -208,3 +292,4 @@ export default function HospitalNetworkMap({ onNavigate, onOpenDemo }) {
         </section>
     );
 }
+
