@@ -107,12 +107,14 @@ export default function StudiKasusPage({ onNavigate }) {
                     }}
                 />
 
-                {/* Diffuse Ambiance Accents */}
+                {/* Clean Ambiance Accents */}
                 {heroStyles.hasAmbientGlow && (
-                    <>
-                        <div className="absolute top-12 left-1/3 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-10" style={{ backgroundColor: heroStyles.accentColor }} />
-                        <div className="absolute bottom-4 right-1/4 w-80 h-80 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
-                    </>
+                    <div
+                        className="absolute inset-0 pointer-events-none opacity-30"
+                        style={{
+                            background: `radial-gradient(ellipse 60% 50% at 75% 0%, ${heroStyles.accentColor || '#1B84FF'}20 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 25% 100%, rgba(249,115,22,0.05) 0%, transparent 70%)`
+                        }}
+                    />
                 )}
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
@@ -229,10 +231,10 @@ export default function StudiKasusPage({ onNavigate }) {
                             return (
                                 <div
                                     key={cs.id}
-                                    className="col-span-12 p-2 sm:p-2.5 rounded-[2.25rem] bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-emerald-50/50 border border-blue-200/90 shadow-md group transition-all duration-300"
+                                    className="col-span-12 relative overflow-hidden p-2 sm:p-2.5 rounded-[2.25rem] bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-emerald-50/50 border border-blue-200/90 shadow-md group transition-all duration-300"
                                 >
                                     <div className="p-6 sm:p-8 lg:p-9 rounded-[calc(2.25rem-0.5rem)] bg-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] relative overflow-hidden">
-                                        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+                                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(30,96,213,0.08)_0%,transparent_70%)] pointer-events-none" />
 
                                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center relative z-10">
                                             {/* Left Column: Context, Challenge & Solution */}

@@ -108,8 +108,10 @@ export default function KatalogModulPage({ onNavigate }) {
             >
                 {heroStyles.hasAmbientGlow && (
                     <div
-                        className="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-20"
-                        style={{ backgroundColor: heroStyles.accentColor }}
+                        className="absolute inset-0 pointer-events-none opacity-30"
+                        style={{
+                            background: `radial-gradient(ellipse 60% 50% at 75% 0%, ${heroStyles.accentColor || '#1B84FF'}20 0%, transparent 70%)`
+                        }}
                     />
                 )}
                 {heroStyles.hasGridLines && (
@@ -263,7 +265,7 @@ export default function KatalogModulPage({ onNavigate }) {
                                 <div
                                     key={mod.id}
                                     onClick={() => openModuleModal(mod)}
-                                    className={`${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 cursor-pointer group ${
+                                    className={`${colSpan} relative overflow-hidden p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 cursor-pointer group ${
                                         isFeatureHero
                                             ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-xs hover:border-blue-400'
                                             : isFeatureSub
@@ -274,7 +276,7 @@ export default function KatalogModulPage({ onNavigate }) {
                                     <div className="p-6 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] relative overflow-hidden">
                                         {/* Subtle ambient lighting for flagship bento */}
                                         {isFeatureHero && (
-                                            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+                                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(30,96,213,0.08)_0%,transparent_70%)] pointer-events-none" />
                                         )}
 
                                         <div className="space-y-4 relative z-10">

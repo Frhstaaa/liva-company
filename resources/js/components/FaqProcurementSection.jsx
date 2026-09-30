@@ -125,9 +125,13 @@ export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
 
     return (
         <section className="py-20 sm:py-28 bg-gradient-to-b from-[#F8FAFC] via-white to-[#F4F8FE] border-t border-slate-200/80 relative overflow-hidden font-sans">
-            {/* Ambient Background Accents */}
-            <div className="absolute top-1/3 left-0 w-96 h-96 bg-[#1E60D5]/5 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none"></div>
+            {/* Ambient Background Accents - Clean CSS Radial without blur bleed */}
+            <div
+                className="absolute inset-0 pointer-events-none opacity-30"
+                style={{
+                    background: 'radial-gradient(ellipse 60% 50% at 15% 30%, rgba(30,96,213,0.1) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 85% 85%, rgba(249,115,22,0.06) 0%, transparent 70%)'
+                }}
+            />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 

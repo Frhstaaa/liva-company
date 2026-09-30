@@ -188,12 +188,14 @@ export default function TentangKamiPage({ onNavigate }) {
 
     const renderHero = () => (
         <section key="hero" className={`py-14 sm:py-20 relative overflow-hidden border-b border-slate-200/70 ${heroStyles.bgClasses}`} style={heroStyles.bgStyle}>
-            {/* Diffuse Ambient Lights */}
+            {/* Clean Ambient Lights */}
             {heroStyles.showAmbientGlow && (
-                <>
-                    <div className="absolute top-10 left-1/4 w-96 h-96 bg-[#1E60D5]/5 rounded-full blur-3xl pointer-events-none" />
-                    <div className="absolute bottom-4 right-1/4 w-80 h-80 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
-                </>
+                <div
+                    className="absolute inset-0 pointer-events-none opacity-30"
+                    style={{
+                        background: 'radial-gradient(ellipse 60% 50% at 75% 0%, rgba(30,96,213,0.15) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 25% 100%, rgba(249,115,22,0.05) 0%, transparent 70%)'
+                    }}
+                />
             )}
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative z-10">
@@ -468,7 +470,7 @@ export default function TentangKamiPage({ onNavigate }) {
                         return (
                             <div 
                                 key={idx} 
-                                className={`${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
+                                className={`${colSpan} relative overflow-hidden p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
                                     idx === 0
                                         ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-sm hover:border-blue-400'
                                         : idx === 1
@@ -480,7 +482,7 @@ export default function TentangKamiPage({ onNavigate }) {
                             >
                                 <div className="p-6 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] relative overflow-hidden">
                                     {isPrimary && (
-                                        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+                                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(30,96,213,0.08)_0%,transparent_70%)] pointer-events-none" />
                                     )}
 
                                     <div className="space-y-4 relative z-10">

@@ -184,8 +184,12 @@ export default function AdminDashboard({ onSelectTab, onNavigatePublic, onOpenPa
             {/* 1. HERO COMMAND BANNER                                                    */}
             {/* ========================================================================= */}
             <div className="bg-gradient-to-r from-[#1E1E2D] via-[#2A2B3D] to-[#1E1E2D] text-white p-6 sm:p-7 rounded-3xl border border-slate-700/60 shadow-md relative overflow-hidden">
-                <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#1B84FF]/10 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 right-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+                <div
+                    className="absolute inset-0 pointer-events-none opacity-30"
+                    style={{
+                        background: 'radial-gradient(ellipse 60% 50% at 75% 0%, rgba(27,132,255,0.2) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 90% 100%, rgba(16,185,129,0.15) 0%, transparent 70%)'
+                    }}
+                />
 
                 <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                     <div className="space-y-2 max-w-2xl">

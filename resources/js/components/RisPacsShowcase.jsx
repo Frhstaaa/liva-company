@@ -188,9 +188,13 @@ export default function RisPacsShowcase({ onScheduleDemo, onConsultIntegrator })
     return (
         <section id="ris-pacs-spotlight" className="py-20 sm:py-28 bg-[#F8FAFC] border-b border-slate-200/70 relative overflow-hidden">
             
-            {/* Ambient Background Lighting */}
-            <div className="absolute top-1/4 right-0 w-[550px] h-[550px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+            {/* Ambient Background Lighting - Clean CSS Radial without blur bleed */}
+            <div
+                className="absolute inset-0 pointer-events-none opacity-30"
+                style={{
+                    background: 'radial-gradient(ellipse 60% 50% at 85% 20%, rgba(30,96,213,0.12) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 15% 85%, rgba(16,185,129,0.08) 0%, transparent 70%)'
+                }}
+            />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-14">
                 
@@ -680,8 +684,8 @@ export default function RisPacsShowcase({ onScheduleDemo, onConsultIntegrator })
                 {/* 5. Executive Call-to-Action Card (Button-in-Button Architecture) */}
                 <div className="p-8 sm:p-10 rounded-[2.5rem] bg-gradient-to-br from-[#1E60D5] via-[#154db0] to-[#0F172A] text-white flex flex-col md:flex-row md:items-center justify-between gap-8 shadow-xl shadow-blue-900/20 relative overflow-hidden">
                     
-                    {/* Background Decorative Rings */}
-                    <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-2xl pointer-events-none" />
+                    {/* Background Decorative Gradient */}
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_100%_0%,rgba(255,255,255,0.08)_0%,transparent_70%)] pointer-events-none" />
                     
                     <div className="space-y-3 max-w-2xl relative z-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-[11px] font-mono font-medium">

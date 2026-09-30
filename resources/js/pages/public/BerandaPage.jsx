@@ -105,12 +105,14 @@ export default function BerandaPage({ onNavigate }) {
                 className={`relative overflow-hidden transition-all duration-300 ${heroStyles.bgClass} ${heroStyles.paddingClass} ${heroStyles.borderClass} border-b border-slate-200/60`}
                 style={heroStyles.bgStyle}
             >
-                {/* 1.1 Subtle Ambient Medical Light Glows */}
+                {/* 1.1 Clean Ambient Medical Light Glows */}
                 {heroStyles.hasAmbientGlow && (
-                    <>
-                        <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-20" style={{ backgroundColor: heroStyles.accentColor }} />
-                        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-orange-400/6 rounded-full blur-3xl pointer-events-none" />
-                    </>
+                    <div
+                        className="absolute inset-0 pointer-events-none opacity-30"
+                        style={{
+                            background: `radial-gradient(ellipse 60% 50% at 75% 0%, ${heroStyles.accentColor || '#1B84FF'}20 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 25% 100%, rgba(249,115,22,0.05) 0%, transparent 70%)`
+                        }}
+                    />
                 )}
 
                 {/* 1.2 Fine Grid Texture */}
@@ -489,7 +491,7 @@ export default function BerandaPage({ onNavigate }) {
                             return (
                                 <div
                                     key={pillar.id || idx}
-                                    className={`${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
+                                    className={`${colSpan} relative overflow-hidden p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
                                         isHero
                                             ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-sm hover:border-blue-400'
                                             : isSecondary
@@ -499,10 +501,10 @@ export default function BerandaPage({ onNavigate }) {
                                 >
                                     <div className="p-6 sm:p-7 rounded-[calc(2rem-0.375rem)] bg-white h-full flex flex-col justify-between space-y-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] relative overflow-hidden">
                                         {isHero && (
-                                            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+                                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(30,96,213,0.08)_0%,transparent_70%)] pointer-events-none" />
                                         )}
                                         {isSecondary && (
-                                            <div className="absolute top-0 right-0 w-56 h-56 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
+                                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(16,185,129,0.08)_0%,transparent_70%)] pointer-events-none" />
                                         )}
 
                                         <div className="space-y-4 relative z-10">
@@ -719,7 +721,7 @@ export default function BerandaPage({ onNavigate }) {
 
     const renderCtaBanner = () => (
         <section className={`${pyDensity} bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-white relative overflow-hidden`}>
-            <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 pointer-events-none opacity-25 bg-[radial-gradient(ellipse_60%_50%_at_75%_20%,rgba(59,130,246,0.3)_0%,transparent_70%)]" />
             <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6 relative z-10">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-[#60A5FA] text-xs font-medium">
                     <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse"></span>

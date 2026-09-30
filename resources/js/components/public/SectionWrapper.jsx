@@ -187,11 +187,13 @@ export default function SectionWrapper({
                 />
             )}
 
-            {/* Ambient Radial Glow Effect */}
+            {/* Ambient Radial Glow Effect - Clean CSS Radial without blur bleed */}
             {styles.hasAmbientGlow && (
                 <div
-                    className="absolute -top-24 right-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-20"
-                    style={{ backgroundColor: styles.accentColor }}
+                    className="absolute inset-0 pointer-events-none opacity-30"
+                    style={{
+                        background: `radial-gradient(ellipse 60% 50% at 75% 0%, ${styles.accentColor || '#1B84FF'}22 0%, transparent 70%)`,
+                    }}
                 />
             )}
 

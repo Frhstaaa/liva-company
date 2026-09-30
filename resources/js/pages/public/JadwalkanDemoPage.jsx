@@ -135,12 +135,14 @@ export default function JadwalkanDemoPage({ onNavigate }) {
                 />
             )}
 
-            {/* Diffuse Ambiance Accents */}
+            {/* Clean Ambiance Accents */}
             {heroStyles.showAmbientGlow && (
-                <>
-                    <div className="absolute top-10 left-1/4 w-96 h-96 bg-[#1E60D5]/5 rounded-full blur-3xl pointer-events-none" />
-                    <div className="absolute bottom-4 right-1/4 w-80 h-80 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
-                </>
+                <div
+                    className="absolute inset-0 pointer-events-none opacity-30"
+                    style={{
+                        background: 'radial-gradient(ellipse 60% 50% at 75% 0%, rgba(30,96,213,0.15) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 25% 100%, rgba(249,115,22,0.05) 0%, transparent 70%)'
+                    }}
+                />
             )}
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">

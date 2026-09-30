@@ -349,11 +349,13 @@ export default function SectionLivePreview({
                             />
                         )}
 
-                        {/* Ambient Glow */}
+                        {/* Ambient Glow - Clean CSS Radial without blur bleed */}
                         {styles.hasAmbientGlow && (
                             <div
-                                className="absolute -top-20 -right-20 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-20"
-                                style={{ backgroundColor: styles.accentColor }}
+                                className="absolute inset-0 pointer-events-none opacity-30"
+                                style={{
+                                    background: `radial-gradient(ellipse 60% 50% at 80% 0%, ${styles.accentColor || '#1B84FF'}22 0%, transparent 70%)`
+                                }}
                             />
                         )}
 
