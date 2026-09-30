@@ -16,6 +16,8 @@ import {
     Activity,
     ChevronRight
 } from 'lucide-react';
+import SectionWrapper from '../../components/public/SectionWrapper';
+import { getSectionCustomStyles } from '../../lib/sectionStyler';
 
 export default function JadwalkanDemoPage({ onNavigate }) {
     const { showToast, openAssessmentModal, getSetting } = useSite();
@@ -113,21 +115,33 @@ export default function JadwalkanDemoPage({ onNavigate }) {
         }
     }
 
+    const heroStyles = getSectionCustomStyles(getSetting, 'jadwalkan-demo', 'hero', {
+        title: getSetting('page_demo_title', 'Jadwalkan Live Demo & Assessment SIMRS'),
+        badge: getSetting('page_demo_badge', 'CONSULTATION & CLINICAL SANDBOX'),
+        description: getSetting('page_demo_subtitle', 'Dapatkan sesi demonstrasi langsung arsitektur Liva SIMRS yang disesuaikan dengan volume pasien rumah sakit Anda, didampingi langsung oleh konsultan klinis berpengalaman.')
+    });
+
     const renderHero = () => (
-        <section key="hero" className="relative w-full bg-gradient-to-b from-white via-[#F8FAFC] to-[#EEF5FF] pt-10 pb-16 sm:pb-20 overflow-hidden border-b border-slate-200/70">
+        <section key="hero" className={`relative w-full pt-10 pb-16 sm:pb-20 overflow-hidden border-b border-slate-200/70 ${heroStyles.bgClasses}`} style={heroStyles.bgStyle}>
             {/* Architectural Hospital Background Image Overlay */}
-            <div 
-                className="absolute top-0 right-0 w-full sm:w-2/3 lg:w-1/2 h-full pointer-events-none z-0 opacity-12 bg-cover bg-no-repeat bg-right-top mix-blend-multiply"
-                style={{
-                    backgroundImage: `url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1600&q=80')`,
-                    maskImage: 'radial-gradient(ellipse at top right, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 80%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse at top right, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 80%)'
-                }}
-            />
+            {heroStyles.showImage && (
+                <div 
+                    className="absolute top-0 right-0 w-full sm:w-2/3 lg:w-1/2 h-full pointer-events-none z-0 opacity-12 bg-cover bg-no-repeat bg-right-top mix-blend-multiply"
+                    style={{
+                        backgroundImage: `url('${heroStyles.imageUrl || "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1600&q=80"}')`,
+                        maskImage: 'radial-gradient(ellipse at top right, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 80%)',
+                        WebkitMaskImage: 'radial-gradient(ellipse at top right, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 80%)'
+                    }}
+                />
+            )}
 
             {/* Diffuse Ambiance Accents */}
-            <div className="absolute top-10 left-1/4 w-96 h-96 bg-[#1E60D5]/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-4 right-1/4 w-80 h-80 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
+            {heroStyles.showAmbientGlow && (
+                <>
+                    <div className="absolute top-10 left-1/4 w-96 h-96 bg-[#1E60D5]/5 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute bottom-4 right-1/4 w-80 h-80 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
+                </>
+            )}
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
                 {/* Accessible Breadcrumb */}
@@ -145,17 +159,19 @@ export default function JadwalkanDemoPage({ onNavigate }) {
                 </nav>
 
                 <div className="max-w-3xl space-y-4 animate-slide-up">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF2FE] border border-[#C5DCFE] text-[#1E60D5] font-mono text-xs font-bold shadow-2xs">
-                        <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse"></span>
-                        <span>{getSetting('page_demo_badge', 'CONSULTATION & CLINICAL SANDBOX')}</span>
-                    </div>
+                    {heroStyles.showBadge && (
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF2FE] border border-[#C5DCFE] text-[#1E60D5] font-mono text-xs font-bold shadow-2xs">
+                            <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse"></span>
+                            <span>{heroStyles.badge}</span>
+                        </div>
+                    )}
 
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight leading-tight font-display">
-                        {getSetting('page_demo_title', 'Jadwalkan Live Demo & Assessment SIMRS')}
+                    <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight font-display ${heroStyles.textColor}`}>
+                        {heroStyles.title}
                     </h1>
 
-                    <p className="text-xs sm:text-sm lg:text-[15px] text-slate-600 leading-relaxed max-w-2xl">
-                        {getSetting('page_demo_subtitle', 'Dapatkan sesi demonstrasi langsung arsitektur Liva SIMRS yang disesuaikan dengan volume pasien rumah sakit Anda, didampingi langsung oleh konsultan klinis berpengalaman.')}
+                    <p className={`text-xs sm:text-sm lg:text-[15px] leading-relaxed max-w-2xl ${heroStyles.textMutedColor}`}>
+                        {heroStyles.description}
                     </p>
 
                     <div className="pt-2 flex flex-wrap items-center gap-5 text-xs text-slate-600 font-mono">
@@ -164,7 +180,7 @@ export default function JadwalkanDemoPage({ onNavigate }) {
                             <span>NDA Kerahasiaan Medis Dijamin</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <Clock className="w-4 h-4 text-[#1E60D5]" />
+                            <Clock className="w-4 h-4" style={{ color: heroStyles.accentColor }} />
                             <span>Respon &lt; 2 Jam Kerja</span>
                         </div>
                     </div>
@@ -534,7 +550,13 @@ export default function JadwalkanDemoPage({ onNavigate }) {
         <div className={`flex flex-col w-full min-h-screen ${themeClass} font-sans transition-colors duration-300`}>
             {orderedKeys.map((key) => {
                 const renderer = sectionRenderers[key];
-                return renderer ? renderer() : null;
+                if (!renderer) return null;
+                if (key === 'hero') return renderer();
+                return (
+                    <SectionWrapper key={key} pageId="jadwalkan-demo" secId={key} showContainer={false}>
+                        {renderer()}
+                    </SectionWrapper>
+                );
             })}
         </div>
     );

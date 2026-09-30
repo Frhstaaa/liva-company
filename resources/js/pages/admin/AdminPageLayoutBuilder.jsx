@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSite } from '../../context/SiteContext';
 import WebpUploadButton from '../../components/WebpUploadButton';
+import SectionComprehensiveEditor from '../../components/admin/SectionComprehensiveEditor';
 import {
     Card,
     CardHeader,
@@ -641,15 +642,8 @@ export default function AdminPageLayoutBuilder({ initialPageId = 'beranda', onNa
                                     {/* Expanded Section Form */}
                                     {isExpanded && (
                                         <div className="border-t border-[#EFF2F5] bg-[#F5F8FA]/60 p-5 sm:p-6 space-y-4">
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <Type className="h-4 w-4 text-[#1B84FF]" />
-                                                <span className="text-xs font-bold text-[#181C32] uppercase tracking-wider font-mono">
-                                                    Formulir Konten: {sec.name}
-                                                </span>
-                                            </div>
-
-                                            {/* Render Section Form Fields dynamically based on activePageId and sectionId */}
-                                            {renderSectionFormFields(activePageId, sec.id)}
+                                            {/* Comprehensive 5-tab Section Studio: Content, Color, Layout, WebP Photo, Visibility */}
+                                            {renderSectionFormFields(activePageId, sec.id, sec.name)}
                                         </div>
                                     )}
                                 </Card>
@@ -899,7 +893,22 @@ export default function AdminPageLayoutBuilder({ initialPageId = 'beranda', onNa
     // =========================================================================
     // DYNAMIC FORM FIELDS RENDERER PER PAGE AND PER SECTION
     // =========================================================================
-    function renderSectionFormFields(pageId, secId) {
+    function renderSectionFormFields(pageId, secId, secName) {
+        const specificFields = renderSectionSpecificFields(pageId, secId);
+        return (
+            <SectionComprehensiveEditor
+                key={`${pageId}-${secId}`}
+                pageId={pageId}
+                secId={secId}
+                sectionName={secName || secId}
+                settingsMap={settingsMap}
+                onChange={handleChange}
+                customFields={specificFields}
+            />
+        );
+    }
+
+    function renderSectionSpecificFields(pageId, secId) {
         // -------------------------------------------------------------
         // 1. BERANDA (HOME) SECTIONS
         // -------------------------------------------------------------

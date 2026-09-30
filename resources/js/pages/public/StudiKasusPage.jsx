@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSite } from '../../context/SiteContext';
 import { Button } from '@/components/ui/button';
+import SectionWrapper from '../../components/public/SectionWrapper';
+import { getSectionCustomStyles } from '../../lib/sectionStyler';
 import {
     Home,
     Calendar,
@@ -77,62 +79,82 @@ export default function StudiKasusPage({ onNavigate }) {
         }
     }
 
-    const renderHero = () => (
-        <section key="hero" className="relative w-full bg-gradient-to-b from-white via-[#F8FAFC] to-[#EEF5FF] pt-10 pb-16 sm:pb-24 overflow-hidden border-b border-slate-200/70">
-            {/* Architectural Hospital Photo Overlay */}
-            <div 
-                className="absolute top-0 right-0 w-full sm:w-2/3 lg:w-1/2 h-full pointer-events-none z-0 opacity-12 bg-cover bg-no-repeat bg-right-top mix-blend-multiply"
-                style={{
-                    backgroundImage: `url('https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=1600&q=80')`,
-                    maskImage: 'radial-gradient(ellipse at top right, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 80%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse at top right, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 80%)'
-                }}
-            />
+    const renderHero = () => {
+        const heroStyles = getSectionCustomStyles(getSetting, 'studi-kasus', 'hero', {
+            defaultBgClass: 'bg-gradient-to-b from-white via-[#F8FAFC] to-[#EEF5FF]',
+            accent: '#1B84FF',
+            defaultPaddingClass: 'pt-10 pb-16 sm:pb-24',
+        });
 
-            {/* Diffuse Ambiance Accents */}
-            <div className="absolute top-12 left-1/3 w-96 h-96 bg-[#1E60D5]/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-4 right-1/4 w-80 h-80 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
+        return (
+            <section
+                key="hero"
+                id="sec-studi-kasus-hero"
+                className={`relative w-full ${heroStyles.bgClass} ${heroStyles.paddingClass} ${heroStyles.borderClass} overflow-hidden border-b border-slate-200/70`}
+                style={heroStyles.bgStyle}
+            >
+                {/* Architectural Hospital Photo Overlay */}
+                <div 
+                    className="absolute top-0 right-0 w-full sm:w-2/3 lg:w-1/2 h-full pointer-events-none z-0 opacity-12 bg-cover bg-no-repeat bg-right-top mix-blend-multiply"
+                    style={{
+                        backgroundImage: `url(${heroStyles.imageUrl || 'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=1600&q=80'})`,
+                        maskImage: 'radial-gradient(ellipse at top right, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 80%)',
+                        WebkitMaskImage: 'radial-gradient(ellipse at top right, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 80%)'
+                    }}
+                />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
-                {/* Accessible Breadcrumb */}
-                <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-mono text-[11px] text-slate-500">
-                    <button
-                        type="button"
-                        onClick={() => onNavigate('beranda')}
-                        className="hover:text-[#1E60D5] transition-colors flex items-center gap-1 cursor-pointer font-medium focus-ring rounded"
-                    >
-                        <Home className="h-3.5 w-3.5" />
-                        <span>Beranda</span>
-                    </button>
-                    <ChevronRight className="h-3 w-3 text-slate-400" />
-                    <span className="text-[#0F172A] font-semibold">Studi Kasus &amp; Dampak Klinis</span>
-                </nav>
+                {/* Diffuse Ambiance Accents */}
+                {heroStyles.hasAmbientGlow && (
+                    <>
+                        <div className="absolute top-12 left-1/3 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-10" style={{ backgroundColor: heroStyles.accentColor }} />
+                        <div className="absolute bottom-4 right-1/4 w-80 h-80 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
+                    </>
+                )}
 
-                <div className="text-center max-w-3xl mx-auto space-y-4 animate-slide-up">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF2FE] border border-[#C5DCFE] text-[#1E60D5] font-mono text-xs font-bold shadow-2xs">
-                        <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse"></span>
-                        <span>{getSetting('page_case_badge', 'LAPORAN EVALUASI DAMPAK KLINIS & FINANSIAL RUMAH SAKIT')}</span>
-                    </div>
-
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight leading-tight font-display">
-                        {getSetting('page_case_title', 'Transformasi Digital Terverifikasi di Berbagai RS Indonesia')}
-                    </h1>
-
-                    <p className="text-xs sm:text-sm lg:text-[15px] text-slate-600 leading-relaxed max-w-2xl mx-auto">
-                        {getSetting('page_case_subtitle', 'Pelajari bagaimana rumah sakit mitra Liva memangkas waktu tunggu pasien, meloloskan akreditasi paripurna STARKES, dan mengoptimalkan arus kas klaim BPJS secara transparan.')}
-                    </p>
-
-                    <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
+                    {/* Accessible Breadcrumb */}
+                    <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-mono text-[11px] text-slate-500">
                         <button
                             type="button"
-                            onClick={() => openDemoModal()}
-                            className="px-6 py-3 rounded-xl bg-[#1E60D5] hover:bg-[#164DB0] text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-600/25 transition-all cursor-pointer flex items-center gap-2 btn-spring focus-ring"
+                            onClick={() => onNavigate('beranda')}
+                            className="hover:text-[#1E60D5] transition-colors flex items-center gap-1 cursor-pointer font-medium focus-ring rounded"
                         >
-                            <Calendar className="h-4 w-4 text-amber-300" />
-                            <span>Jadwalkan Diskusi Studi Kelayakan RS</span>
+                            <Home className="h-3.5 w-3.5" />
+                            <span>Beranda</span>
                         </button>
+                        <ChevronRight className="h-3 w-3 text-slate-400" />
+                        <span className="text-[#0F172A] font-semibold">Studi Kasus &amp; Dampak Klinis</span>
+                    </nav>
+
+                    <div className="text-center max-w-3xl mx-auto space-y-4 animate-slide-up">
+                        {heroStyles.showBadge && (
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF2FE] border border-[#C5DCFE] text-[#1E60D5] font-mono text-xs font-bold shadow-2xs">
+                                <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: heroStyles.accentColor }}></span>
+                                <span>{heroStyles.badge || getSetting('page_case_badge', 'LAPORAN EVALUASI DAMPAK KLINIS & FINANSIAL RUMAH SAKIT')}</span>
+                            </div>
+                        )}
+
+                        <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight font-display ${heroStyles.titleTextClass}`}>
+                            {heroStyles.title || getSetting('page_case_title', 'Transformasi Digital Terverifikasi di Berbagai RS Indonesia')}
+                        </h1>
+
+                        <p className={`text-xs sm:text-sm lg:text-[15px] leading-relaxed max-w-2xl mx-auto ${heroStyles.bodyTextClass}`}>
+                            {heroStyles.description || getSetting('page_case_subtitle', 'Pelajari bagaimana rumah sakit mitra Liva memangkas waktu tunggu pasien, meloloskan akreditasi paripurna STARKES, dan mengoptimalkan arus kas klaim BPJS secara transparan.')}
+                        </p>
+
+                        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                            {heroStyles.showCta && (
+                                <button
+                                    type="button"
+                                    onClick={() => openDemoModal()}
+                                    className={`${heroStyles.ctaClass} px-6 py-3 rounded-xl text-white font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer flex items-center gap-2 btn-spring focus-ring`}
+                                >
+                                    <Calendar className="h-4 w-4 text-amber-300" />
+                                    <span>{heroStyles.ctaPrimaryText || 'Jadwalkan Diskusi Studi Kelayakan RS'}</span>
+                                </button>
+                            )}
+                        </div>
                     </div>
-                </div>
 
                 {/* Telemetry Summary HUD - Clean Clinical Cards */}
                 <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 p-5 sm:p-6 bg-white/95 backdrop-blur-sm ${cardRadius} border border-slate-200/90 shadow-md animate-slide-up delay-stagger-2`}>
@@ -165,7 +187,8 @@ export default function StudiKasusPage({ onNavigate }) {
                 </div>
             </div>
         </section>
-    );
+        );
+    };
 
     const renderCaseCards = () => (
         <section key="case_cards" className={`relative overflow-hidden bg-gradient-to-b from-[#EEF5FF] via-white to-[#F8FAFC] ${pyDensity}`}>
@@ -363,8 +386,17 @@ export default function StudiKasusPage({ onNavigate }) {
         <div className={`flex flex-col w-full min-h-screen ${themeClass} font-sans antialiased transition-colors duration-300`}>
             {orderedKeys.map((key) => {
                 const renderer = sectionRenderers[key];
-                return renderer ? renderer() : null;
+                if (!renderer) return null;
+                if (key === 'hero') {
+                    return <React.Fragment key={key}>{renderer()}</React.Fragment>;
+                }
+                return (
+                    <SectionWrapper key={key} pageId="studi-kasus" secId={key} showContainer={false}>
+                        {renderer()}
+                    </SectionWrapper>
+                );
             })}
         </div>
     );
 }
+

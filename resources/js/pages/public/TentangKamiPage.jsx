@@ -27,6 +27,8 @@ import {
     BadgeCheck
 } from 'lucide-react';
 import { useSite } from '../../context/SiteContext';
+import SectionWrapper from '../../components/public/SectionWrapper';
+import { getSectionCustomStyles } from '../../lib/sectionStyler';
 
 export default function TentangKamiPage({ onNavigate }) {
     const { openDemoModal, openAssessmentModal, getSetting } = useSite();
@@ -175,11 +177,23 @@ export default function TentangKamiPage({ onNavigate }) {
         }
     }
 
+    const heroStyles = getSectionCustomStyles(getSetting, 'tentang-kami', 'hero', {
+        title: getSetting('page_about_title', 'Membangun Fondasi Digital Rumah Sakit Indonesia yang Modern, Andal, dan Humanis.'),
+        badge: getSetting('page_about_badge', 'PROFIL PERUSAHAAN & VISI KESEHATAN DIGITAL'),
+        description: getSetting('page_about_subtitle', 'Liva SIMRS adalah pengembang platform teknologi informasi kesehatan terkemuka di Indonesia yang mengintegrasikan Rekam Medis Elektronik (RME) Permenkes No. 24/2022, Bridging BPJS VClaim 2.0, SATUSEHAT Kemenkes, dan otomasi manajemen operasional rumah sakit dalam satu ekosistem terpadu berkeamanan tinggi.'),
+        cta1Text: 'Jadwalkan Presentasi Direksi',
+        cta2Text: 'Uji Kesiapan Digital Faskes'
+    });
+
     const renderHero = () => (
-        <section key="hero" className="py-14 sm:py-20 bg-gradient-to-b from-[#EEF5FF] via-white to-[#F8FAFC] relative overflow-hidden border-b border-slate-200/70">
+        <section key="hero" className={`py-14 sm:py-20 relative overflow-hidden border-b border-slate-200/70 ${heroStyles.bgClasses}`} style={heroStyles.bgStyle}>
             {/* Diffuse Ambient Lights */}
-            <div className="absolute top-10 left-1/4 w-96 h-96 bg-[#1E60D5]/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-4 right-1/4 w-80 h-80 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
+            {heroStyles.showAmbientGlow && (
+                <>
+                    <div className="absolute top-10 left-1/4 w-96 h-96 bg-[#1E60D5]/5 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute bottom-4 right-1/4 w-80 h-80 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
+                </>
+            )}
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative z-10">
                 {/* Accessible Breadcrumb */}
@@ -199,76 +213,83 @@ export default function TentangKamiPage({ onNavigate }) {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                     {/* Left Hero Narrative */}
                     <div className="lg:col-span-7 space-y-5 text-left">
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF2FE] border border-[#C5DCFE] text-[#1E60D5] text-xs font-mono font-bold shadow-2xs">
-                            <Sparkles className="w-3.5 h-3.5 text-[#F97316] animate-spin" />
-                            <span>{getSetting('page_about_badge', 'PROFIL PERUSAHAAN & VISI KESEHATAN DIGITAL')}</span>
-                        </div>
+                        {heroStyles.showBadge && (
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF2FE] border border-[#C5DCFE] text-[#1E60D5] text-xs font-mono font-bold shadow-2xs">
+                                <Sparkles className="w-3.5 h-3.5 text-[#F97316] animate-spin" />
+                                <span>{heroStyles.badge}</span>
+                            </div>
+                        )}
 
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F172A] tracking-tight font-display leading-[1.18]">
-                            {getSetting('page_about_title', 'Membangun Fondasi Digital Rumah Sakit Indonesia yang Modern, Andal, dan Humanis.')}
+                        <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-display leading-[1.18] ${heroStyles.textColor}`}>
+                            {heroStyles.title}
                         </h1>
 
-                        <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
-                            {getSetting('page_about_subtitle', 'Liva SIMRS adalah pengembang platform teknologi informasi kesehatan terkemuka di Indonesia yang mengintegrasikan Rekam Medis Elektronik (RME) Permenkes No. 24/2022, Bridging BPJS VClaim 2.0, SATUSEHAT Kemenkes, dan otomasi manajemen operasional rumah sakit dalam satu ekosistem terpadu berkeamanan tinggi.')}
+                        <p className={`text-sm sm:text-base leading-relaxed max-w-2xl ${heroStyles.textMutedColor}`}>
+                            {heroStyles.description}
                         </p>
 
                         <div className="flex flex-wrap items-center gap-3 pt-2">
-                            <button
-                                onClick={() => openDemoModal('Presentasi Direksi & Tentang Kami')}
-                                className="px-6 py-3 rounded-xl bg-[#1E60D5] hover:bg-[#164DB0] text-white font-bold text-xs sm:text-sm transition-all duration-150 flex items-center gap-2 cursor-pointer btn-spring shadow-lg shadow-blue-600/20 focus-ring"
-                            >
-                                <span>Jadwalkan Presentasi Direksi</span>
-                                <ArrowRight className="w-4 h-4" />
-                            </button>
+                            {heroStyles.showCta && (
+                                <button
+                                    onClick={() => openDemoModal('Presentasi Direksi & Tentang Kami')}
+                                    style={{ backgroundColor: heroStyles.accentColor }}
+                                    className="px-6 py-3 rounded-xl hover:opacity-95 text-white font-bold text-xs sm:text-sm transition-all duration-150 flex items-center gap-2 cursor-pointer btn-spring shadow-lg shadow-blue-600/20 focus-ring"
+                                >
+                                    <span>{heroStyles.cta1Text || 'Jadwalkan Presentasi Direksi'}</span>
+                                    <ArrowRight className="w-4 h-4" />
+                                </button>
+                            )}
                             <button
                                 onClick={() => openAssessmentModal()}
                                 className="px-5 py-3 rounded-xl bg-white border border-slate-200/90 hover:border-blue-300 hover:bg-slate-50 text-slate-700 font-bold text-xs sm:text-sm transition-all shadow-2xs flex items-center gap-2 cursor-pointer btn-spring focus-ring"
                             >
                                 <Sparkles className="w-4 h-4 text-[#F97316]" />
-                                <span>Uji Kesiapan Digital Faskes</span>
+                                <span>{heroStyles.cta2Text || 'Uji Kesiapan Digital Faskes'}</span>
                             </button>
                         </div>
                     </div>
 
                     {/* Right Photo Frame */}
-                    <div className="lg:col-span-5 relative">
-                        <div className={`relative ${cardRadius} overflow-hidden border border-slate-200 shadow-xl bg-slate-100 aspect-4/3 group`}>
-                            <img 
-                                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=85" 
-                                alt="Tim Medis dan Tim Digital Health Liva SIMRS Berkolaborasi di Rumah Sakit"
-                                className="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-700 ease-out"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-slate-900/10 pointer-events-none" />
+                    {heroStyles.showImage && (
+                        <div className="lg:col-span-5 relative">
+                            <div className={`relative ${cardRadius} overflow-hidden border border-slate-200 shadow-xl bg-slate-100 ${heroStyles.imageAspectClass} ${heroStyles.imageFrameClass} group`}>
+                                <img 
+                                    src={heroStyles.imageUrl || "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=85"} 
+                                    alt="Tim Medis dan Tim Digital Health Liva SIMRS Berkolaborasi di Rumah Sakit"
+                                    className="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-700 ease-out"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-slate-900/10 pointer-events-none" />
 
-                            {/* Top Floating Badge */}
-                            <div className="absolute top-4 left-4 backdrop-blur-md bg-white/95 border border-white/80 shadow-md px-3.5 py-1.5 rounded-xl flex items-center gap-2">
-                                <BadgeCheck className="w-4 h-4 text-[#1E60D5]" />
-                                <span className="text-xs font-bold text-slate-800 font-mono">
-                                    100% Karya Anak Bangsa
-                                </span>
-                            </div>
-
-                            {/* Bottom Floating Glass Card */}
-                            <div className="absolute bottom-4 left-4 right-4 backdrop-blur-md bg-white/95 border border-white/90 shadow-lg rounded-xl p-3.5 flex items-center justify-between gap-3">
-                                <div className="flex items-center gap-2.5">
-                                    <div className="w-10 h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center shrink-0">
-                                        <Hospital className="w-5 h-5 text-[#1E60D5]" />
-                                    </div>
-                                    <div>
-                                        <div className="text-xs font-bold text-slate-800">
-                                            Liva Health Intelligence Platform
-                                        </div>
-                                        <div className="text-[10.5px] text-slate-500 font-mono">
-                                            ISO 27001 Certified • Permenkes No. 24/2022
-                                        </div>
-                                    </div>
+                                {/* Top Floating Badge */}
+                                <div className="absolute top-4 left-4 backdrop-blur-md bg-white/95 border border-white/80 shadow-md px-3.5 py-1.5 rounded-xl flex items-center gap-2">
+                                    <BadgeCheck className="w-4 h-4 text-[#1E60D5]" />
+                                    <span className="text-xs font-bold text-slate-800 font-mono">
+                                        100% Karya Anak Bangsa
+                                    </span>
                                 </div>
-                                <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-                                    Aktif
-                                </span>
+
+                                {/* Bottom Floating Glass Card */}
+                                <div className="absolute bottom-4 left-4 right-4 backdrop-blur-md bg-white/95 border border-white/90 shadow-lg rounded-xl p-3.5 flex items-center justify-between gap-3">
+                                    <div className="flex items-center gap-2.5">
+                                        <div className="w-10 h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center shrink-0">
+                                            <Hospital className="w-5 h-5 text-[#1E60D5]" />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold text-slate-800">
+                                                Liva Health Intelligence Platform
+                                            </div>
+                                            <div className="text-[10.5px] text-slate-500 font-mono">
+                                                ISO 27001 Certified • Permenkes No. 24/2022
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                                        Aktif
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </section>
@@ -592,7 +613,13 @@ export default function TentangKamiPage({ onNavigate }) {
         <div className={`space-y-0 relative overflow-hidden ${themeClass} font-sans transition-colors duration-300`}>
             {orderedKeys.map((key) => {
                 const renderer = sectionRenderers[key];
-                return renderer ? renderer() : null;
+                if (!renderer) return null;
+                if (key === 'hero') return renderer();
+                return (
+                    <SectionWrapper key={key} pageId="tentang-kami" secId={key} showContainer={false}>
+                        {renderer()}
+                    </SectionWrapper>
+                );
             })}
         </div>
     );

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSite } from '../../context/SiteContext';
 import { Button } from '@/components/ui/button';
+import SectionWrapper from '../../components/public/SectionWrapper';
+import { getSectionCustomStyles } from '../../lib/sectionStyler';
 import {
     Search,
     X,
@@ -85,55 +87,90 @@ export default function KatalogModulPage({ onNavigate }) {
         }
     }
 
-    const renderHero = () => (
-        <section key="hero" className="relative w-full bg-gradient-to-b from-white via-[#F0F6FE] to-[#F8FAFC] pt-8 pb-12 sm:pb-16 overflow-hidden border-b border-slate-200/60">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
-                {/* Breadcrumb */}
-                <div className="flex items-center gap-2 font-mono text-[11px] text-slate-500">
-                    <button
-                        type="button"
-                        onClick={() => onNavigate('beranda')}
-                        className="hover:text-[#1E60D5] transition-colors flex items-center gap-1 cursor-pointer font-medium focus-ring rounded"
-                    >
-                        <Home className="h-3.5 w-3.5" />
-                        <span>Beranda</span>
-                    </button>
-                    <span>/</span>
-                    <span className="text-[#0F172A] font-semibold">Katalog Modul Ekosistem</span>
-                </div>
+    const renderHero = () => {
+        const heroStyles = getSectionCustomStyles(getSetting, 'modul-simrs', 'hero', {
+            defaultBgClass: 'bg-gradient-to-b from-white via-[#F0F6FE] to-[#F8FAFC]',
+            accent: '#1B84FF',
+            defaultPaddingClass: 'pt-8 pb-12 sm:pb-16',
+        });
 
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 animate-slide-up">
-                    <div className="max-w-2xl space-y-3">
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF2FE] border border-[#BFDBFE] text-[#1E60D5] font-mono text-xs font-semibold">
-                            <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse"></span>
-                            <span>{getSetting('page_modules_badge', 'Katalog Arsitektur Ekosistem Medis 36 Modul Terpadu')}</span>
-                        </div>
+        return (
+            <section
+                key="hero"
+                id="sec-modul-simrs-hero"
+                className={`relative w-full ${heroStyles.bgClass} ${heroStyles.paddingClass} ${heroStyles.borderClass} overflow-hidden border-b border-slate-200/60`}
+                style={heroStyles.bgStyle}
+            >
+                {heroStyles.hasAmbientGlow && (
+                    <div
+                        className="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-20"
+                        style={{ backgroundColor: heroStyles.accentColor }}
+                    />
+                )}
+                {heroStyles.hasGridLines && (
+                    <div className="absolute inset-0 bg-clinical-grid opacity-50 pointer-events-none" />
+                )}
 
-                        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight leading-tight font-display">
-                            {getSetting('page_modules_title', 'Modul Klinis, Rawat Inap, K3 & Manajerial Rumah Sakit')}
-                        </h1>
-
-                        <p className="text-xs sm:text-sm lg:text-[15px] text-slate-600 leading-relaxed">
-                            {getSetting('page_modules_subtitle', 'Seluruh modul terhubung secara native tanpa middleware pihak ketiga, dirancang sesuai alur kerja akreditasi STARKES, Kemenaker RI, dan regulasi Kemenkes SATUSEHAT.')}
-                        </p>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
+                    {/* Breadcrumb */}
+                    <div className="flex items-center gap-2 font-mono text-[11px] text-slate-500">
+                        <button
+                            type="button"
+                            onClick={() => onNavigate('beranda')}
+                            className="hover:text-[#1E60D5] transition-colors flex items-center gap-1 cursor-pointer font-medium focus-ring rounded"
+                        >
+                            <Home className="h-3.5 w-3.5" />
+                            <span>Beranda</span>
+                        </button>
+                        <span>/</span>
+                        <span className="text-[#0F172A] font-semibold">Katalog Modul Ekosistem</span>
                     </div>
 
-                    {/* Telemetry Summary Card */}
-                    <div className={`card-clinical p-4.5 sm:p-5 flex items-center gap-6 shrink-0 font-mono ${cardRadius}`}>
-                        <div>
-                            <span className="text-[10px] text-slate-500 block uppercase font-semibold">TOTAL ARSITEKTUR</span>
-                            <span className="text-lg sm:text-2xl font-extrabold text-[#1E60D5]">{getSetting('page_modules_total_label', '36 Modul')}</span>
+                    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 animate-slide-up">
+                        <div className="max-w-2xl space-y-3">
+                            {heroStyles.showBadge && (
+                                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF2FE] border border-[#BFDBFE] text-[#1E60D5] font-mono text-xs font-semibold">
+                                    <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: heroStyles.accentColor }}></span>
+                                    <span>{heroStyles.badge || getSetting('page_modules_badge', 'Katalog Arsitektur Ekosistem Medis 36 Modul Terpadu')}</span>
+                                </div>
+                            )}
+
+                            <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight font-display ${heroStyles.titleTextClass}`}>
+                                {heroStyles.title || getSetting('page_modules_title', 'Modul Klinis, Rawat Inap, K3 & Manajerial Rumah Sakit')}
+                            </h1>
+
+                            <p className={`text-xs sm:text-sm lg:text-[15px] leading-relaxed ${heroStyles.bodyTextClass}`}>
+                                {heroStyles.description || getSetting('page_modules_subtitle', 'Seluruh modul terhubung secara native tanpa middleware pihak ketiga, dirancang sesuai alur kerja akreditasi STARKES, Kemenaker RI, dan regulasi Kemenkes SATUSEHAT.')}
+                            </p>
                         </div>
-                        <div className="h-8 w-px bg-slate-200"></div>
-                        <div>
-                            <span className="text-[10px] text-slate-500 block uppercase font-semibold">STANDAR AKREDITASI</span>
-                            <span className="text-lg sm:text-2xl font-extrabold text-emerald-600">{getSetting('page_modules_akreditasi_label', '100% STARKES')}</span>
-                        </div>
+
+                        {/* Telemetry Summary Card or Uploaded Image */}
+                        {heroStyles.imageUrl && heroStyles.showImage ? (
+                            <div className="shrink-0 max-w-sm">
+                                <img
+                                    src={heroStyles.imageUrl}
+                                    alt="Katalog Modul Visual"
+                                    className={`w-full object-cover ${heroStyles.imageAspectClass} ${heroStyles.imageStyleClass}`}
+                                />
+                            </div>
+                        ) : (
+                            <div className={`card-clinical p-4.5 sm:p-5 flex items-center gap-6 shrink-0 font-mono ${cardRadius}`}>
+                                <div>
+                                    <span className="text-[10px] text-slate-500 block uppercase font-semibold">TOTAL ARSITEKTUR</span>
+                                    <span className="text-lg sm:text-2xl font-extrabold text-[#1E60D5]">{getSetting('page_modules_total_label', '36 Modul')}</span>
+                                </div>
+                                <div className="h-8 w-px bg-slate-200"></div>
+                                <div>
+                                    <span className="text-[10px] text-slate-500 block uppercase font-semibold">STANDAR AKREDITASI</span>
+                                    <span className="text-lg sm:text-2xl font-extrabold text-emerald-600">{getSetting('page_modules_akreditasi_label', '100% STARKES')}</span>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
-            </div>
-        </section>
-    );
+            </section>
+        );
+    };
 
     const renderFilterSearch = () => (
         <section key="filter_search" className="w-full bg-white border-b border-slate-200/80 py-4 shadow-2xs">
@@ -297,8 +334,17 @@ export default function KatalogModulPage({ onNavigate }) {
         <div className={`flex flex-col w-full min-h-screen ${themeClass} font-sans antialiased transition-colors duration-300`}>
             {orderedKeys.map((key) => {
                 const renderer = sectionRenderers[key];
-                return renderer ? renderer() : null;
+                if (!renderer) return null;
+                if (key === 'hero') {
+                    return <React.Fragment key={key}>{renderer()}</React.Fragment>;
+                }
+                return (
+                    <SectionWrapper key={key} pageId="modul-simrs" secId={key} showContainer={false}>
+                        {renderer()}
+                    </SectionWrapper>
+                );
             })}
         </div>
     );
 }
+
