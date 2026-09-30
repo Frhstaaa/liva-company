@@ -121,7 +121,7 @@ export default function KatalogModulPage({ onNavigate }) {
             <section
                 key="hero"
                 id="sec-modul-simrs-hero"
-                className={`relative w-full ${heroStyles.bgClass} ${heroStyles.paddingClass} ${heroStyles.borderClass} overflow-hidden border-b border-slate-200/60`}
+                className={`relative w-full ${heroStyles.bgClass} ${heroStyles.paddingClass} ${heroStyles.borderClass} overflow-hidden`}
                 style={heroStyles.bgStyle}
             >
                 {heroStyles.hasAmbientGlow && (
@@ -213,7 +213,7 @@ export default function KatalogModulPage({ onNavigate }) {
     };
 
     const renderFilterSearch = () => (
-        <section key="filter_search" className="w-full bg-[#F0F6FE]/90 backdrop-blur-md border-b border-blue-200/70 py-3.5 sticky top-[70px] z-20 shadow-xs">
+        <section key="filter_search" className="w-full pt-2 pb-2 bg-transparent">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
                 {/* Search Input & Live Counter */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -224,7 +224,7 @@ export default function KatalogModulPage({ onNavigate }) {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Cari modul (RME, APM, LIS, INA-CBGs, Farmasi, SATUSEHAT)..."
-                            className="w-full pl-10 pr-9 py-2 rounded-full border border-blue-200/90 bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#1E60D5] focus:border-transparent transition-all shadow-2xs placeholder:text-slate-400"
+                            className="w-full pl-10 pr-9 py-2 rounded-full border border-slate-200/90 bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#1E60D5] focus:border-transparent transition-all shadow-2xs placeholder:text-slate-400"
                         />
                         {searchQuery && (
                             <button
@@ -240,7 +240,7 @@ export default function KatalogModulPage({ onNavigate }) {
 
                     <div className="flex items-center gap-2 text-xs font-mono text-slate-600 self-end sm:self-center">
                         <span className="hidden sm:inline">Status:</span>
-                        <span className="font-bold text-[#1E60D5] px-3 py-1 rounded-full bg-white border border-blue-200 shadow-2xs">
+                        <span className="font-bold text-[#1E60D5] px-3 py-1 rounded-full bg-white border border-slate-200/90 shadow-2xs">
                             {filteredModules.length} dari {modules.length} Modul
                         </span>
                     </div>
@@ -258,7 +258,7 @@ export default function KatalogModulPage({ onNavigate }) {
                                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 cursor-pointer whitespace-nowrap btn-spring focus-ring flex items-center gap-1.5 shrink-0 ${
                                     isSelected
                                         ? 'bg-[#1E60D5] text-white font-semibold shadow-sm shadow-blue-500/25'
-                                        : 'bg-white hover:bg-blue-50/70 text-slate-700 border border-blue-200/70 shadow-2xs'
+                                        : 'bg-white hover:bg-blue-50/70 text-slate-700 border border-slate-200/80 shadow-2xs'
                                 }`}
                             >
                                 <span>{cat.label}</span>
@@ -276,7 +276,7 @@ export default function KatalogModulPage({ onNavigate }) {
     );
 
     const renderModulesGrid = () => (
-        <section key="modules_grid" className={`${pyDensity} flex-1 bg-gradient-to-b from-[#F0F6FE]/50 via-[#F8FAFC] to-[#EEF5FF]/60`}>
+        <section key="modules_grid" className={`${pyDensity} flex-1 bg-transparent`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {filteredModules.length === 0 ? (
                     <div className={`text-center py-14 bg-white ${cardRadius} border border-slate-200 p-8 space-y-3 animate-scale-in max-w-lg mx-auto shadow-sm`}>
