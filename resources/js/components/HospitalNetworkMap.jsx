@@ -198,7 +198,7 @@ export default function HospitalNetworkMap({ onNavigate, onOpenDemo }) {
                     </div>
                 </div>
 
-                {/* Hospital Client Spotlight Track: Carousel on Mobile, Grid on Desktop */}
+                {/* Hospital Client Spotlight Track: Carousel on Mobile with peek effect, Grid on Desktop */}
                 <div
                     ref={clientScrollRef}
                     onScroll={handleClientScroll}
@@ -207,15 +207,15 @@ export default function HospitalNetworkMap({ onNavigate, onOpenDemo }) {
                     {currentData.activeClients.map((client, idx) => (
                         <div 
                             key={idx}
-                            className="w-[85vw] xs:w-[300px] sm:w-auto shrink-0 snap-center card-clinical p-5 flex flex-col justify-between group bg-white border border-slate-200/90 shadow-xs"
+                            className="w-[84vw] xs:w-[300px] sm:w-auto shrink-0 snap-center card-clinical p-5 flex flex-col justify-between group bg-white border border-slate-200/90 shadow-xs"
                         >
                             <div>
                                 <div className="flex items-center justify-between gap-2 mb-3">
-                                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-500 bg-white border border-slate-200 px-2.5 py-1 rounded-full shadow-3xs font-mono">
+                                    <span className="inline-flex items-center gap-1 text-[10px] sm:text-[10.5px] font-bold text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-full shadow-3xs font-mono">
                                         <MapPin className="w-3 h-3 text-[#1E60D5]" />
                                         {client.city}
                                     </span>
-                                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
+                                    <span className="text-[10px] sm:text-[10.5px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full font-mono">
                                         {client.type}
                                     </span>
                                 </div>
@@ -224,19 +224,19 @@ export default function HospitalNetworkMap({ onNavigate, onOpenDemo }) {
                                     <Building2 className="w-5 h-5" />
                                 </div>
 
-                                <h4 className="font-bold text-base text-[#0F172A] leading-snug group-hover:text-[#1E60D5] transition-colors font-display">
+                                <h4 className="font-bold text-base sm:text-lg text-[#0F172A] leading-snug group-hover:text-[#1E60D5] transition-colors font-display">
                                     {client.name}
                                 </h4>
 
-                                <div className="mt-2.5 inline-flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+                                <div className="mt-2.5 inline-flex items-center gap-1.5 text-xs sm:text-[13px] text-slate-600 font-medium font-sans">
                                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                                     <span>{client.badge}</span>
                                 </div>
                             </div>
 
                             <div className="mt-5 pt-3.5 border-t border-slate-200/80 flex items-center justify-between text-xs">
-                                <span className="text-slate-500 text-[11px]">Dampak Terukur:</span>
-                                <span className="font-bold text-[#EA580C] bg-orange-50 px-2 py-0.5 rounded-md border border-orange-200/60 font-mono text-[11px]">
+                                <span className="text-slate-500 text-[11px] font-sans">Dampak Terukur:</span>
+                                <span className="font-bold text-[#EA580C] bg-orange-50 px-2.5 py-0.5 rounded-md border border-orange-200/60 font-mono text-[11px]">
                                     {client.highlight}
                                 </span>
                             </div>

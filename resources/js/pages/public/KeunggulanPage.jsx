@@ -377,7 +377,7 @@ export default function KeunggulanPage({ onNavigate }) {
                             return (
                                 <div
                                     key={index}
-                                    className={`w-[88vw] xs:w-[320px] md:w-auto shrink-0 snap-center ${colSpan} relative overflow-hidden p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
+                                    className={`w-[84vw] xs:w-[310px] md:w-auto shrink-0 snap-center ${colSpan} relative overflow-hidden p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
                                         isHero
                                             ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-sm hover:border-blue-400'
                                             : isSecondary

@@ -551,7 +551,7 @@ export default function BerandaPage({ onNavigate }) {
                             return (
                                 <div
                                     key={pillar.id || idx}
-                                    className={`w-[88vw] xs:w-[330px] md:w-auto shrink-0 snap-center ${colSpan} relative overflow-hidden p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
+                                    className={`w-[84vw] xs:w-[310px] md:w-auto shrink-0 snap-center ${colSpan} relative overflow-hidden p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 group ${
                                         isHero
                                             ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-sm hover:border-blue-400'
                                             : isSecondary
@@ -779,7 +779,7 @@ export default function BerandaPage({ onNavigate }) {
                                 <div
                                     key={mod.id || i}
                                     onClick={() => openModuleModal(mod)}
-                                    className={`w-[85vw] xs:w-[300px] md:w-auto shrink-0 snap-center ${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 cursor-pointer group ${
+                                    className={`w-[84vw] xs:w-[310px] md:w-auto shrink-0 snap-center ${colSpan} p-1.5 sm:p-2 rounded-[2rem] transition-all duration-300 cursor-pointer group ${
                                         isPrimary
                                             ? 'bg-gradient-to-br from-blue-100/90 via-slate-100/80 to-blue-50/50 border border-blue-200/90 shadow-xs hover:border-blue-400'
                                             : isSecondary
@@ -791,7 +791,7 @@ export default function BerandaPage({ onNavigate }) {
                                         <div className="space-y-3.5 sm:space-y-4">
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2 sm:gap-2.5">
-                                                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center font-bold text-xs group-hover:scale-105 transition-transform shadow-xs">
+                                                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center font-bold text-xs group-hover:scale-105 transition-transform shadow-xs font-display">
                                                         <Activity className="h-4 w-4 sm:h-5 sm:w-5" />
                                                     </div>
                                                     <span className="font-mono text-[10px] sm:text-[10.5px] font-bold text-[#1E60D5] px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/70">
@@ -806,11 +806,11 @@ export default function BerandaPage({ onNavigate }) {
 
                                             <div className="space-y-1.5">
                                                 <h3 className={`font-bold text-[#0F172A] group-hover:text-[#1E60D5] transition-colors leading-snug font-display ${
-                                                    isPrimary ? 'text-base sm:text-xl' : 'text-sm sm:text-lg'
+                                                    isPrimary ? 'text-base sm:text-xl' : 'text-base sm:text-lg'
                                                 }`}>
                                                     {mod.title}
                                                 </h3>
-                                                <p className="text-xs sm:text-[13px] text-slate-600 line-clamp-3 leading-relaxed">
+                                                <p className="text-xs sm:text-[13px] text-slate-600 line-clamp-3 leading-relaxed font-sans">
                                                     {mod.short_description}
                                                 </p>
                                             </div>

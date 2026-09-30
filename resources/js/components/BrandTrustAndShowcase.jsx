@@ -197,17 +197,17 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
             </section>
 
             {/* 2. Spotlight 3 Core Highlights (Carousel on Mobile, Grid on Desktop) */}
-            <section className="py-8 sm:py-14 bg-[#F8FAFC] border-b border-slate-200/60 relative overflow-hidden">
+            <section className="py-8 sm:py-14 bg-[#F8FAFC] border-b border-slate-200/60 relative overflow-hidden font-sans">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-10 relative z-10">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div className="space-y-2 max-w-2xl">
-                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF7ED] text-[#F97316] text-xs font-semibold border border-[#FFEDD5]">
+                            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#FFF7ED] text-[#F97316] text-[11px] font-mono font-bold tracking-wide uppercase border border-[#FFEDD5]">
                                 <span>KEUNGGULAN OPERASIONAL</span>
                             </div>
-                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight font-display">
+                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight font-display leading-[1.2]">
                                 Dirancang Menjawab Hambatan Utama Faskes
                             </h2>
-                            <p className="text-xs sm:text-sm lg:text-[15px] text-slate-600 leading-relaxed">
+                            <p className="text-xs sm:text-sm lg:text-[15px] text-slate-600 leading-relaxed font-sans">
                                 Mereduksi antrean loket pendaftaran, memotong beban administratif dokter, dan mengamankan likuiditas klaim BPJS faskes.
                             </p>
                         </div>
@@ -240,7 +240,7 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
                         </div>
                     </div>
 
-                    {/* Feature Track: Horizontal Carousel on mobile, 3-Col Grid on Desktop */}
+                    {/* Feature Track: Horizontal Carousel on mobile with peek effect, 3-Col Grid on Desktop */}
                     <div
                         ref={featureScrollRef}
                         onScroll={handleFeatureScroll}
@@ -251,30 +251,30 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
                             return (
                                 <div
                                     key={idx}
-                                    className="w-[88vw] xs:w-[320px] md:w-auto shrink-0 snap-center card-clinical p-5 sm:p-7 flex flex-col justify-between space-y-4 sm:space-y-5 group bg-white border border-slate-200/90 shadow-xs"
+                                    className="w-[84vw] xs:w-[310px] md:w-auto shrink-0 snap-center card-clinical p-5 sm:p-7 flex flex-col justify-between space-y-4 sm:space-y-5 group bg-white border border-slate-200/90 shadow-xs"
                                 >
-                                    <div className="space-y-3.5 sm:space-y-4">
+                                    <div className="space-y-3 sm:space-y-4">
                                         <div className="flex items-center justify-between">
                                             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center group-hover:scale-105 transition-transform shadow-2xs">
                                                 <Icon className="w-5 h-5" />
                                             </div>
-                                            <span className="text-[10px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                                            <span className="text-[10.5px] sm:text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
                                                 {feat.badge}
                                             </span>
                                         </div>
 
-                                        <h3 className="text-[15px] sm:text-lg font-bold text-[#0F172A] font-display leading-snug group-hover:text-[#1E60D5] transition-colors">
+                                        <h3 className="text-base sm:text-lg font-bold text-[#0F172A] font-display leading-snug group-hover:text-[#1E60D5] transition-colors">
                                             {feat.title}
                                         </h3>
 
-                                        <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                                        <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-sans">
                                             {feat.description}
                                         </p>
                                     </div>
 
                                     <div className="space-y-2 pt-3.5 border-t border-slate-100">
                                         {feat.highlights.map((h, i) => (
-                                            <div key={i} className="flex items-center gap-2 text-xs font-semibold text-slate-800">
+                                            <div key={i} className="flex items-center gap-2 text-xs sm:text-[13px] font-medium text-slate-800 font-sans">
                                                 <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
                                                 <span>{h}</span>
                                             </div>
@@ -305,14 +305,14 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
             </section>
 
             {/* 3. Transformation Stories (Testimonials Carousel on Mobile, Grid on Desktop) */}
-            <section className="py-8 sm:py-14 bg-white border-b border-slate-200/60 relative overflow-hidden">
+            <section className="py-8 sm:py-14 bg-white border-b border-slate-200/60 relative overflow-hidden font-sans">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-10 relative z-10">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div className="space-y-1.5 max-w-xl">
-                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
+                            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-mono font-bold tracking-wide uppercase border border-emerald-200">
                                 <span>DAMPAK NYATA FASKES</span>
                             </div>
-                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight font-display">
+                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A] tracking-tight font-display leading-[1.2]">
                                 Kisah Sukses Digitalisasi Faskes Mitra
                             </h2>
                         </div>
@@ -351,7 +351,7 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
                         </div>
                     </div>
 
-                    {/* Testimonials Track: Horizontal Carousel on mobile, 3-Col Grid on Desktop */}
+                    {/* Testimonials Track: Horizontal Carousel on mobile with peek effect, 3-Col Grid on Desktop */}
                     <div
                         ref={testimonialScrollRef}
                         onScroll={handleTestimonialScroll}
@@ -360,7 +360,7 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
                         {testimonials.map((t, idx) => (
                             <div
                                 key={idx}
-                                className="w-[88vw] xs:w-[320px] md:w-auto shrink-0 snap-center card-clinical p-5 sm:p-7 flex flex-col justify-between space-y-4 sm:space-y-5 bg-white border border-slate-200/90 shadow-xs"
+                                className="w-[84vw] xs:w-[310px] md:w-auto shrink-0 snap-center card-clinical p-5 sm:p-7 flex flex-col justify-between space-y-4 sm:space-y-5 bg-white border border-slate-200/90 shadow-xs"
                             >
                                 <div className="space-y-3 sm:space-y-3.5">
                                     <div className="flex items-center justify-between">
@@ -369,26 +369,26 @@ export default function BrandTrustAndShowcase({ onScheduleDemo, onNavigate }) {
                                                 <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
                                             ))}
                                         </div>
-                                        <span className="text-[10px] sm:text-[10.5px] font-mono font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
+                                        <span className="text-[10px] sm:text-[11px] font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
                                             {t.metric}
                                         </span>
                                     </div>
 
-                                    <p className="text-xs sm:text-[13.5px] text-slate-700 leading-relaxed italic">
+                                    <p className="text-xs sm:text-[13.5px] text-slate-700 leading-relaxed italic font-sans">
                                         "{t.quote}"
                                     </p>
                                 </div>
 
                                 <div className="pt-3.5 border-t border-slate-100 flex items-center gap-3">
-                                    <div className="w-9 h-9 rounded-full bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
+                                    <div className="w-9 h-9 rounded-full bg-[#EBF2FE] text-[#1E60D5] flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs font-display">
                                         {t.author.split(' ')[1]?.charAt(0) || 'D'}
                                     </div>
                                     <div>
-                                        <h4 className="text-xs font-bold text-[#0F172A]">
+                                        <h4 className="text-xs sm:text-sm font-bold text-[#0F172A] font-display">
                                             {t.author}
                                         </h4>
-                                        <p className="text-[10.5px] sm:text-[11px] text-slate-500">
-                                            {t.role} • <strong className="text-slate-700">{t.hospital}</strong>
+                                        <p className="text-[10.5px] sm:text-[11px] text-slate-500 font-sans">
+                                            {t.role} • <strong className="text-slate-700 font-semibold">{t.hospital}</strong>
                                         </p>
                                     </div>
                                 </div>

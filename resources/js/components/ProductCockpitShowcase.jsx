@@ -246,8 +246,8 @@ export default function ProductCockpitShowcase({ onScheduleDemo }) {
                     </p>
                 </div>
 
-                {/* Tab Navigator */}
-                <div className="flex flex-wrap justify-center gap-2 sm:gap-3" role="tablist">
+                {/* Tab Navigator: Scrollable on mobile, Centered wrap on desktop */}
+                <div className="flex overflow-x-auto no-scrollbar sm:flex-wrap justify-start sm:justify-center gap-2 sm:gap-3 pb-1" role="tablist">
                     {tabs.map((tab) => {
                         const Icon = tab.icon;
                         const isActive = activeTab === tab.id;
@@ -257,15 +257,15 @@ export default function ProductCockpitShowcase({ onScheduleDemo }) {
                                 role="tab"
                                 aria-selected={isActive}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`px-4 py-2.5 rounded-full border text-xs font-semibold transition-all duration-200 flex items-center gap-2 cursor-pointer btn-spring focus-ring ${
+                                className={`px-4 py-2.5 rounded-full border text-xs font-semibold transition-all duration-200 flex items-center gap-2 shrink-0 cursor-pointer btn-spring focus-ring ${
                                     isActive
                                         ? 'bg-[#1E60D5] text-white border-[#1E60D5] shadow-md shadow-blue-500/20'
                                         : 'bg-white text-slate-700 border-slate-200/80 hover:border-blue-200 hover:bg-slate-50'
                                 }`}
                             >
                                 <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#1E60D5]'}`} />
-                                <span className="font-medium">{tab.label}</span>
-                                <span className={`text-[10px] font-mono px-2 py-0.2 rounded-full font-bold ${
+                                <span className="font-medium whitespace-nowrap">{tab.label}</span>
+                                <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold ${
                                     isActive ? 'bg-white/20 text-white' : 'bg-[#FFF7ED] text-[#F97316] border border-[#FFEDD5]'
                                 }`}>
                                     {tab.badge}
