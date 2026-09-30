@@ -576,95 +576,162 @@ export default function RisPacsPage({ onNavigate }) {
     // 3. CORE FEATURES & ADVANTAGES GRID
     // =========================================================================
     const renderFeatures = () => {
-        const features = [
-            {
-                icon: Zap,
-                title: 'Zero-Footprint Web Streaming',
-                desc: 'Buka dan evaluasi citra DICOM langsung dari Google Chrome, Safari, atau Edge tanpa perlu install software, Java Runtime, atau plugin desktop yang memberatkan PC rumah sakit.',
-                badge: 'WebGL 2.0 Native'
-            },
-            {
-                icon: Cpu,
-                title: 'AI Diagnostic Triage (CADe/CADt)',
-                desc: 'Algoritma machine learning secara instan memprioritaskan antrean kasus cito (seperti perdarahan intrakranial, pneumotoraks masif, atau fraktur akut) untuk respon dokter spesialis tercepat.',
-                badge: 'Sub-Second AI'
-            },
-            {
-                icon: RefreshCw,
-                title: 'Modality Worklist (MWL) & Auto-Sync',
-                desc: 'Bebas kesalahan ketik data identitas pasien. Jadwal pemeriksaan dari SIMRS otomatis terkirim langsung ke panel kontrol alat scanner (CT, X-Ray, MRI, USG).',
-                badge: 'HL7 DICOM 3.0'
-            },
-            {
-                icon: Layers,
-                title: 'Multi-Modality & Multi-Series Fusion',
-                desc: 'Mendukung perbandingan citra historis pasien secara side-by-side, sinkronisasi scroll cross-series, MIP/MPR 3D rendering, dan overlay series otomatis.',
-                badge: '3D MPR & MIP'
-            },
-            {
-                icon: Lock,
-                title: 'Enkripsi AES-256 & Audit Trail Medis',
-                desc: 'Data rekam medis radiologi terlindungi enkripsi standar perbankan. Dilengkapi pencatatan riwayat akses terperinci serta watermark dinamis nama faskes untuk mencegah kebocoran data.',
-                badge: 'ISO 27001 & UU PDP'
-            },
-            {
-                icon: Server,
-                title: 'Hybrid Cloud & Local PACS Gateway',
-                desc: 'Kombinasi storage lokal berkecepatan tinggi di jaringan LAN RS dengan backup arsip multi-tier di cloud. Citra tetap dapat diakses walau koneksi internet faskes sedang terputus.',
-                badge: 'High-Availability SLA'
-            }
-        ];
-
         return (
             <section key="features" id="sec-ris-pacs-features" className={`${pyDensity} bg-transparent`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-                    <div className="text-center max-w-3xl mx-auto space-y-2">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1E60D5] font-mono text-xs font-semibold">
-                            <Sparkles className="h-3.5 w-3.5 text-[#F97316]" />
-                            <span>ARSITEKTUR RADIOLOGI GENERASI BARU</span>
-                        </div>
+                    <div className="text-center max-w-2xl mx-auto space-y-2">
                         <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 font-display">
-                            6 Keunggulan Utama Liva Cloud RIS &amp; PACS
+                            6 Keunggulan Arsitektur Liva Cloud RIS &amp; PACS
                         </h2>
                         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                             Dirancang spesifik untuk mengatasi kendala lambatnya transfer file citra besar, mahalnya cetak film konvensional, serta kompleksitas bridging antar vendor.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                        {features.map((feat, idx) => {
-                            const IconComp = feat.icon;
-                            return (
-                                <div
-                                    key={idx}
-                                    className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all duration-300 space-y-3.5 group flex flex-col justify-between"
-                                >
-                                    <div className="space-y-3">
-                                        <div className="flex items-center justify-between">
-                                            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#1E60D5] flex items-center justify-center group-hover:scale-105 group-hover:bg-[#1E60D5] group-hover:text-white transition-all">
-                                                <IconComp className="h-5 w-5" />
-                                            </div>
-                                            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-semibold">
-                                                {feat.badge}
-                                            </span>
-                                        </div>
-
-                                        <h3 className="text-base font-bold text-slate-900 font-display group-hover:text-[#1E60D5] transition-colors">
-                                            {feat.title}
-                                        </h3>
-
-                                        <p className="text-xs text-slate-600 leading-relaxed">
-                                            {feat.desc}
-                                        </p>
+                    {/* Asymmetrical Bento Grid Rhythm */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
+                        {/* 1. Flagship Card: Zero-Footprint Web Streaming (7-Cols) */}
+                        <div className="col-span-12 lg:col-span-7 p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-white via-blue-50/40 to-slate-50 border border-blue-200/80 shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group">
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <div className="w-11 h-11 rounded-2xl bg-blue-100/80 text-[#1E60D5] flex items-center justify-center group-hover:scale-105 group-hover:bg-[#1E60D5] group-hover:text-white transition-all shadow-2xs">
+                                        <Zap className="h-5 w-5" />
                                     </div>
-
-                                    <div className="pt-2 border-t border-slate-100 flex items-center gap-1.5 text-xs font-semibold text-[#1E60D5]">
-                                        <span>Terintegrasi Standar RS</span>
-                                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                                    </div>
+                                    <span className="text-[10.5px] font-mono px-3 py-1 rounded-full bg-blue-50 text-[#1E60D5] font-bold border border-blue-200/80">
+                                        WebGL 2.0 &amp; WASM Native
+                                    </span>
                                 </div>
-                            );
-                        })}
+
+                                <div className="space-y-2">
+                                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-display group-hover:text-[#1E60D5] transition-colors">
+                                        Zero-Footprint Web Streaming Tanpa Instalasi
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
+                                        Dokter spesialis dapat membuka dan mengevaluasi citra DICOM langsung dari Google Chrome, Safari, atau Edge tanpa perlu install software, Java Runtime, atau plugin desktop yang memberatkan workstation rumah sakit.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="pt-6 mt-4 border-t border-blue-100/80 grid grid-cols-3 gap-3 font-mono text-[11px]">
+                                <div className="p-2.5 rounded-xl bg-white/80 border border-blue-100">
+                                    <span className="text-slate-400 block text-[9.5px]">COMPATIBILITY</span>
+                                    <span className="font-bold text-slate-800">Mac, Win, iPad</span>
+                                </div>
+                                <div className="p-2.5 rounded-xl bg-white/80 border border-blue-100">
+                                    <span className="text-slate-400 block text-[9.5px]">ENGINE</span>
+                                    <span className="font-bold text-[#1E60D5]">GPU Accelerated</span>
+                                </div>
+                                <div className="p-2.5 rounded-xl bg-white/80 border border-blue-100">
+                                    <span className="text-slate-400 block text-[9.5px]">DEPLOYMENT</span>
+                                    <span className="font-bold text-emerald-600">Zero Maintenance</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* 2. Flagship Complementary: AI Diagnostic Triage (5-Cols) */}
+                        <div className="col-span-12 lg:col-span-5 p-6 sm:p-7 rounded-3xl bg-[#0F172A] text-white border border-slate-800 shadow-md flex flex-col justify-between group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl pointer-events-none" />
+
+                            <div className="space-y-4 relative z-10">
+                                <div className="flex items-center justify-between">
+                                    <div className="w-11 h-11 rounded-2xl bg-purple-950 text-purple-400 border border-purple-800 flex items-center justify-center group-hover:scale-105 transition-all">
+                                        <Cpu className="h-5 w-5" />
+                                    </div>
+                                    <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-purple-900/50 text-purple-300 border border-purple-700/60 font-semibold">
+                                        Sub-Second AI
+                                    </span>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <h3 className="text-base sm:text-lg font-bold font-display text-white group-hover:text-purple-300 transition-colors">
+                                        AI Diagnostic Triage (CADe/CADt)
+                                    </h3>
+                                    <p className="text-xs text-slate-300 leading-relaxed">
+                                        Algoritma machine learning secara otomatis memprioritaskan antrean kasus cito (perdarahan intrakranial, pneumotoraks, atau fraktur) agar segera ditangani radiolog.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="pt-4 mt-3 border-t border-slate-800 relative z-10 flex items-center justify-between text-xs font-mono">
+                                <span className="text-emerald-400 flex items-center gap-1.5 font-bold">
+                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                    Triage Cito: &lt; 0.5s
+                                </span>
+                                <span className="text-slate-400">Sensitivitas 98.4%</span>
+                            </div>
+                        </div>
+
+                        {/* 3. Card: Modality Worklist (3-Cols) */}
+                        <div className="col-span-12 sm:col-span-6 lg:col-span-3 p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all space-y-3 flex flex-col justify-between group">
+                            <div className="space-y-2.5">
+                                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1E60D5] flex items-center justify-center group-hover:scale-105 transition-transform">
+                                    <RefreshCw className="h-4.5 w-4.5" />
+                                </div>
+                                <h4 className="text-sm font-bold text-slate-900 font-display group-hover:text-[#1E60D5] transition-colors">
+                                    Modality Worklist (MWL)
+                                </h4>
+                                <p className="text-xs text-slate-600 leading-relaxed">
+                                    Bebas salah ketik nama pasien. Jadwal pemeriksaan dari SIMRS otomatis terkirim langsung ke panel mesin scanner.
+                                </p>
+                            </div>
+                            <span className="text-[10.5px] font-mono text-emerald-600 font-bold flex items-center gap-1">
+                                <Check className="h-3 w-3" /> Zero-Typo Input
+                            </span>
+                        </div>
+
+                        {/* 4. Card: 3D MPR & Series Fusion (3-Cols) */}
+                        <div className="col-span-12 sm:col-span-6 lg:col-span-3 p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all space-y-3 flex flex-col justify-between group">
+                            <div className="space-y-2.5">
+                                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1E60D5] flex items-center justify-center group-hover:scale-105 transition-transform">
+                                    <Layers className="h-4.5 w-4.5" />
+                                </div>
+                                <h4 className="text-sm font-bold text-slate-900 font-display group-hover:text-[#1E60D5] transition-colors">
+                                    Multi-Series Fusion &amp; 3D
+                                </h4>
+                                <p className="text-xs text-slate-600 leading-relaxed">
+                                    Sinkronisasi scroll cross-series, perbandingan historis pasien side-by-side, serta 3D MPR/MIP real-time.
+                                </p>
+                            </div>
+                            <span className="text-[10.5px] font-mono text-[#1E60D5] font-bold flex items-center gap-1">
+                                <Check className="h-3 w-3" /> 3D Volume Rendering
+                            </span>
+                        </div>
+
+                        {/* 5. Card: Enkripsi AES-256 (3-Cols) */}
+                        <div className="col-span-12 sm:col-span-6 lg:col-span-3 p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all space-y-3 flex flex-col justify-between group">
+                            <div className="space-y-2.5">
+                                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1E60D5] flex items-center justify-center group-hover:scale-105 transition-transform">
+                                    <Lock className="h-4.5 w-4.5" />
+                                </div>
+                                <h4 className="text-sm font-bold text-slate-900 font-display group-hover:text-[#1E60D5] transition-colors">
+                                    Enkripsi &amp; Audit Trail
+                                </h4>
+                                <p className="text-xs text-slate-600 leading-relaxed">
+                                    Enkripsi AES-256 GCM, dynamic watermark faskes, serta audit trail kepatuhan UU PDP No. 27/2022.
+                                </p>
+                            </div>
+                            <span className="text-[10.5px] font-mono text-emerald-600 font-bold flex items-center gap-1">
+                                <Check className="h-3 w-3" /> ISO 27001 Certified
+                            </span>
+                        </div>
+
+                        {/* 6. Card: Hybrid Cloud Gateway (3-Cols) */}
+                        <div className="col-span-12 sm:col-span-6 lg:col-span-3 p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all space-y-3 flex flex-col justify-between group">
+                            <div className="space-y-2.5">
+                                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1E60D5] flex items-center justify-center group-hover:scale-105 transition-transform">
+                                    <Server className="h-4.5 w-4.5" />
+                                </div>
+                                <h4 className="text-sm font-bold text-slate-900 font-display group-hover:text-[#1E60D5] transition-colors">
+                                    Local PACS Cache &amp; Cloud
+                                </h4>
+                                <p className="text-xs text-slate-600 leading-relaxed">
+                                    Kecepatan LAN Gigabit di internal RS dengan cadangan cloud otomatis tanpa takut internet terputus.
+                                </p>
+                            </div>
+                            <span className="text-[10.5px] font-mono text-purple-600 font-bold flex items-center gap-1">
+                                <Check className="h-3 w-3" /> 99.98% High SLA
+                            </span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -689,16 +756,12 @@ export default function RisPacsPage({ onNavigate }) {
         return (
             <section key="modality_matrix" id="sec-ris-pacs-modality_matrix" className={`${pyDensity} bg-transparent`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-                    <div className="text-center max-w-3xl mx-auto space-y-2">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1E60D5] font-mono text-xs font-semibold">
-                            <Layers className="h-3.5 w-3.5" />
-                            <span>UNIVERSAL MODALITY COMPATIBILITY</span>
-                        </div>
+                    <div className="text-center max-w-2xl mx-auto space-y-2">
                         <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 font-display">
-                            Kompatibel dengan Seluruh Modalitas &amp; Merk Mesin
+                            Kompatibilitas Universal Seluruh Alat Radiologi
                         </h2>
                         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                            Mendukung protokol DICOM 3.0 standar untuk seluruh manufaktur terkemuka dunia: GE Healthcare, Siemens Healthineers, Philips, Canon/Toshiba, Shimadzu, Mindray, FujiFilm, dan Samsung Medison.
+                            Mendukung protokol DICOM 3.0 standar untuk seluruh manufaktur terkemuka: GE Healthcare, Siemens Healthineers, Philips, Canon/Toshiba, Shimadzu, Mindray, FujiFilm, dan Samsung Medison.
                         </p>
                     </div>
 
@@ -761,13 +824,9 @@ export default function RisPacsPage({ onNavigate }) {
         return (
             <section key="workflow" id="sec-ris-pacs-workflow" className={`${pyDensity} bg-transparent`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-                    <div className="text-center max-w-3xl mx-auto space-y-2">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1E60D5] font-mono text-xs font-semibold">
-                            <Workflow className="h-3.5 w-3.5" />
-                            <span>END-TO-END CLINICAL INTEGRATION</span>
-                        </div>
+                    <div className="text-center max-w-2xl mx-auto space-y-2">
                         <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 font-display">
-                            Alur Kerja Radiologi Terintegrasi &amp; Nir-Kertas
+                            Alur Kerja Radiologi 100% Nir-Kertas
                         </h2>
                         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                             Proses 100% digital tanpa jeda waktu antrean pengantaran berkas fisik, menghemat waktu tunggu pasien secara signifikan.
@@ -1016,13 +1075,12 @@ export default function RisPacsPage({ onNavigate }) {
                     <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-6">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
                             <div className="space-y-1">
-                                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-mono text-xs font-semibold border border-emerald-200">
-                                    <ShieldCheck className="h-3.5 w-3.5" />
-                                    <span>ENTERPRISE-GRADE MEDICAL DATA GOVERNANCE</span>
-                                </div>
                                 <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-display">
-                                    Keamanan &amp; Kepatuhan Regulasi Kesehatan
+                                    Keamanan Data Medis &amp; Kepatuhan Regulasi
                                 </h2>
+                                <p className="text-xs text-slate-500">
+                                    Perlindungan privasi pasien berstandar industri kesehatan internasional.
+                                </p>
                             </div>
                             <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-slate-600">
                                 <span className="px-3 py-1 rounded-lg bg-slate-100 font-bold">ISO 27001</span>
@@ -1081,13 +1139,12 @@ export default function RisPacsPage({ onNavigate }) {
             <section key="faq" id="sec-ris-pacs-faq" className={`${pyDensity} bg-transparent`}>
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
                     <div className="text-center space-y-2">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1E60D5] font-mono text-xs font-semibold">
-                            <HelpCircle className="h-3.5 w-3.5" />
-                            <span>PERTANYAAN UMUM PENGADAAN RADIOLOGI</span>
-                        </div>
                         <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 font-display">
                             Pertanyaan Seputar Liva Cloud RIS &amp; PACS
                         </h2>
+                        <p className="text-xs sm:text-sm text-slate-500">
+                            Hal-hal yang sering ditanyakan oleh Direktur Medis, Dokter Radiolog, dan Tim IT Faskes.
+                        </p>
                     </div>
 
                     <div className="space-y-3">
