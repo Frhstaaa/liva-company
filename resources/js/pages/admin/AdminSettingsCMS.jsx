@@ -268,12 +268,13 @@ export default function AdminSettingsCMS() {
     const publicPages = [
         { id: 'beranda', label: '1. Beranda (Home)', icon: Globe, count: '10 Bagian' },
         { id: 'katalog-modul', label: '2. Katalog Modul', icon: Layers, count: '36 Modul' },
-        { id: 'keunggulan', label: '3. Keunggulan & KLAS', icon: ShieldCheck, count: 'Arsitektur' },
-        { id: 'studi-kasus', label: '4. Studi Kasus RS', icon: Award, count: 'Evidensi' },
-        { id: 'tentang-kami', label: '5. Tentang Kami', icon: Users, count: 'Profil & Visi' },
-        { id: 'jadwalkan-demo', label: '6. Jadwalkan Demo', icon: Calendar, count: 'Assessment' },
-        { id: 'identitas', label: '7. Identitas & Kontak', icon: Building2, count: 'Brand' },
-        { id: 'webp-studio', label: '8. Studio Media Auto-WebP', icon: ImageIcon, count: 'Converter' },
+        { id: 'ris-pacs', label: '3. RIS / PACS Radiologi', icon: Activity, count: 'DICOM Cloud' },
+        { id: 'keunggulan', label: '4. Keunggulan & KLAS', icon: ShieldCheck, count: 'Arsitektur' },
+        { id: 'studi-kasus', label: '5. Studi Kasus RS', icon: Award, count: 'Evidensi' },
+        { id: 'tentang-kami', label: '6. Tentang Kami', icon: Users, count: 'Profil & Visi' },
+        { id: 'jadwalkan-demo', label: '7. Jadwalkan Demo', icon: Calendar, count: 'Assessment' },
+        { id: 'identitas', label: '8. Identitas & Kontak', icon: Building2, count: 'Brand' },
+        { id: 'webp-studio', label: '9. Studio Media Auto-WebP', icon: ImageIcon, count: 'Converter' },
     ];
 
     return (
@@ -1204,6 +1205,82 @@ export default function AdminSettingsCMS() {
                                 </p>
                             </div>
                             <span className="text-xs font-bold text-[#1B84FF] font-mono">Modul Live Active</span>
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
+
+            {/* ========================================================================= */}
+            {/* 4b. PAGE VIEW: RIS / PACS (RISPACSPAGE)                                   */}
+            {/* ========================================================================= */}
+            {selectedPage === 'ris-pacs' && (
+                <Card className="border-[#EFF2F5] shadow-[0_0_20px_0_rgba(76,87,125,0.02)]">
+                    <CardHeader className="p-6 pb-4">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <CardTitle className="text-base font-bold text-[#181C32] font-display flex items-center gap-2">
+                                    <Activity className="h-4 w-4 text-[#1B84FF]" />
+                                    <span>Halaman Publik: Liva Cloud RIS / PACS Radiologi</span>
+                                </CardTitle>
+                                <CardDescription className="text-xs text-[#78829D]">
+                                    Atur teks pembuka, lencana DICOM 3.0, headline marketing, dan fitur penunjang radiologi yang tampil di /ris-pacs.
+                                </CardDescription>
+                            </div>
+                            <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-md bg-[#F1FAFF] text-[#1B84FF]">
+                                /ris-pacs
+                            </span>
+                        </div>
+                    </CardHeader>
+                    <CardContent className="p-6 pt-0 space-y-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs font-semibold text-[#181C32] mb-1">Lencana Pill Atas (Badge)</label>
+                                <Input
+                                    value={settingsMap.ris_pacs_badge || ''}
+                                    onChange={(e) => handleChange('ris_pacs_badge', e.target.value)}
+                                    placeholder="DICOM 3.0 • ZERO-FOOTPRINT CLOUD PACS • SATUSEHAT READY"
+                                    className="text-xs font-mono"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-[#181C32] mb-1">Target Halaman Publik</label>
+                                <Input
+                                    value="https://livasimrs.id/ris-pacs"
+                                    disabled
+                                    className="text-xs font-mono bg-slate-50 text-slate-500"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label className="block text-xs font-semibold text-[#181C32] mb-1">Judul Utama Halaman RIS / PACS</label>
+                            <Input
+                                value={settingsMap.ris_pacs_title || ''}
+                                onChange={(e) => handleChange('ris_pacs_title', e.target.value)}
+                                placeholder="Liva Cloud RIS & PACS: Sistem Radiologi & Arsip Citra Medis Berkecepatan Tinggi"
+                                className="text-xs font-bold"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-xs font-semibold text-[#181C32] mb-1">Uraian Deskripsi Halaman</label>
+                            <Textarea
+                                rows={3}
+                                value={settingsMap.ris_pacs_subtitle || ''}
+                                onChange={(e) => handleChange('ris_pacs_subtitle', e.target.value)}
+                                placeholder="Modernisasi instalasi radiologi rumah sakit dengan penampil DICOM web tanpa instalasi (zero-footprint)..."
+                                className="text-xs leading-relaxed"
+                            />
+                        </div>
+
+                        <div className="p-4 rounded-xl bg-[#F9F9F9] border border-[#EFF2F5] flex items-center justify-between">
+                            <div className="space-y-0.5">
+                                <span className="text-xs font-bold text-[#181C32] block">Kustomisasi Tata Letak &amp; Foto Bagian RIS/PACS</span>
+                                <p className="text-[11px] text-[#78829D]">
+                                    Untuk mengubah foto tiap bagian, warna latar belakang, dan urutan seksi RIS/PACS, buka menu <strong>Tata Letak (Page Builder)</strong> di sidebar.
+                                </p>
+                            </div>
+                            <span className="text-xs font-bold text-[#1B84FF] font-mono">10 Bagian Siap Edit</span>
                         </div>
                     </CardContent>
                 </Card>

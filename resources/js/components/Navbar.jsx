@@ -69,6 +69,7 @@ export default function Navbar({ currentPath = 'beranda', onNavigate }) {
     const navLinks = [
         { id: 'beranda', label: 'Beranda' },
         { id: 'modul-simrs', label: 'Katalog Modul', badge: '36 Modul' },
+        { id: 'ris-pacs', label: 'RIS / PACS', badge: 'DICOM Cloud' },
         { id: 'keunggulan', label: 'Keunggulan' },
         { id: 'studi-kasus', label: 'Studi Kasus RS' },
         { id: 'tentang-kami', label: 'Tentang Kami' },
@@ -248,6 +249,22 @@ export default function Navbar({ currentPath = 'beranda', onNavigate }) {
                         <span>Katalog Modul</span>
                         <span className="inline-flex items-center px-2 py-0.2 rounded-full text-[10.5px] font-semibold bg-[#FFF7ED] text-[#F97316] border border-[#FFEDD5]">
                             36 Modul
+                        </span>
+                    </button>
+
+                    {/* RIS / PACS Link */}
+                    <button
+                        type="button"
+                        onClick={() => handleNavClick('ris-pacs')}
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer focus-ring ${
+                            currentPath === 'ris-pacs'
+                                ? 'text-[#1E60D5] font-semibold bg-[#EBF2FE]'
+                                : 'text-slate-700 hover:text-[#1E60D5] hover:bg-slate-50'
+                        }`}
+                    >
+                        <span>RIS / PACS</span>
+                        <span className="inline-flex items-center px-2 py-0.2 rounded-full text-[10.5px] font-semibold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]">
+                            DICOM Cloud
                         </span>
                     </button>
 

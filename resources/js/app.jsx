@@ -15,6 +15,7 @@ import WhatsAppWidget from './components/WhatsAppWidget';
 // Public Pages
 import BerandaPage from './pages/public/BerandaPage';
 import KatalogModulPage from './pages/public/KatalogModulPage';
+import RisPacsPage from './pages/public/RisPacsPage';
 import KeunggulanPage from './pages/public/KeunggulanPage';
 import StudiKasusPage from './pages/public/StudiKasusPage';
 import JadwalkanDemoPage from './pages/public/JadwalkanDemoPage';
@@ -44,6 +45,7 @@ function MainApp() {
         const path = window.location.pathname.replace(/^\/+/g, '');
         if (path === '' || path === 'beranda') return 'beranda';
         if (path === 'modul-simrs') return 'modul-simrs';
+        if (path === 'ris-pacs' || path === 'pacs' || path === 'radiologi') return 'ris-pacs';
         if (path === 'keunggulan' || path === 'solusi-khusus') return 'keunggulan';
         if (path === 'studi-kasus') return 'studi-kasus';
         if (path === 'jadwalkan-demo') return 'jadwalkan-demo';
@@ -164,6 +166,7 @@ function MainApp() {
             <main className="flex-1 pt-24">
                 {currentPath === 'beranda' && <BerandaPage onNavigate={navigateTo} />}
                 {currentPath === 'modul-simrs' && <KatalogModulPage onNavigate={navigateTo} />}
+                {currentPath === 'ris-pacs' && <RisPacsPage onNavigate={navigateTo} />}
                 {currentPath === 'keunggulan' && <KeunggulanPage onNavigate={navigateTo} />}
                 {currentPath === 'studi-kasus' && <StudiKasusPage onNavigate={navigateTo} />}
                 {currentPath === 'tentang-kami' && <TentangKamiPage onNavigate={navigateTo} />}

@@ -91,13 +91,19 @@ export default function Footer({ onNavigate }) {
                         </div>
                     </div>
 
-                    {/* Modul Klinis */}
+                    {/* Modul Klinis & Radiologi */}
                     <div className="lg:col-span-3 space-y-3">
                         <h4 className="text-xs font-bold text-[#0F172A] uppercase tracking-wider font-mono flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#1E60D5]"></span>
-                            Modul SIMRS
+                            Produk &amp; Modul
                         </h4>
                         <ul className="space-y-2 text-slate-600 text-xs">
+                            <li>
+                                <button onClick={() => onNavigate && onNavigate('ris-pacs')} className="hover:text-[#1E60D5] text-[#1E60D5] font-semibold transition-colors text-left cursor-pointer hover:translate-x-1 duration-150 transform flex items-center gap-1">
+                                    <span>Cloud RIS / PACS Radiologi</span>
+                                    <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-blue-100 text-[#1E60D5]">DICOM</span>
+                                </button>
+                            </li>
                             <li>
                                 <button onClick={() => onNavigate && onNavigate('modul-simrs')} className="hover:text-[#1E60D5] transition-colors text-left cursor-pointer hover:translate-x-1 duration-150 transform inline-block">
                                     Rekam Medis Elektronik (RME)
@@ -115,12 +121,7 @@ export default function Footer({ onNavigate }) {
                             </li>
                             <li>
                                 <button onClick={() => onNavigate && onNavigate('modul-simrs')} className="hover:text-[#1E60D5] transition-colors text-left cursor-pointer hover:translate-x-1 duration-150 transform inline-block">
-                                    Laboratorium LIS &amp; Radiologi PACS
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() => onNavigate && onNavigate('modul-simrs')} className="hover:text-[#1E60D5] transition-colors text-left cursor-pointer hover:translate-x-1 duration-150 transform inline-block">
-                                    Billing Kasir &amp; Auto-Klaim INA-CBGs
+                                    Laboratorium LIS &amp; Casemix INA-CBGs
                                 </button>
                             </li>
                         </ul>
