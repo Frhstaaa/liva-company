@@ -1,13 +1,11 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
     MessageCircle, 
     X, 
     Send, 
     Sparkles, 
     ShieldCheck, 
-    Phone, 
     Building2, 
-    Stethoscope, 
     Activity, 
     ChevronRight,
     Headphones
@@ -29,7 +27,7 @@ export default function WhatsAppWidget() {
             id: 'demo',
             label: 'Jadwalkan Live Demo & Uji Coba SIMRS',
             icon: Sparkles,
-            color: 'text-[#2F8BFF] bg-blue-50',
+            color: 'text-[#1E60D5] bg-blue-50',
             template: 'Halo Tim Konsultan Liva SIMRS, saya ingin menjadwalkan presentasi dan live demo sistem untuk fasyankes kami.'
         },
         {
@@ -50,7 +48,7 @@ export default function WhatsAppWidget() {
             id: 'procurement',
             label: 'Skema Biaya & Proposal Pengadaan RS',
             icon: Building2,
-            color: 'text-[#FF8A2B] bg-orange-50',
+            color: 'text-[#F97316] bg-orange-50',
             template: 'Halo Liva SIMRS, bisa kami meminta proposal penawaran resmi (SOW) dan skema pembiayaan implementasi SIMRS?'
         }
     ];
@@ -78,31 +76,32 @@ export default function WhatsAppWidget() {
         <div className="fixed bottom-6 right-6 z-50 font-sans">
             {/* Expanded Consultation Card */}
             {isOpen && (
-                <div className="absolute bottom-16 right-0 w-[340px] sm:w-[380px] bg-white rounded-3xl shadow-2xl border border-slate-200/90 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+                <div className="absolute bottom-16 right-0 w-[340px] sm:w-[380px] bg-white rounded-2xl shadow-2xl border border-slate-200/90 overflow-hidden animate-scale-in">
                     
                     {/* Header with Doctor/Expert Profile Lockup */}
-                    <div className="bg-gradient-to-r from-[#1F2937] via-[#111827] to-[#0F172A] p-4 text-white relative">
+                    <div className="bg-gradient-to-r from-[#0F172A] via-[#1E293B] to-[#0F172A] p-4 text-white relative">
                         <button 
                             type="button"
                             onClick={() => setIsOpen(false)}
-                            className="absolute top-3.5 right-3.5 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+                            className="absolute top-3.5 right-3.5 p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors focus-ring"
+                            aria-label="Tutup jendela chat"
                         >
                             <X className="w-4 h-4" />
                         </button>
 
                         <div className="flex items-center gap-3">
                             <div className="relative">
-                                <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#2F8BFF] to-emerald-400 p-0.5">
-                                    <div className="w-full h-full bg-[#1F2937] rounded-[14px] flex items-center justify-center text-white font-bold text-sm">
+                                <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#1E60D5] to-emerald-400 p-0.5">
+                                    <div className="w-full h-full bg-[#0F172A] rounded-[10px] flex items-center justify-center text-white font-bold text-sm">
                                         <Headphones className="w-5 h-5 text-emerald-400" />
                                     </div>
                                 </div>
-                                <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#1F2937] rounded-full"></span>
+                                <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#0F172A] rounded-full"></span>
                             </div>
                             <div>
                                 <div className="flex items-center gap-1.5">
                                     <h4 className="text-sm font-bold leading-tight">Konsultan MedTech RS</h4>
-                                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-mono">Online</span>
+                                    <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-semibold">Online</span>
                                 </div>
                                 <p className="text-[11px] text-slate-400 mt-0.5">
                                     Respon cepat 24/7 via WhatsApp Resmi
@@ -117,7 +116,7 @@ export default function WhatsAppWidget() {
                             <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                                 Pilih Kebutuhan Konsultasi:
                             </label>
-                            <div className="space-y-1.5">
+                            <div className="space-y-1.5" role="radiogroup" aria-label="Kebutuhan konsultasi">
                                 {topics.map((t) => {
                                     const IconComponent = t.icon;
                                     const isSelected = selectedTopic === t.id;
@@ -125,10 +124,12 @@ export default function WhatsAppWidget() {
                                         <button
                                             key={t.id}
                                             type="button"
+                                            role="radio"
+                                            aria-checked={isSelected}
                                             onClick={() => setSelectedTopic(t.id)}
-                                            className={`w-full text-left p-2.5 rounded-xl border transition-all flex items-center justify-between gap-2.5 cursor-pointer ${
+                                            className={`w-full text-left p-2.5 rounded-xl border transition-all flex items-center justify-between gap-2.5 cursor-pointer btn-spring focus-ring ${
                                                 isSelected 
-                                                    ? 'bg-white border-[#2F8BFF] shadow-xs text-[#2F8BFF]' 
+                                                    ? 'bg-white border-[#1E60D5] shadow-xs text-[#1E60D5]' 
                                                     : 'bg-white/80 border-slate-200/70 text-slate-700 hover:bg-white hover:border-slate-300'
                                             }`}
                                         >
@@ -141,7 +142,7 @@ export default function WhatsAppWidget() {
                                                 </span>
                                             </div>
                                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${
-                                                isSelected ? 'border-[#2F8BFF] bg-[#2F8BFF]' : 'border-slate-300'
+                                                isSelected ? 'border-[#1E60D5] bg-[#1E60D5]' : 'border-slate-300'
                                             }`}>
                                                 {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white"></span>}
                                             </div>
@@ -155,24 +156,24 @@ export default function WhatsAppWidget() {
                         <div className="space-y-2 pt-1">
                             <input 
                                 type="text"
-                                placeholder="Nama Rumah Sakit / Faskes Anda (Opsional)"
+                                placeholder="Nama Rumah Sakit / Faskes (Opsional)"
                                 value={hospitalName}
                                 onChange={(e) => setHospitalName(e.target.value)}
-                                className="w-full px-3 py-2 text-xs rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-[#2F8BFF] text-slate-800 placeholder:text-slate-400"
+                                className="w-full px-3.5 py-2 text-xs rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-[#1E60D5] text-slate-800 placeholder:text-slate-400 focus-ring shadow-2xs"
                             />
                             <input 
                                 type="text"
                                 placeholder="Nama Anda & Gelar (Opsional)"
                                 value={picName}
                                 onChange={(e) => setPicName(e.target.value)}
-                                className="w-full px-3 py-2 text-xs rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-[#2F8BFF] text-slate-800 placeholder:text-slate-400"
+                                className="w-full px-3.5 py-2 text-xs rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-[#1E60D5] text-slate-800 placeholder:text-slate-400 focus-ring shadow-2xs"
                             />
                         </div>
 
                         {/* Submit WhatsApp CTA */}
                         <button
                             type="submit"
-                            className="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 hover:shadow-lg transition-all cursor-pointer"
+                            className="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 hover:shadow-lg transition-all cursor-pointer btn-spring focus-ring"
                         >
                             <MessageCircle className="w-4 h-4 fill-white" />
                             <span>Mulai Chat via WhatsApp</span>
@@ -191,7 +192,7 @@ export default function WhatsAppWidget() {
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={`relative flex items-center gap-2.5 px-4 py-3 rounded-full shadow-xl transition-all duration-300 cursor-pointer active:scale-95 ${
+                className={`relative flex items-center gap-2.5 px-4 py-3 rounded-full shadow-xl transition-all duration-300 cursor-pointer active:scale-95 btn-spring focus-ring ${
                     isOpen 
                         ? 'bg-slate-800 text-white' 
                         : 'bg-[#25D366] hover:bg-[#20bd5a] text-white hover:shadow-2xl hover:shadow-emerald-500/30'

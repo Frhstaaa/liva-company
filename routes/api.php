@@ -47,6 +47,7 @@ Route::prefix('admin')->middleware(['auth:sanctum'])->group(function () {
     // Site Settings (Public CMS)
     Route::get('/settings', [AdminApiController::class, 'getSettings']);
     Route::post('/settings/batch', [AdminApiController::class, 'updateBatchSettings']);
+    Route::post('/upload-image', [AdminApiController::class, 'uploadImage']);
 
     // Encrypted Security & API Credentials (SATUSEHAT, BPJS, etc.)
     Route::get('/security-credentials', [AdminApiController::class, 'getSecurityCredentials']);

@@ -69,14 +69,19 @@ export default function AssessmentModal() {
     const currentQuestion = assessments[currentStep];
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs overflow-y-auto animate-fade-in">
+        <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/50 backdrop-blur-md overflow-y-auto animate-fade-in"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="assessment-modal-title"
+        >
             <div className="relative w-full max-w-[95vw] sm:max-w-xl md:max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-4 max-h-[92vh] flex flex-col font-sans animate-scale-in">
                 {/* Header */}
-                <div className="bg-gradient-to-r from-blue-50/80 via-white to-blue-50/40 border-b border-slate-200 p-4 sm:p-5 text-[#1F2937] relative shrink-0">
+                <div className="bg-gradient-to-r from-blue-50/80 via-white to-blue-50/40 border-b border-slate-200/80 p-4 sm:p-5 text-[#0F172A] relative shrink-0">
                     <button
                         onClick={handleReset}
-                        className="absolute top-3.5 right-3.5 w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors cursor-pointer border border-slate-200 btn-spring"
-                        aria-label="Tutup"
+                        className="absolute top-3.5 right-3.5 w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors cursor-pointer border border-slate-200/80 btn-spring focus-ring"
+                        aria-label="Tutup jendela asesmen"
                     >
                         <X className="h-4 w-4" />
                     </button>
@@ -84,7 +89,7 @@ export default function AssessmentModal() {
                         <ClipboardCheck className="h-3 w-3 text-emerald-600" />
                         <span>EVALUASI PERMENKES NO. 24 / 2022</span>
                     </div>
-                    <h3 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#1F2937] font-display">
+                    <h3 id="assessment-modal-title" className="text-lg sm:text-xl font-extrabold tracking-tight text-[#0F172A] font-display">
                         Uji Kelayakan &amp; Kesiapan SIMRS
                     </h3>
                     <p className="text-slate-600 text-xs mt-0.5 leading-relaxed">
@@ -93,20 +98,20 @@ export default function AssessmentModal() {
                 </div>
 
                 {/* Body Content */}
-                <div className="p-4 sm:p-5 md:p-6 overflow-y-auto flex-1 bg-white text-[#1F2937]">
+                <div className="p-4 sm:p-5 md:p-6 overflow-y-auto flex-1 bg-white text-[#0F172A]">
                     {result ? (
                         <div className="space-y-4 animate-scale-in">
                             {/* Score Card */}
-                            <div className="p-5 rounded-xl bg-[#F8FAFC] border border-slate-200 text-center space-y-2">
+                            <div className="p-5 rounded-2xl bg-[#F8FAFC] border border-slate-200 text-center space-y-2">
                                 <span className="font-mono text-[11px] text-slate-500 uppercase tracking-wider font-bold">
                                     Hasil Analisis Kesiapan Digitalisasi Faskes
                                 </span>
                                 <div className="flex items-center justify-center gap-1">
-                                    <span className="text-4xl sm:text-5xl font-black text-[#2F8BFF] font-display">
+                                    <span className="text-4xl sm:text-5xl font-black text-[#1E60D5] font-display tabular-nums">
                                         {result.score}%
                                     </span>
                                 </div>
-                                <div className="inline-block px-2.5 py-0.5 rounded-full bg-white border border-slate-200 shadow-2xs">
+                                <div className="inline-block px-3 py-1 rounded-full bg-white border border-slate-200 shadow-2xs">
                                     <span className={`text-xs font-bold font-mono ${result.level_color}`}>
                                         STATUS: {result.level}
                                     </span>
@@ -119,21 +124,21 @@ export default function AssessmentModal() {
                             {/* Recommendations List */}
                             {result.recommendations && result.recommendations.length > 0 && (
                                 <div className="space-y-2">
-                                    <h4 className="text-xs font-bold text-[#1F2937] uppercase font-mono tracking-wider">
+                                    <h4 className="text-xs font-bold text-[#0F172A] uppercase font-mono tracking-wider">
                                         Rekomendasi Roadmap Teknis:
                                     </h4>
-                                    <div className="space-y-1.5">
+                                    <div className="space-y-2">
                                         {result.recommendations.map((rec, i) => (
-                                            <div key={i} className="p-3 rounded-lg border border-slate-200 bg-white text-xs space-y-0.5">
-                                                <div className="flex items-center justify-between font-bold text-[#1F2937]">
-                                                    <span className="text-[#2F8BFF]">{rec.category}</span>
+                                            <div key={i} className="p-3.5 rounded-xl border border-slate-200 bg-white text-xs space-y-1">
+                                                <div className="flex items-center justify-between font-bold text-[#0F172A]">
+                                                    <span className="text-[#1E60D5]">{rec.category}</span>
                                                     <span className="font-mono text-slate-500 text-[11px]">Skor: {rec.score}/100</span>
                                                 </div>
                                                 <p className="text-slate-500 text-[11px]">
                                                     <strong>Kondisi:</strong> {rec.selected}
                                                 </p>
-                                                <p className="text-slate-800 font-medium text-[11px] flex items-start gap-1">
-                                                    <Lightbulb className="h-3.5 w-3.5 text-amber-500 shrink-0 mt-0.5" />
+                                                <p className="text-slate-800 font-medium text-[11.5px] flex items-start gap-1.5 pt-0.5">
+                                                    <Lightbulb className="h-4 w-4 text-[#F97316] shrink-0 mt-0.5" />
                                                     <span><strong>Langkah:</strong> {rec.recommendation}</span>
                                                 </p>
                                             </div>
@@ -150,7 +155,7 @@ export default function AssessmentModal() {
                                         setCurrentStep(0);
                                         setAnswers({});
                                     }}
-                                    className="text-xs text-slate-500 hover:text-slate-900 transition-colors cursor-pointer font-mono flex items-center gap-1 btn-spring"
+                                    className="text-xs text-slate-600 hover:text-slate-900 transition-colors cursor-pointer font-mono flex items-center gap-1 btn-spring focus-ring rounded"
                                 >
                                     <RotateCcw className="h-3.5 w-3.5" />
                                     <span>Ulangi Kuis</span>
@@ -161,7 +166,7 @@ export default function AssessmentModal() {
                                         closeAssessmentModal();
                                         openDemoModal();
                                     }}
-                                    className="w-full sm:w-auto px-5 py-2 bg-[#2F8BFF] hover:bg-[#1E75E6] text-white rounded-lg text-xs font-bold shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer btn-spring"
+                                    className="w-full sm:w-auto px-5 py-2.5 bg-[#1E60D5] hover:bg-[#164DB0] text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all flex items-center justify-center gap-1.5 cursor-pointer btn-spring focus-ring"
                                 >
                                     <Calendar className="h-4 w-4" />
                                     <span>Konsultasikan Roadmap Medis</span>
@@ -175,14 +180,14 @@ export default function AssessmentModal() {
                     ) : (
                         <div className="space-y-4">
                             {/* Progress bar */}
-                            <div className="space-y-1">
+                            <div className="space-y-1.5">
                                 <div className="flex items-center justify-between text-[11px] text-slate-500 font-mono font-bold">
                                     <span>PERTANYAAN {currentStep + 1} DARI {assessments.length}</span>
-                                    <span>{Math.round(((currentStep + 1) / assessments.length) * 100)}%</span>
+                                    <span className="tabular-nums">{Math.round(((currentStep + 1) / assessments.length) * 100)}%</span>
                                 </div>
-                                <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                                <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
                                     <div
-                                        className="bg-[#2F8BFF] h-full transition-all duration-300 ease-out"
+                                        className="bg-[#1E60D5] h-full transition-all duration-300 ease-out"
                                         style={{ width: `${((currentStep + 1) / assessments.length) * 100}%` }}
                                     ></div>
                                 </div>
@@ -190,32 +195,34 @@ export default function AssessmentModal() {
 
                             {/* Question */}
                             <div className="space-y-2">
-                                <div className="inline-block px-2 py-0.5 rounded bg-blue-50 border border-blue-200 text-[#2F8BFF] text-[10.5px] font-mono font-bold">
+                                <div className="inline-block px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#1E60D5] text-[10.5px] font-mono font-bold">
                                     Kategori: {currentQuestion.category}
                                 </div>
-                                <h4 className="text-sm sm:text-base font-bold text-[#1F2937] leading-snug font-display">
+                                <h4 className="text-sm sm:text-base font-bold text-[#0F172A] leading-snug font-display">
                                     {currentQuestion.question}
                                 </h4>
 
                                 {/* Options */}
-                                <div className="space-y-1.5 pt-1">
+                                <div className="space-y-2 pt-1" role="radiogroup" aria-label={currentQuestion.question}>
                                     {currentQuestion.options && currentQuestion.options.map((opt, optIndex) => {
                                         const isSelected = answers[currentQuestion.id] === optIndex;
                                         return (
                                             <button
                                                 key={optIndex}
                                                 type="button"
+                                                role="radio"
+                                                aria-checked={isSelected}
                                                 onClick={() => handleSelectOption(currentQuestion.id, optIndex)}
-                                                className={`w-full text-left p-3 rounded-lg border text-xs sm:text-[13px] transition-all flex items-start gap-2.5 cursor-pointer btn-spring ${
+                                                className={`w-full text-left p-3.5 rounded-xl border text-xs sm:text-[13px] transition-all flex items-start gap-3 cursor-pointer btn-spring focus-ring ${
                                                     isSelected
-                                                        ? 'bg-blue-50/80 border-[#2F8BFF] ring-1 ring-[#2F8BFF]/40 text-[#1F2937] font-semibold shadow-xs'
+                                                        ? 'bg-blue-50/80 border-[#1E60D5] ring-1 ring-[#1E60D5]/40 text-[#0F172A] font-semibold shadow-xs'
                                                         : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
                                                 }`}
                                             >
-                                                <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center mt-0.5 shrink-0 ${
-                                                    isSelected ? 'border-[#2F8BFF] bg-[#2F8BFF] text-white' : 'border-slate-300'
+                                                <div className={`w-4 h-4 rounded-full border flex items-center justify-center mt-0.5 shrink-0 ${
+                                                    isSelected ? 'border-[#1E60D5] bg-[#1E60D5] text-white' : 'border-slate-300'
                                                 }`}>
-                                                    {isSelected && <span className="w-1 h-1 rounded-full bg-white"></span>}
+                                                    {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white"></span>}
                                                 </div>
                                                 <span className="leading-relaxed">{opt.label}</span>
                                             </button>
@@ -229,7 +236,7 @@ export default function AssessmentModal() {
                                 <button
                                     onClick={handlePrev}
                                     disabled={currentStep === 0}
-                                    className="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 disabled:opacity-30 disabled:pointer-events-none transition-colors btn-spring cursor-pointer"
+                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 disabled:opacity-30 disabled:pointer-events-none transition-colors btn-spring cursor-pointer focus-ring"
                                 >
                                     Kembali
                                 </button>
@@ -237,7 +244,7 @@ export default function AssessmentModal() {
                                 <button
                                     onClick={handleNext}
                                     disabled={answers[currentQuestion.id] === undefined || calculating}
-                                    className="px-4 py-1.5 bg-[#2F8BFF] hover:bg-[#1E75E6] text-white rounded-lg text-xs font-bold shadow-xs transition-all disabled:opacity-40 disabled:pointer-events-none flex items-center gap-1 cursor-pointer btn-spring"
+                                    className="px-5 py-2.5 bg-[#1E60D5] hover:bg-[#164DB0] text-white rounded-xl text-xs font-bold shadow-xs transition-all disabled:opacity-40 disabled:pointer-events-none flex items-center gap-1.5 cursor-pointer btn-spring focus-ring"
                                 >
                                     {calculating ? (
                                         <span>Menghitung...</span>
@@ -261,4 +268,3 @@ export default function AssessmentModal() {
         </div>
     );
 }
-

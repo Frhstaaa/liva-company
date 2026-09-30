@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { SiteProvider, useSite } from './context/SiteContext';
@@ -25,6 +25,7 @@ import AdminLayout from './pages/admin/AdminLayout';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminSettingsCMS from './pages/admin/AdminSettingsCMS';
+import AdminPageLayoutBuilder from './pages/admin/AdminPageLayoutBuilder';
 import AdminModules from './pages/admin/AdminModules';
 import AdminPillars from './pages/admin/AdminPillars';
 import AdminComparisons from './pages/admin/AdminComparisons';
@@ -53,6 +54,14 @@ function MainApp() {
 
     const [currentPath, setCurrentPath] = useState(getInitialPath);
     const [adminActiveTab, setAdminActiveTab] = useState('dashboard');
+    const [adminSelectedPage, setAdminSelectedPage] = useState('beranda');
+
+    const handleOpenPageEditor = (pageId = 'beranda') => {
+        setAdminSelectedPage(pageId);
+        setAdminActiveTab('layout-builder');
+        window.history.pushState(null, '', '/admin#layout-builder');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     // Handle browser back/forward
     useEffect(() => {
@@ -81,7 +90,7 @@ function MainApp() {
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                     <span className="font-headline-sm text-sm font-bold text-primary tracking-tight">
-                        Liva SIMRS â€¢ Hospital Intelligence Platform
+                        Liva SIMRS • Hospital Intelligence Platform
                     </span>
                 </div>
             </div>
@@ -96,8 +105,13 @@ function MainApp() {
                     activeTab={adminActiveTab}
                     onSelectTab={(tab) => setAdminActiveTab(tab)}
                     onNavigatePublic={navigateTo}
+                    onOpenPageEditor={handleOpenPageEditor}
                 >
-                    <AdminDashboard onSelectTab={setAdminActiveTab} onNavigatePublic={navigateTo} />
+                    <AdminDashboard
+                        onSelectTab={setAdminActiveTab}
+                        onNavigatePublic={navigateTo}
+                        onOpenPageEditor={handleOpenPageEditor}
+                    />
                 </AdminLayout>
             );
         }
@@ -114,9 +128,20 @@ function MainApp() {
                 activeTab={adminActiveTab}
                 onSelectTab={(tab) => setAdminActiveTab(tab)}
                 onNavigatePublic={navigateTo}
+                onOpenPageEditor={handleOpenPageEditor}
             >
                 {adminActiveTab === 'dashboard' && (
-                    <AdminDashboard onSelectTab={setAdminActiveTab} onNavigatePublic={navigateTo} />
+                    <AdminDashboard
+                        onSelectTab={setAdminActiveTab}
+                        onNavigatePublic={navigateTo}
+                        onOpenPageEditor={handleOpenPageEditor}
+                    />
+                )}
+                {adminActiveTab === 'layout-builder' && (
+                    <AdminPageLayoutBuilder
+                        initialPageId={adminSelectedPage}
+                        onNavigatePublic={navigateTo}
+                    />
                 )}
                 {adminActiveTab === 'settings-cms' && <AdminSettingsCMS />}
                 {adminActiveTab === 'modules' && <AdminModules />}

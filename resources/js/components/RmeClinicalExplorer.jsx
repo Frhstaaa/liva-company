@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 export default function RmeClinicalExplorer() {
-    const [activeTab, setActiveTab] = useState('odontogram'); // 'odontogram' | 'bodychart' | 'soap' | 'k3_mcu'
+    const [activeTab, setActiveTab] = useState('odontogram'); // 'odontogram' | 'bodychart' | 'soap'
     
     // Odontogram state
     const [selectedTooth, setSelectedTooth] = useState(16);
@@ -58,12 +58,12 @@ export default function RmeClinicalExplorer() {
     };
 
     return (
-        <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
-            {/* Top Minimalist Header */}
-            <div className="p-5 sm:p-6 bg-slate-900 text-white flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800">
+        <div className="card-clinical overflow-hidden font-sans border border-slate-200/90 shadow-md">
+            {/* Top Header */}
+            <div className="p-5 sm:p-6 bg-[#0F172A] text-white flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800">
                 <div>
                     <div className="flex items-center gap-2 mb-1.5">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-[#2F8BFF]/20 text-[#5BC0FF] border border-[#2F8BFF]/30">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-[#1E60D5]/20 text-[#60A5FA] border border-[#1E60D5]/30">
                             LIVE CLINICAL WORKSPACE
                         </span>
                         <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
@@ -75,19 +75,21 @@ export default function RmeClinicalExplorer() {
                         Suite Rekam Medis Elektronik (RME) Spesialis
                     </h3>
                     <p className="text-xs text-slate-300 max-w-2xl mt-1 leading-relaxed">
-                        Pengisian rekam medis digital presisi dengan formulir dinamis per disiplin ilmu: Odontogram Poli Gigi, Anatomi Body Chart, SOAP Terstandar, hingga MCU Kesehatan Kerja K3.
+                        Pengisian rekam medis digital presisi dengan formulir dinamis per disiplin ilmu: Odontogram Poli Gigi, Anatomi Body Chart, hingga SOAP Terstandar ICD-10.
                     </p>
                 </div>
 
                 {/* Tab Switcher Pills */}
-                <div className="flex flex-wrap items-center gap-1.5 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700/80 shrink-0">
+                <div className="flex flex-wrap items-center gap-1.5 bg-slate-900/80 p-1.5 rounded-xl border border-slate-700/80 shrink-0" role="tablist">
                     <button
                         type="button"
+                        role="tab"
+                        aria-selected={activeTab === 'odontogram'}
                         onClick={() => setActiveTab('odontogram')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 btn-spring focus-ring ${
                             activeTab === 'odontogram'
-                                ? 'bg-[#2F8BFF] text-white shadow-sm'
-                                : 'text-slate-300 hover:text-white hover:bg-slate-700/60'
+                                ? 'bg-[#1E60D5] text-white shadow-xs'
+                                : 'text-slate-300 hover:text-white hover:bg-slate-800'
                         }`}
                     >
                         <Smile className="h-3.5 w-3.5" />
@@ -95,11 +97,13 @@ export default function RmeClinicalExplorer() {
                     </button>
                     <button
                         type="button"
+                        role="tab"
+                        aria-selected={activeTab === 'bodychart'}
                         onClick={() => setActiveTab('bodychart')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 btn-spring focus-ring ${
                             activeTab === 'bodychart'
-                                ? 'bg-[#2F8BFF] text-white shadow-sm'
-                                : 'text-slate-300 hover:text-white hover:bg-slate-700/60'
+                                ? 'bg-[#1E60D5] text-white shadow-xs'
+                                : 'text-slate-300 hover:text-white hover:bg-slate-800'
                         }`}
                     >
                         <Activity className="h-3.5 w-3.5" />
@@ -107,11 +111,13 @@ export default function RmeClinicalExplorer() {
                     </button>
                     <button
                         type="button"
+                        role="tab"
+                        aria-selected={activeTab === 'soap'}
                         onClick={() => setActiveTab('soap')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 btn-spring focus-ring ${
                             activeTab === 'soap'
-                                ? 'bg-[#2F8BFF] text-white shadow-sm'
-                                : 'text-slate-300 hover:text-white hover:bg-slate-700/60'
+                                ? 'bg-[#1E60D5] text-white shadow-xs'
+                                : 'text-slate-300 hover:text-white hover:bg-slate-800'
                         }`}
                     >
                         <FileText className="h-3.5 w-3.5" />
@@ -124,11 +130,11 @@ export default function RmeClinicalExplorer() {
             <div className="p-5 sm:p-7 bg-[#F8FAFC]">
                 {/* TAB 1: ODONTOGRAM DIGITAL GIGI */}
                 {activeTab === 'odontogram' && (
-                    <div className="space-y-6 animate-in fade-in duration-200">
+                    <div className="space-y-6 animate-scale-in">
                         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 bg-white p-4 rounded-xl border border-slate-200">
                             <div>
-                                <h4 className="text-sm font-bold text-[#1F2937] flex items-center gap-2 font-display">
-                                    <Smile className="h-4 w-4 text-[#2F8BFF]" />
+                                <h4 className="text-sm font-bold text-[#0F172A] flex items-center gap-2 font-display">
+                                    <Smile className="h-4 w-4 text-[#1E60D5]" />
                                     <span>Peta Odontogram Gigi Dewasa (Standar FDI World Dental Federation)</span>
                                 </h4>
                                 <p className="text-xs text-slate-500 mt-0.5">
@@ -136,14 +142,14 @@ export default function RmeClinicalExplorer() {
                                 </p>
                             </div>
                             <div className="flex flex-wrap items-center gap-2">
-                                <span className="text-[11px] font-mono text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
-                                    Gigi Terpilih: <strong className="text-[#2F8BFF]">#{selectedTooth}</strong>
+                                <span className="text-[11px] font-mono text-slate-600 bg-slate-100 px-2.5 py-1 rounded-full border border-slate-200">
+                                    Gigi Terpilih: <strong className="text-[#1E60D5]">#{selectedTooth}</strong>
                                 </span>
                             </div>
                         </div>
 
                         {/* Visual Tooth Rows */}
-                        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-2xs space-y-6">
+                        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs space-y-6">
                             {/* Rahang Atas (Maxilla) */}
                             <div>
                                 <div className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider text-center mb-3">
@@ -158,15 +164,15 @@ export default function RmeClinicalExplorer() {
                                                 key={num}
                                                 type="button"
                                                 onClick={() => handleToothClick(num)}
-                                                className={`w-9 h-12 sm:w-11 sm:h-14 rounded-lg flex flex-col items-center justify-between p-1.5 text-xs font-mono font-bold transition-all cursor-pointer border ${
+                                                className={`w-9 h-12 sm:w-11 sm:h-14 rounded-xl flex flex-col items-center justify-between p-1.5 text-xs font-mono font-bold transition-all cursor-pointer border btn-spring focus-ring ${
                                                     isSelected
-                                                        ? 'ring-2 ring-[#2F8BFF] ring-offset-2 border-[#2F8BFF]'
+                                                        ? 'ring-2 ring-[#1E60D5] ring-offset-2 border-[#1E60D5]'
                                                         : 'hover:border-slate-400'
                                                 } ${
                                                     current.status === 'caries'
                                                         ? 'bg-rose-50 border-rose-300 text-rose-700'
                                                         : current.status === 'filling'
-                                                        ? 'bg-blue-50 border-blue-300 text-[#2F8BFF]'
+                                                        ? 'bg-blue-50 border-blue-300 text-[#1E60D5]'
                                                         : current.status === 'missing'
                                                         ? 'bg-slate-100 border-slate-300 text-slate-400 line-through'
                                                         : current.status === 'crown'
@@ -177,7 +183,7 @@ export default function RmeClinicalExplorer() {
                                                 <span className="text-[10px] text-slate-400 font-normal">{num}</span>
                                                 <div className={`w-3.5 h-3.5 rounded-full border ${
                                                     current.status === 'caries' ? 'bg-rose-500 border-rose-600' :
-                                                    current.status === 'filling' ? 'bg-blue-500 border-blue-600' :
+                                                    current.status === 'filling' ? 'bg-blue-600 border-blue-700' :
                                                     current.status === 'crown' ? 'bg-amber-500 border-amber-600' :
                                                     current.status === 'missing' ? 'bg-slate-300 border-slate-400' :
                                                     'bg-emerald-100 border-emerald-300'
@@ -194,15 +200,15 @@ export default function RmeClinicalExplorer() {
                                                 key={num}
                                                 type="button"
                                                 onClick={() => handleToothClick(num)}
-                                                className={`w-9 h-12 sm:w-11 sm:h-14 rounded-lg flex flex-col items-center justify-between p-1.5 text-xs font-mono font-bold transition-all cursor-pointer border ${
+                                                className={`w-9 h-12 sm:w-11 sm:h-14 rounded-xl flex flex-col items-center justify-between p-1.5 text-xs font-mono font-bold transition-all cursor-pointer border btn-spring focus-ring ${
                                                     isSelected
-                                                        ? 'ring-2 ring-[#2F8BFF] ring-offset-2 border-[#2F8BFF]'
+                                                        ? 'ring-2 ring-[#1E60D5] ring-offset-2 border-[#1E60D5]'
                                                         : 'hover:border-slate-400'
                                                 } ${
                                                     current.status === 'caries'
                                                         ? 'bg-rose-50 border-rose-300 text-rose-700'
                                                         : current.status === 'filling'
-                                                        ? 'bg-blue-50 border-blue-300 text-[#2F8BFF]'
+                                                        ? 'bg-blue-50 border-blue-300 text-[#1E60D5]'
                                                         : current.status === 'missing'
                                                         ? 'bg-slate-100 border-slate-300 text-slate-400 line-through'
                                                         : current.status === 'crown'
@@ -213,7 +219,7 @@ export default function RmeClinicalExplorer() {
                                                 <span className="text-[10px] text-slate-400 font-normal">{num}</span>
                                                 <div className={`w-3.5 h-3.5 rounded-full border ${
                                                     current.status === 'caries' ? 'bg-rose-500 border-rose-600' :
-                                                    current.status === 'filling' ? 'bg-blue-500 border-blue-600' :
+                                                    current.status === 'filling' ? 'bg-blue-600 border-blue-700' :
                                                     current.status === 'crown' ? 'bg-amber-500 border-amber-600' :
                                                     current.status === 'missing' ? 'bg-slate-300 border-slate-400' :
                                                     'bg-emerald-100 border-emerald-300'
@@ -238,15 +244,15 @@ export default function RmeClinicalExplorer() {
                                                 key={num}
                                                 type="button"
                                                 onClick={() => handleToothClick(num)}
-                                                className={`w-9 h-12 sm:w-11 sm:h-14 rounded-lg flex flex-col items-center justify-between p-1.5 text-xs font-mono font-bold transition-all cursor-pointer border ${
+                                                className={`w-9 h-12 sm:w-11 sm:h-14 rounded-xl flex flex-col items-center justify-between p-1.5 text-xs font-mono font-bold transition-all cursor-pointer border btn-spring focus-ring ${
                                                     isSelected
-                                                        ? 'ring-2 ring-[#2F8BFF] ring-offset-2 border-[#2F8BFF]'
+                                                        ? 'ring-2 ring-[#1E60D5] ring-offset-2 border-[#1E60D5]'
                                                         : 'hover:border-slate-400'
                                                 } ${
                                                     current.status === 'caries'
                                                         ? 'bg-rose-50 border-rose-300 text-rose-700'
                                                         : current.status === 'filling'
-                                                        ? 'bg-blue-50 border-blue-300 text-[#2F8BFF]'
+                                                        ? 'bg-blue-50 border-blue-300 text-[#1E60D5]'
                                                         : current.status === 'missing'
                                                         ? 'bg-slate-100 border-slate-300 text-slate-400 line-through'
                                                         : current.status === 'crown'
@@ -256,7 +262,7 @@ export default function RmeClinicalExplorer() {
                                             >
                                                 <div className={`w-3.5 h-3.5 rounded-full border ${
                                                     current.status === 'caries' ? 'bg-rose-500 border-rose-600' :
-                                                    current.status === 'filling' ? 'bg-blue-500 border-blue-600' :
+                                                    current.status === 'filling' ? 'bg-blue-600 border-blue-700' :
                                                     current.status === 'crown' ? 'bg-amber-500 border-amber-600' :
                                                     current.status === 'missing' ? 'bg-slate-300 border-slate-400' :
                                                     'bg-emerald-100 border-emerald-300'
@@ -274,15 +280,15 @@ export default function RmeClinicalExplorer() {
                                                 key={num}
                                                 type="button"
                                                 onClick={() => handleToothClick(num)}
-                                                className={`w-9 h-12 sm:w-11 sm:h-14 rounded-lg flex flex-col items-center justify-between p-1.5 text-xs font-mono font-bold transition-all cursor-pointer border ${
+                                                className={`w-9 h-12 sm:w-11 sm:h-14 rounded-xl flex flex-col items-center justify-between p-1.5 text-xs font-mono font-bold transition-all cursor-pointer border btn-spring focus-ring ${
                                                     isSelected
-                                                        ? 'ring-2 ring-[#2F8BFF] ring-offset-2 border-[#2F8BFF]'
+                                                        ? 'ring-2 ring-[#1E60D5] ring-offset-2 border-[#1E60D5]'
                                                         : 'hover:border-slate-400'
                                                 } ${
                                                     current.status === 'caries'
                                                         ? 'bg-rose-50 border-rose-300 text-rose-700'
                                                         : current.status === 'filling'
-                                                        ? 'bg-blue-50 border-blue-300 text-[#2F8BFF]'
+                                                        ? 'bg-blue-50 border-blue-300 text-[#1E60D5]'
                                                         : current.status === 'missing'
                                                         ? 'bg-slate-100 border-slate-300 text-slate-400 line-through'
                                                         : current.status === 'crown'
@@ -292,7 +298,7 @@ export default function RmeClinicalExplorer() {
                                             >
                                                 <div className={`w-3.5 h-3.5 rounded-full border ${
                                                     current.status === 'caries' ? 'bg-rose-500 border-rose-600' :
-                                                    current.status === 'filling' ? 'bg-blue-500 border-blue-600' :
+                                                    current.status === 'filling' ? 'bg-blue-600 border-blue-700' :
                                                     current.status === 'crown' ? 'bg-amber-500 border-amber-600' :
                                                     current.status === 'missing' ? 'bg-slate-300 border-slate-400' :
                                                     'bg-emerald-100 border-emerald-300'
@@ -308,12 +314,12 @@ export default function RmeClinicalExplorer() {
                         {/* Interactive Assign Bar for Selected Tooth */}
                         <div className="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-lg bg-blue-50 text-[#2F8BFF] font-mono font-bold flex items-center justify-center text-sm border border-blue-100">
+                                <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1E60D5] font-mono font-bold flex items-center justify-center text-sm border border-blue-100">
                                     #{selectedTooth}
                                 </div>
                                 <div>
-                                    <div className="text-xs font-bold text-[#1F2937]">
-                                        Status Elemen: <span className="text-[#2F8BFF] font-medium">{teethState[selectedTooth]?.label || 'Sehat / Normal'}</span>
+                                    <div className="text-xs font-bold text-[#0F172A]">
+                                        Status Elemen: <span className="text-[#1E60D5] font-medium">{teethState[selectedTooth]?.label || 'Sehat / Normal'}</span>
                                     </div>
                                     <span className="text-[11px] text-slate-500">Pilih tindakan klinis untuk gigi #{selectedTooth}:</span>
                                 </div>
@@ -324,7 +330,7 @@ export default function RmeClinicalExplorer() {
                                     size="sm"
                                     variant="outline"
                                     onClick={() => setToothStatus('caries', 'Karies Oklusal (Dentin)')}
-                                    className="h-8 text-xs bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100"
+                                    className="h-8 text-xs bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100 btn-spring focus-ring rounded-lg"
                                 >
                                     🔴 Karies (Caries)
                                 </Button>
@@ -332,7 +338,7 @@ export default function RmeClinicalExplorer() {
                                     size="sm"
                                     variant="outline"
                                     onClick={() => setToothStatus('filling', 'Tambalan Komposit')}
-                                    className="h-8 text-xs bg-blue-50 text-[#2F8BFF] border-blue-200 hover:bg-blue-100"
+                                    className="h-8 text-xs bg-blue-50 text-[#1E60D5] border-blue-200 hover:bg-blue-100 btn-spring focus-ring rounded-lg"
                                 >
                                     🔵 Tambalan (Filling)
                                 </Button>
@@ -340,7 +346,7 @@ export default function RmeClinicalExplorer() {
                                     size="sm"
                                     variant="outline"
                                     onClick={() => setToothStatus('crown', 'Crown / Mahkota')}
-                                    className="h-8 text-xs bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100"
+                                    className="h-8 text-xs bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100 btn-spring focus-ring rounded-lg"
                                 >
                                     🟡 Crown / Mahkota
                                 </Button>
@@ -348,7 +354,7 @@ export default function RmeClinicalExplorer() {
                                     size="sm"
                                     variant="outline"
                                     onClick={() => setToothStatus('missing', 'Gigi Hilang (Edentulous)')}
-                                    className="h-8 text-xs bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200"
+                                    className="h-8 text-xs bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200 btn-spring focus-ring rounded-lg"
                                 >
                                     ⚪ Hilang (Missing)
                                 </Button>
@@ -356,7 +362,7 @@ export default function RmeClinicalExplorer() {
                                     size="sm"
                                     variant="outline"
                                     onClick={() => setToothStatus('sound', 'Sehat / Normal')}
-                                    className="h-8 text-xs bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100"
+                                    className="h-8 text-xs bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100 btn-spring focus-ring rounded-lg"
                                 >
                                     🟢 Sehat (Sound)
                                 </Button>
@@ -367,11 +373,11 @@ export default function RmeClinicalExplorer() {
 
                 {/* TAB 2: VISUAL BODY CHART ANATOMI */}
                 {activeTab === 'bodychart' && (
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-in fade-in duration-200">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-scale-in">
                         {/* Interactive Region Selector */}
-                        <div className="lg:col-span-5 bg-white p-5 rounded-xl border border-slate-200 space-y-4">
-                            <h4 className="text-sm font-bold text-[#1F2937] flex items-center gap-2 font-display">
-                                <Activity className="h-4 w-4 text-[#2F8BFF]" />
+                        <div className="lg:col-span-5 bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
+                            <h4 className="text-sm font-bold text-[#0F172A] flex items-center gap-2 font-display">
+                                <Activity className="h-4 w-4 text-[#1E60D5]" />
                                 <span>Pilih Regio Anatomi Tubuh</span>
                             </h4>
                             <p className="text-xs text-slate-500">
@@ -386,17 +392,17 @@ export default function RmeClinicalExplorer() {
                                             key={key}
                                             type="button"
                                             onClick={() => setSelectedRegion(key)}
-                                            className={`w-full text-left p-3 rounded-lg border transition-all cursor-pointer flex items-center justify-between ${
+                                            className={`w-full text-left p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between btn-spring focus-ring ${
                                                 isSelected
-                                                    ? 'bg-blue-50/80 border-[#2F8BFF] text-[#1F2937] shadow-2xs font-semibold'
+                                                    ? 'bg-blue-50/80 border-[#1E60D5] text-[#0F172A] shadow-2xs font-semibold'
                                                     : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
                                             }`}
                                         >
                                             <div className="flex items-center gap-2.5">
-                                                <span className={`w-2 h-2 rounded-full ${isSelected ? 'bg-[#2F8BFF]' : 'bg-slate-300'}`}></span>
+                                                <span className={`w-2 h-2 rounded-full ${isSelected ? 'bg-[#1E60D5]' : 'bg-slate-300'}`}></span>
                                                 <span className="text-xs">{reg.name}</span>
                                             </div>
-                                            <ChevronRight className={`h-3.5 w-3.5 ${isSelected ? 'text-[#2F8BFF]' : 'text-slate-400'}`} />
+                                            <ChevronRight className={`h-3.5 w-3.5 ${isSelected ? 'text-[#1E60D5]' : 'text-slate-400'}`} />
                                         </button>
                                     );
                                 })}
@@ -404,34 +410,34 @@ export default function RmeClinicalExplorer() {
                         </div>
 
                         {/* Region Diagnostic Card */}
-                        <div className="lg:col-span-7 bg-white p-5 rounded-xl border border-slate-200 space-y-4 flex flex-col justify-between">
+                        <div className="lg:col-span-7 bg-white p-5 rounded-2xl border border-slate-200 space-y-4 flex flex-col justify-between">
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                                     <div className="flex items-center gap-2">
-                                        <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2F8BFF] font-mono text-[11px] font-bold border border-blue-100">
+                                        <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1E60D5] font-mono text-[11px] font-bold border border-blue-100">
                                             REGIO AKTIF
                                         </span>
-                                        <h4 className="text-sm font-bold text-[#1F2937]">
+                                        <h4 className="text-sm font-bold text-[#0F172A]">
                                             {regions[selectedRegion]?.name}
                                         </h4>
                                     </div>
-                                    <Badge variant="emeraldLight" className="font-mono text-[10px]">
+                                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-mono text-[10px] font-semibold border border-emerald-200">
                                         ICD-10 Terhubung
-                                    </Badge>
+                                    </span>
                                 </div>
 
-                                <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-200/80 space-y-1.5 font-mono text-xs">
+                                <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200/80 space-y-1.5 font-mono text-xs">
                                     <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
                                         Suggested ICD-10 Code (Kemenkes SATUSEHAT):
                                     </span>
-                                    <div className="font-bold text-[#2F8BFF]">
+                                    <div className="font-bold text-[#1E60D5]">
                                         {regions[selectedRegion]?.icd}
                                     </div>
                                 </div>
 
                                 <div className="space-y-1">
                                     <label className="text-xs font-bold text-slate-700">Catatan Temuan Fisik Dokter:</label>
-                                    <div className="p-3 bg-white rounded-lg border border-slate-200 text-xs text-slate-700 leading-relaxed font-sans">
+                                    <div className="p-3 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 leading-relaxed font-sans">
                                         {regions[selectedRegion]?.note}
                                     </div>
                                 </div>
@@ -439,7 +445,7 @@ export default function RmeClinicalExplorer() {
 
                             <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-mono">
                                 <span>Status: TTE BSrE Ready</span>
-                                <span className="text-emerald-600 font-bold flex items-center gap-1">
+                                <span className="text-emerald-700 font-bold flex items-center gap-1">
                                     <CheckCircle2 className="h-3.5 w-3.5" />
                                     Tersinkronisasi ke RME Utama
                                 </span>
@@ -450,37 +456,37 @@ export default function RmeClinicalExplorer() {
 
                 {/* TAB 3: SOAP REKAM MEDIS & VOICE DICTATION */}
                 {activeTab === 'soap' && (
-                    <div className="space-y-4 animate-in fade-in duration-200">
-                        <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
+                    <div className="space-y-4 animate-scale-in">
+                        <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                                 <div>
-                                    <h4 className="text-sm font-bold text-[#1F2937] font-display">
+                                    <h4 className="text-sm font-bold text-[#0F172A] font-display">
                                         Formulir Entri SOAP Berbasis ICD-10 &amp; Voice Dictation
                                     </h4>
                                     <p className="text-xs text-slate-500">
                                         Rata-rata waktu entri 2.4 menit per pasien dengan template spesialisasi dinamis.
                                     </p>
                                 </div>
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-mono border border-emerald-200">
-                                    <Mic className="h-3 w-3 text-rose-500 animate-pulse" />
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-mono border border-emerald-200 font-semibold">
+                                    <Mic className="h-3.5 w-3.5 text-rose-500 animate-pulse" />
                                     Voice AI Ready
                                 </span>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="p-3.5 rounded-lg bg-[#F8FAFC] border border-slate-200 space-y-1">
-                                    <span className="text-[11px] font-bold text-[#2F8BFF] font-mono block">S - SUBJECTIVE (Anamnesis):</span>
+                                <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-slate-200 space-y-1">
+                                    <span className="text-[11px] font-bold text-[#1E60D5] font-mono block">S - SUBJECTIVE (Anamnesis):</span>
                                     <p className="text-xs text-slate-700">Pasien mengeluh pusing berputar dan tengkuk berat sejak 2 hari yang lalu setelah lembur kerja.</p>
                                 </div>
-                                <div className="p-3.5 rounded-lg bg-[#F8FAFC] border border-slate-200 space-y-1">
-                                    <span className="text-[11px] font-bold text-emerald-600 font-mono block">O - OBJECTIVE (Tanda Vital):</span>
+                                <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-slate-200 space-y-1">
+                                    <span className="text-[11px] font-bold text-emerald-700 font-mono block">O - OBJECTIVE (Tanda Vital):</span>
                                     <p className="text-xs text-slate-700 font-mono">TD: 145/90 mmHg | HR: 82x/m | RR: 18x/m | SpO2: 98% | Temp: 36.7°C</p>
                                 </div>
-                                <div className="p-3.5 rounded-lg bg-[#F8FAFC] border border-slate-200 space-y-1">
-                                    <span className="text-[11px] font-bold text-[#FF8A2B] font-mono block">A - ASSESSMENT (Diagnosis):</span>
+                                <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-slate-200 space-y-1">
+                                    <span className="text-[11px] font-bold text-[#EA580C] font-mono block">A - ASSESSMENT (Diagnosis):</span>
                                     <p className="text-xs text-slate-700 font-mono">I10 - Essential (Primary) Hypertension [ICD-10 Kemenkes Validated]</p>
                                 </div>
-                                <div className="p-3.5 rounded-lg bg-[#F8FAFC] border border-slate-200 space-y-1">
+                                <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-slate-200 space-y-1">
                                     <span className="text-[11px] font-bold text-indigo-600 font-mono block">P - PLAN (Terapi &amp; Resep):</span>
                                     <p className="text-xs text-slate-700 font-mono">Amlodipine 5mg tab No. XXX (1x1 pagi) • Edukasi diet rendah garam</p>
                                 </div>

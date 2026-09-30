@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
     Building2,
     Hospital,
@@ -9,13 +7,7 @@ import {
     ShieldCheck,
     CheckCircle2,
     ArrowRight,
-    Sparkles,
-    Layers,
-    ChevronRight,
-    Users,
-    FileText,
-    Activity,
-    Lock
+    Sparkles
 } from 'lucide-react';
 
 export default function SolutionMatrix({ onNavigate, onScheduleDemo }) {
@@ -118,24 +110,24 @@ export default function SolutionMatrix({ onNavigate, onScheduleDemo }) {
                             key={sol.id}
                             type="button"
                             onClick={() => setSelectedSolution(sol.id)}
-                            className={`p-3.5 rounded-xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between gap-3 btn-spring ${
+                            className={`p-3.5 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between gap-3 btn-spring focus-ring ${
                                 isSelected
-                                    ? 'bg-[#2F8BFF] text-white border-[#2F8BFF] shadow-md shadow-blue-500/20 scale-[1.02]'
-                                    : 'bg-white border-slate-200/90 text-slate-700 hover:border-blue-300 hover:bg-slate-50 card-interactive'
+                                    ? 'bg-[#1E60D5] text-white border-[#1E60D5] shadow-md shadow-blue-500/20'
+                                    : 'bg-white border-slate-200/90 text-slate-700 hover:border-blue-200 hover:bg-slate-50'
                             }`}
                         >
-                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-transform ${
-                                isSelected ? 'bg-white/20 text-white scale-105' : 'bg-blue-50 text-[#2F8BFF]'
+                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-transform ${
+                                isSelected ? 'bg-white/20 text-white' : 'bg-[#EBF2FE] text-[#1E60D5]'
                             }`}>
                                 <IconComp className="h-4 w-4" />
                             </div>
                             <div>
                                 <span className={`text-xs font-bold font-display block leading-tight ${
-                                    isSelected ? 'text-white' : 'text-[#1F2937]'
+                                    isSelected ? 'text-white' : 'text-[#0F172A]'
                                 }`}>
                                     {sol.title.split(' ')[0]} {sol.title.split(' ')[1]}
                                 </span>
-                                <span className={`text-[10px] block mt-0.5 line-clamp-1 ${
+                                <span className={`text-[10.5px] block mt-0.5 line-clamp-1 ${
                                     isSelected ? 'text-blue-100' : 'text-slate-500'
                                 }`}>
                                     {sol.badge}
@@ -146,22 +138,22 @@ export default function SolutionMatrix({ onNavigate, onScheduleDemo }) {
                 })}
             </div>
 
-            {/* Detailed Selected Solution Card with Spring Keyframe */}
+            {/* Detailed Selected Solution Card */}
             <div
                 key={selectedSolution}
-                className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-sm space-y-6 animate-scale-in"
+                className="card-clinical p-6 sm:p-8 space-y-6 animate-scale-in"
             >
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
-                    <div className="space-y-1">
+                    <div className="space-y-1.5">
                         <div className="flex items-center gap-2">
-                            <span className="px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-blue-50 text-[#2F8BFF] border border-blue-200">
+                            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#EBF2FE] text-[#1E60D5] border border-[#BFDBFE]">
                                 {current.badge}
                             </span>
-                            <span className="text-[11px] font-mono text-emerald-600 font-semibold">
+                            <span className="text-[11.5px] font-mono text-emerald-600 font-semibold">
                                 {current.metricHighlight}
                             </span>
                         </div>
-                        <h3 className="text-xl sm:text-2xl font-bold font-display text-[#1F2937]">
+                        <h3 className="text-xl sm:text-2xl font-bold font-display text-[#0F172A]">
                             {current.title}
                         </h3>
                         <p className="text-xs sm:text-sm text-slate-600 max-w-3xl leading-relaxed">
@@ -170,27 +162,28 @@ export default function SolutionMatrix({ onNavigate, onScheduleDemo }) {
                     </div>
 
                     <div className="flex flex-wrap gap-2 shrink-0">
-                        <Button
+                        <button
+                            type="button"
                             onClick={() => onScheduleDemo && onScheduleDemo(current.title)}
-                            className="bg-[#2F8BFF] hover:bg-[#1E75E6] text-white font-semibold text-xs h-9 gap-1.5 btn-spring shadow-xs cursor-pointer"
+                            className="btn-amber-warm btn-spring h-10 px-5 rounded-full text-white font-semibold text-xs flex items-center gap-2 shadow-xs cursor-pointer focus-ring"
                         >
-                            <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+                            <Sparkles className="h-3.5 w-3.5 text-white" />
                             <span>Minta Demo Solusi Ini</span>
-                        </Button>
+                        </button>
                     </div>
                 </div>
 
                 {/* Core Feature Bullet Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                     {current.features.map((feat, idx) => (
                         <div
                             key={idx}
-                            className="p-3.5 rounded-xl bg-[#F8FAFC] border border-slate-200/80 hover:border-blue-200 hover:bg-blue-50/20 transition-all duration-150 flex items-start gap-3 card-interactive"
+                            className="p-3.5 rounded-xl bg-[#F8FAFC] border border-slate-200/70 hover:border-blue-200 hover:bg-white transition-all flex items-start gap-3"
                         >
                             <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
                                 <CheckCircle2 className="h-3.5 w-3.5" />
                             </div>
-                            <span className="text-xs text-slate-700 leading-relaxed">
+                            <span className="text-xs text-slate-700 leading-relaxed font-medium">
                                 {feat}
                             </span>
                         </div>
@@ -206,7 +199,7 @@ export default function SolutionMatrix({ onNavigate, onScheduleDemo }) {
                     <button
                         type="button"
                         onClick={() => onNavigate('modul-simrs')}
-                        className="text-[#2F8BFF] hover:text-[#1E75E6] font-semibold flex items-center gap-1 cursor-pointer font-sans btn-spring"
+                        className="text-[#1E60D5] hover:text-[#164DB0] font-semibold flex items-center gap-1 cursor-pointer font-sans btn-spring focus-ring rounded"
                     >
                         <span>Lihat 36 Modul Terkait</span>
                         <ArrowRight className="h-3.5 w-3.5" />
@@ -216,4 +209,3 @@ export default function SolutionMatrix({ onNavigate, onScheduleDemo }) {
         </div>
     );
 }
-

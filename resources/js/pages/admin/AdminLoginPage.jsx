@@ -36,7 +36,7 @@ export default function AdminLoginPage({ onNavigatePublic }) {
         <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-4 font-sans bg-clinical-grid">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8 space-y-6 relative overflow-hidden animate-scale-spring">
                 {/* Decorative Top Line */}
-                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#2F8BFF] via-[#5BC0FF] to-[#FF8A2B]"></div>
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#1E60D5] via-[#60A5FA] to-[#F97316]"></div>
 
                 {/* Brand Header */}
                 <div className="text-center space-y-2">
@@ -44,7 +44,7 @@ export default function AdminLoginPage({ onNavigatePublic }) {
                         <img src={siteLogo} alt={siteName} className="h-9 w-auto object-contain" />
                     </div>
                     <div>
-                        <h2 className="text-xl sm:text-2xl font-bold text-[#1F2937] font-display">
+                        <h2 className="text-xl sm:text-2xl font-bold text-[#0F172A] font-display">
                             Selamat Datang
                         </h2>
                         <p className="text-xs text-slate-500 font-medium font-mono">
@@ -64,40 +64,43 @@ export default function AdminLoginPage({ onNavigatePublic }) {
                 {/* Login Form */}
                 <form onSubmit={handleLogin} className="space-y-4">
                     <div>
-                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                        <label htmlFor="admin_email" className="block text-xs font-semibold text-slate-700 mb-1.5">
                             Username / Email Administrator
                         </label>
                         <div className="relative">
                             <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                             <input
+                                id="admin_email"
                                 type="email"
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Username"
-                                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-xs sm:text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#2F8BFF] focus:border-[#2F8BFF] transition-all"
+                                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-xs sm:text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#1E60D5] focus:border-[#1E60D5] transition-all focus-ring shadow-2xs"
                             />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                        <label htmlFor="admin_password" className="block text-xs font-semibold text-slate-700 mb-1.5">
                             Password
                         </label>
                         <div className="relative">
                             <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                             <input
+                                id="admin_password"
                                 type={showPassword ? 'text' : 'password'}
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Password"
-                                className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-300 bg-white text-xs sm:text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#2F8BFF] focus:border-[#2F8BFF] transition-all"
+                                className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-300 bg-white text-xs sm:text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#1E60D5] focus:border-[#1E60D5] transition-all focus-ring shadow-2xs"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
+                                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1 focus-ring rounded"
+                                aria-label={showPassword ? 'Sembunyikan password' : 'Lihat password'}
                             >
                                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                             </button>
@@ -106,15 +109,15 @@ export default function AdminLoginPage({ onNavigatePublic }) {
 
                     {/* Pre-filled default credentials hint */}
                     <div className="p-3 bg-[#F8FAFC] rounded-xl border border-slate-200 text-[11px] text-slate-600 space-y-1">
-                        <span className="font-semibold text-[#2F8BFF] block">💡 Akun Demo Administrator:</span>
-                        <div>Email: <code className="font-mono bg-white px-1.5 py-0.5 rounded text-[#1F2937] font-bold border border-slate-200">admin@livasimrs.id</code></div>
-                        <div>Password: <code className="font-mono bg-white px-1.5 py-0.5 rounded text-[#1F2937] font-bold border border-slate-200">AdminLiva2026!</code></div>
+                        <span className="font-semibold text-[#1E60D5] block">💡 Akun Demo Administrator:</span>
+                        <div>Email: <code className="font-mono bg-white px-1.5 py-0.5 rounded text-[#0F172A] font-bold border border-slate-200">admin@livasimrs.id</code></div>
+                        <div>Password: <code className="font-mono bg-white px-1.5 py-0.5 rounded text-[#0F172A] font-bold border border-slate-200">AdminLiva2026!</code></div>
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full py-2.5 bg-[#2F8BFF] hover:bg-[#1E75E6] text-white rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20 hover:shadow-blue-500/40 transition-all cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2 btn-spring"
+                        className="w-full py-2.5 bg-[#1E60D5] hover:bg-[#164DB0] text-white rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-blue-600/20 hover:shadow-blue-600/35 transition-all cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2 btn-spring focus-ring"
                     >
                         {loading ? (
                             <>
@@ -122,7 +125,7 @@ export default function AdminLoginPage({ onNavigatePublic }) {
                                 <span>Mengotentikasi...</span>
                             </>
                         ) : (
-                            <span>Masuk</span>
+                            <span>Masuk ke Panel Administrator</span>
                         )}
                     </button>
                 </form>
@@ -131,7 +134,7 @@ export default function AdminLoginPage({ onNavigatePublic }) {
                 <div className="text-center pt-2 border-t border-slate-100">
                     <button
                         onClick={() => onNavigatePublic('beranda')}
-                        className="text-xs text-[#2F8BFF] font-semibold hover:underline inline-flex items-center gap-1.5 cursor-pointer btn-spring"
+                        className="text-xs text-[#1E60D5] font-semibold hover:underline inline-flex items-center gap-1.5 cursor-pointer btn-spring focus-ring rounded"
                     >
                         <ArrowLeft className="w-3.5 h-3.5" />
                         <span>Kembali ke Beranda</span>

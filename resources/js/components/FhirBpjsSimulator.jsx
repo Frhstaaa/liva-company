@@ -201,13 +201,15 @@ export default function FhirBpjsSimulator() {
                 </div>
 
                 {/* Step Flow Selector Buttons */}
-                <div className="flex flex-wrap gap-1.5 bg-slate-950 p-1.5 rounded-xl border border-slate-800 shrink-0">
+                <div className="flex flex-wrap gap-1.5 bg-slate-950 p-1.5 rounded-xl border border-slate-800 shrink-0" role="tablist">
                     <button
                         type="button"
+                        role="tab"
+                        aria-selected={activeFlow === 'satusehat_patient'}
                         onClick={() => handleSwitchFlow('satusehat_patient')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer btn-spring ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer btn-spring focus-ring ${
                             activeFlow === 'satusehat_patient'
-                                ? 'bg-[#2F8BFF] text-white font-bold shadow-md shadow-blue-500/25 scale-[1.02]'
+                                ? 'bg-[#1E60D5] text-white font-bold shadow-md shadow-blue-500/25 scale-[1.02]'
                                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
                         }`}
                     >
@@ -215,10 +217,12 @@ export default function FhirBpjsSimulator() {
                     </button>
                     <button
                         type="button"
+                        role="tab"
+                        aria-selected={activeFlow === 'satusehat_encounter'}
                         onClick={() => handleSwitchFlow('satusehat_encounter')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer btn-spring ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer btn-spring focus-ring ${
                             activeFlow === 'satusehat_encounter'
-                                ? 'bg-[#2F8BFF] text-white font-bold shadow-md shadow-blue-500/25 scale-[1.02]'
+                                ? 'bg-[#1E60D5] text-white font-bold shadow-md shadow-blue-500/25 scale-[1.02]'
                                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
                         }`}
                     >
@@ -226,10 +230,12 @@ export default function FhirBpjsSimulator() {
                     </button>
                     <button
                         type="button"
+                        role="tab"
+                        aria-selected={activeFlow === 'satusehat_condition'}
                         onClick={() => handleSwitchFlow('satusehat_condition')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer btn-spring ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer btn-spring focus-ring ${
                             activeFlow === 'satusehat_condition'
-                                ? 'bg-[#2F8BFF] text-white font-bold shadow-md shadow-blue-500/25 scale-[1.02]'
+                                ? 'bg-[#1E60D5] text-white font-bold shadow-md shadow-blue-500/25 scale-[1.02]'
                                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
                         }`}
                     >
@@ -237,10 +243,12 @@ export default function FhirBpjsSimulator() {
                     </button>
                     <button
                         type="button"
+                        role="tab"
+                        aria-selected={activeFlow === 'bpjs_vclaim'}
                         onClick={() => handleSwitchFlow('bpjs_vclaim')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer btn-spring ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer btn-spring focus-ring ${
                             activeFlow === 'bpjs_vclaim'
-                                ? 'bg-[#FF8A2B] text-white font-bold shadow-md shadow-orange-500/25 scale-[1.02]'
+                                ? 'bg-[#F97316] text-white font-bold shadow-md shadow-orange-500/25 scale-[1.02]'
                                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
                         }`}
                     >
@@ -278,10 +286,10 @@ export default function FhirBpjsSimulator() {
                             type="button"
                             onClick={runPingSimulation}
                             disabled={isSimulating}
-                            className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10.5px] flex items-center gap-1.5 border border-slate-700 transition-all cursor-pointer btn-spring"
+                            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10.5px] flex items-center gap-1.5 border border-slate-700 transition-all cursor-pointer btn-spring focus-ring"
                             title="Simulasi Ping Endpoint"
                         >
-                            <RefreshCw className={`h-3 w-3 ${isSimulating ? 'animate-spin text-[#2F8BFF]' : 'text-slate-400'}`} />
+                            <RefreshCw className={`h-3 w-3 ${isSimulating ? 'animate-spin text-[#1E60D5]' : 'text-slate-400'}`} />
                             <span>{isSimulating ? 'Memverifikasi...' : 'Uji Handshake'}</span>
                         </button>
                     </div>
@@ -298,7 +306,7 @@ export default function FhirBpjsSimulator() {
                         <button
                             type="button"
                             onClick={copyJson}
-                            className="px-2.5 py-1 rounded bg-slate-800/90 hover:bg-slate-700 text-slate-300 text-[11px] flex items-center gap-1.5 border border-slate-700 transition-all duration-150 cursor-pointer btn-spring shadow-xs"
+                            className="px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-300 text-[11px] flex items-center gap-1.5 border border-slate-700 transition-all duration-150 cursor-pointer btn-spring shadow-xs focus-ring"
                         >
                             {copied ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
                             <span>{copied ? 'Tersalin' : 'Copy JSON'}</span>
@@ -312,16 +320,16 @@ export default function FhirBpjsSimulator() {
 
                 {/* Bottom Status Checklist */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                    <div className="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 flex items-center gap-2 text-slate-300 hover:border-slate-700 transition-colors">
+                    <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-2 text-slate-300 hover:border-slate-700 transition-colors">
                         <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0" />
                         <span className="text-[11px]">Enkripsi AES-256 GCM Payload</span>
                     </div>
-                    <div className="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 flex items-center gap-2 text-slate-300 hover:border-slate-700 transition-colors">
-                        <Server className="h-4 w-4 text-[#2F8BFF] shrink-0" />
+                    <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-2 text-slate-300 hover:border-slate-700 transition-colors">
+                        <Server className="h-4 w-4 text-[#1E60D5] shrink-0" />
                         <span className="text-[11px]">Auto Retry Exponential Backoff</span>
                     </div>
-                    <div className="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 flex items-center gap-2 text-slate-300 hover:border-slate-700 transition-colors">
-                        <FileCode className="h-4 w-4 text-[#FF8A2B] shrink-0" />
+                    <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-2 text-slate-300 hover:border-slate-700 transition-colors">
+                        <FileCode className="h-4 w-4 text-[#F97316] shrink-0" />
                         <span className="text-[11px]">Audit Trail Logged &amp; Immutable</span>
                     </div>
                 </div>
@@ -329,4 +337,3 @@ export default function FhirBpjsSimulator() {
         </div>
     );
 }
-

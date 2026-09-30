@@ -143,6 +143,142 @@ class AdminApiController extends Controller
     }
 
     /**
+     * Upload an image and automatically convert it to lightweight WebP format.
+     */
+    public function uploadImage(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|file|mimes:jpeg,png,jpg,gif,svg,webp,bmp|max:10240',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Format file tidak didukung atau ukuran melebihi 10MB.',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $file = $request->file('image');
+        $extension = strtolower($file->getClientOriginalExtension());
+        $originalBase = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $slugBase = \Illuminate\Support\Str::slug($originalBase);
+        if (empty($slugBase)) {
+            $slugBase = 'asset';
+        }
+
+        $uploadDir = public_path('uploads');
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        $timestamp = date('Ymd_His') . '_' . substr(uniqid(), -4);
+        $originalSize = $file->getSize();
+
+        // Handle SVG without rasterizing
+        if ($extension === 'svg') {
+            $svgFilename = $slugBase . '_' . $timestamp . '.svg';
+            $file->move($uploadDir, $svgFilename);
+            $url = '/uploads/' . $svgFilename;
+
+            SimrsAuditLog::log('upload_image', 'media', null, "Upload file SVG: {$svgFilename}");
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'File vektor SVG berhasil diunggah.',
+                'data' => [
+                    'url' => $url,
+                    'filename' => $svgFilename,
+                    'format' => 'svg',
+                    'original_size_kb' => round($originalSize / 1024, 1),
+                    'webp_size_kb' => round($originalSize / 1024, 1),
+                    'savings_percent' => 0,
+                ],
+            ]);
+        }
+
+        // Convert raster image to WebP using GD
+        $filePath = $file->getRealPath();
+        $imageResource = null;
+
+        switch ($extension) {
+            case 'jpeg':
+            case 'jpg':
+                $imageResource = @imagecreatefromjpeg($filePath);
+                break;
+            case 'png':
+                $imageResource = @imagecreatefrompng($filePath);
+                if ($imageResource) {
+                    imagepalettetotruecolor($imageResource);
+                    imagealphablending($imageResource, true);
+                    imagesavealpha($imageResource, true);
+                }
+                break;
+            case 'gif':
+                $imageResource = @imagecreatefromgif($filePath);
+                break;
+            case 'webp':
+                $imageResource = @imagecreatefromwebp($filePath);
+                break;
+            case 'bmp':
+                $imageResource = @imagecreatefrombmp($filePath);
+                break;
+            default:
+                $data = file_get_contents($filePath);
+                $imageResource = @imagecreatefromstring($data);
+                break;
+        }
+
+        // If GD conversion fails, save original
+        if (!$imageResource) {
+            $fallbackFilename = $slugBase . '_' . $timestamp . '.' . $extension;
+            $file->move($uploadDir, $fallbackFilename);
+            $url = '/uploads/' . $fallbackFilename;
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Gambar berhasil diunggah dalam format asli.',
+                'data' => [
+                    'url' => $url,
+                    'filename' => $fallbackFilename,
+                    'format' => $extension,
+                    'original_size_kb' => round($originalSize / 1024, 1),
+                    'webp_size_kb' => round($originalSize / 1024, 1),
+                    'savings_percent' => 0,
+                ],
+            ]);
+        }
+
+        // Save as WebP
+        $outputFilename = $slugBase . '_' . $timestamp . '.webp';
+        $outputPath = $uploadDir . DIRECTORY_SEPARATOR . $outputFilename;
+        imagewebp($imageResource, $outputPath, 82);
+        imagedestroy($imageResource);
+
+        $newSize = file_exists($outputPath) ? filesize($outputPath) : $originalSize;
+        $savingsPercent = $originalSize > 0 ? round((($originalSize - $newSize) / $originalSize) * 100, 1) : 0;
+
+        SimrsAuditLog::log(
+            action: 'upload_image',
+            entityType: 'media',
+            details: "Upload & auto-convert gambar {$file->getClientOriginalName()} ke WebP ({$outputFilename}, kompresi {$savingsPercent}%)."
+        );
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "Gambar berhasil diunggah & otomatis terkonversi ke WebP! Ukuran hemat {$savingsPercent}%.",
+            'data' => [
+                'url' => '/uploads/' . $outputFilename,
+                'filename' => $outputFilename,
+                'format' => 'webp',
+                'original_size_kb' => round($originalSize / 1024, 1),
+                'webp_size_kb' => round($newSize / 1024, 1),
+                'savings_percent' => max(0, $savingsPercent),
+            ],
+        ]);
+    }
+
+    /**
      * Get decrypted security credentials (requires active auth token).
      */
     public function getSecurityCredentials(Request $request)

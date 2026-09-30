@@ -1,4 +1,5 @@
-﻿import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
+import { useSite } from '../context/SiteContext';
 import { 
     HelpCircle, 
     ChevronDown, 
@@ -75,6 +76,7 @@ const FAQ_DATA = [
 ];
 
 export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
+    const { getSetting } = useSite();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [openIndex, setOpenIndex] = useState(0); // First item open by default
@@ -87,42 +89,62 @@ export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
         { id: 'procurement', label: 'Skema Biaya & SLA' },
     ];
 
+    const allFaqs = useMemo(() => {
+        let customFaqs = [];
+        try {
+            const raw = getSetting('faq_custom_items', '[]');
+            if (raw) {
+                const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
+                if (Array.isArray(parsed)) {
+                    customFaqs = parsed.map(item => ({
+                        ...item,
+                        icon: CheckCircle2,
+                        categoryLabel: item.categoryLabel || 'Pertanyaan Umum'
+                    }));
+                }
+            }
+        } catch (e) {
+            // ignore parsing error
+        }
+        return [...customFaqs, ...FAQ_DATA];
+    }, [getSetting]);
+
     const filteredFaqs = useMemo(() => {
-        return FAQ_DATA.filter((item) => {
+        return allFaqs.filter((item) => {
             const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
             const matchesSearch = searchQuery.trim() === '' || 
                 item.q.toLowerCase().includes(searchQuery.toLowerCase()) || 
                 item.a.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesCategory && matchesSearch;
         });
-    }, [selectedCategory, searchQuery]);
+    }, [allFaqs, selectedCategory, searchQuery]);
 
     const toggleFaq = (idx) => {
         setOpenIndex(openIndex === idx ? null : idx);
     };
 
     return (
-        <section className="py-20 sm:py-28 bg-gradient-to-b from-[#F8FAFC] via-white to-[#F4F8FE] border-t border-slate-200/80 relative overflow-hidden">
+        <section className="py-20 sm:py-28 bg-gradient-to-b from-[#F8FAFC] via-white to-[#F4F8FE] border-t border-slate-200/80 relative overflow-hidden font-sans">
             {/* Ambient Background Accents */}
-            <div className="absolute top-1/3 left-0 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="absolute bottom-10 right-0 w-96 h-96 bg-orange-100/40 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute top-1/3 left-0 w-96 h-96 bg-[#1E60D5]/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 {/* Section Header */}
                 <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-[#2F8BFF] text-xs font-bold tracking-wide mb-4 shadow-2xs">
-                        <HelpCircle className="w-3.5 h-3.5 text-[#2F8BFF]" />
-                        <span>Pusat Informasi &amp; Panduan Pengadaan</span>
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF2FE] border border-[#C5DCFE] text-[#1E60D5] text-xs font-bold tracking-wide mb-4 shadow-2xs font-mono">
+                        <HelpCircle className="w-3.5 h-3.5 text-[#1E60D5]" />
+                        <span>{getSetting('faq_badge_text', 'PUSAT INFORMASI & PANDUAN PENGADAAN')}</span>
                     </div>
 
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1F2937] tracking-tight font-display">
-                        Pertanyaan Sering Diajukan <br className="hidden sm:inline" />
-                        <span className="text-[#2F8BFF]">Oleh Manajemen &amp; Direksi RS</span>
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F172A] tracking-tight font-display">
+                        {getSetting('faq_headline_prefix', 'Pertanyaan Sering Diajukan')} <br className="hidden sm:inline" />
+                        <span className="text-[#1E60D5]">{getSetting('faq_headline_highlight', 'Oleh Manajemen & Direksi RS')}</span>
                     </h2>
 
                     <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
-                        Temukan jawaban komprehensif terkait proses migrasi data, kepatuhan SATUSEHAT Kemenkes, keandalan mode offline, serta skema investasi sistem.
+                        {getSetting('faq_subheadline', 'Temukan jawaban komprehensif terkait proses migrasi data, kepatuhan SATUSEHAT Kemenkes, keandalan mode offline, serta skema investasi sistem.')}
                     </p>
 
                     {/* Interactive Live Search Bar */}
@@ -133,33 +155,38 @@ export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
                             placeholder="Ketik kata kunci (contoh: migrasi data, BPJS, offline, biaya, SLA)..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-11 pr-4 py-3 text-xs sm:text-sm rounded-2xl bg-white border border-slate-200 shadow-xs focus:outline-none focus:border-[#2F8BFF] focus:ring-2 focus:ring-blue-500/20 text-slate-800 placeholder:text-slate-400 transition-all"
+                            className="w-full pl-11 pr-4 py-3 text-xs sm:text-sm rounded-xl bg-white border border-slate-300 shadow-2xs focus:outline-none focus:border-[#1E60D5] focus:ring-2 focus:ring-[#1E60D5]/20 text-[#0F172A] placeholder:text-slate-400 transition-all focus-ring"
                         />
                     </div>
                 </div>
 
                 {/* Category Filter Pills */}
-                <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-                    {categories.map((cat) => (
-                        <button
-                            key={cat.id}
-                            type="button"
-                            onClick={() => setSelectedCategory(cat.id)}
-                            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                                selectedCategory === cat.id
-                                    ? 'bg-[#2F8BFF] text-white shadow-md shadow-blue-500/20'
-                                    : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                            }`}
-                        >
-                            {cat.label}
-                        </button>
-                    ))}
+                <div className="flex flex-wrap items-center justify-center gap-2 mb-10" role="tablist">
+                    {categories.map((cat) => {
+                        const isSelected = selectedCategory === cat.id;
+                        return (
+                            <button
+                                key={cat.id}
+                                type="button"
+                                role="tab"
+                                aria-selected={isSelected}
+                                onClick={() => setSelectedCategory(cat.id)}
+                                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer btn-spring focus-ring ${
+                                    isSelected
+                                        ? 'bg-[#1E60D5] text-white shadow-md shadow-blue-600/20'
+                                        : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                                }`}
+                            >
+                                {cat.label}
+                            </button>
+                        );
+                    })}
                 </div>
 
                 {/* FAQ Accordion Grid */}
                 <div className="max-w-4xl mx-auto space-y-3.5">
                     {filteredFaqs.length === 0 ? (
-                        <div className="text-center py-12 bg-white rounded-3xl border border-slate-200 p-8 shadow-xs">
+                        <div className="text-center py-12 bg-white rounded-2xl border border-slate-200 p-8 shadow-xs">
                             <HelpCircle className="w-10 h-10 text-slate-300 mx-auto mb-3" />
                             <h4 className="text-sm font-bold text-slate-700">Pertanyaan Tidak Ditemukan</h4>
                             <p className="text-xs text-slate-500 mt-1">
@@ -174,7 +201,7 @@ export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
                             return (
                                 <div
                                     key={idx}
-                                    className={`rounded-2xl border transition-all duration-200 overflow-hidden bg-white ${
+                                    className={`card-clinical transition-all duration-200 overflow-hidden ${
                                         isOpen 
                                             ? 'border-blue-300 shadow-md shadow-blue-500/5' 
                                             : 'border-slate-200/80 hover:border-slate-300 shadow-2xs'
@@ -183,16 +210,17 @@ export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
                                     <button
                                         type="button"
                                         onClick={() => toggleFaq(idx)}
-                                        className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
+                                        aria-expanded={isOpen}
+                                        className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer focus:outline-none focus-ring rounded-xl"
                                     >
                                         <div className="flex items-center gap-3.5 min-w-0">
                                             <div className={`p-2 rounded-xl shrink-0 transition-colors ${
-                                                isOpen ? 'bg-blue-50 text-[#2F8BFF]' : 'bg-slate-100 text-slate-500'
+                                                isOpen ? 'bg-[#EBF2FE] text-[#1E60D5]' : 'bg-slate-100 text-slate-500'
                                             }`}>
                                                 <IconComponent className="w-4 h-4" />
                                             </div>
                                             <span className={`text-xs sm:text-sm font-bold transition-colors ${
-                                                isOpen ? 'text-[#2F8BFF]' : 'text-slate-800'
+                                                isOpen ? 'text-[#1E60D5]' : 'text-slate-800'
                                             }`}>
                                                 {faq.q}
                                             </span>
@@ -200,7 +228,7 @@ export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
 
                                         <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 border transition-all ${
                                             isOpen 
-                                                ? 'bg-[#2F8BFF] text-white border-[#2F8BFF] rotate-180' 
+                                                ? 'bg-[#1E60D5] text-white border-[#1E60D5] rotate-180' 
                                                 : 'border-slate-200 text-slate-400 bg-slate-50'
                                         }`}>
                                             <ChevronDown className="w-4 h-4" />
@@ -208,7 +236,7 @@ export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
                                     </button>
 
                                     {isOpen && (
-                                        <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 animate-in fade-in slide-in-from-top-1 duration-150">
+                                        <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 animate-slide-up">
                                             <p className="mt-2">{faq.a}</p>
                                         </div>
                                     )}
@@ -219,11 +247,11 @@ export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
                 </div>
 
                 {/* Bottom CTA Box */}
-                <div className="mt-14 max-w-4xl mx-auto rounded-3xl bg-gradient-to-r from-[#1F2937] via-[#111827] to-[#0F172A] p-6 sm:p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+                <div className="mt-14 max-w-4xl mx-auto rounded-2xl bg-gradient-to-r from-[#0F172A] via-[#1E293B] to-[#0F172A] p-6 sm:p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl border border-slate-800">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2F8BFF] to-emerald-400 p-0.5 shrink-0">
-                            <div className="w-full h-full bg-[#1F2937] rounded-[14px] flex items-center justify-center">
-                                <Building2 className="w-6 h-6 text-[#2F8BFF]" />
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#1E60D5] to-emerald-400 p-0.5 shrink-0">
+                            <div className="w-full h-full bg-[#0F172A] rounded-[10px] flex items-center justify-center">
+                                <Building2 className="w-6 h-6 text-[#1E60D5]" />
                             </div>
                         </div>
                         <div>
@@ -240,7 +268,7 @@ export default function FaqProcurementSection({ onNavigate, onOpenDemo }) {
                             if (onOpenDemo) onOpenDemo();
                             else if (onNavigate) onNavigate('jadwalkan-demo');
                         }}
-                        className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#2F8BFF] hover:bg-[#1E75E6] text-white font-bold text-xs flex items-center justify-center gap-2 shrink-0 shadow-md shadow-blue-500/25 transition-all cursor-pointer whitespace-nowrap"
+                        className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#1E60D5] hover:bg-[#164DB0] text-white font-bold text-xs flex items-center justify-center gap-2 shrink-0 shadow-md shadow-blue-600/25 transition-all cursor-pointer whitespace-nowrap btn-spring focus-ring"
                     >
                         <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                         <span>Minta Jadwal Presentasi Direksi</span>

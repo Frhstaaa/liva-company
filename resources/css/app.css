@@ -7,27 +7,29 @@
 @source '../**/*.jsx';
 
 @theme {
-    --font-display: 'Plus Jakarta Sans', 'Figtree', ui-sans-serif, system-ui, sans-serif;
-    --font-body: 'Inter', 'Figtree', ui-sans-serif, system-ui, sans-serif;
-    --font-sans: 'Inter', 'Figtree', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 
-    /* Liva SIMRS Brand Palette (From Official Visual Identity) */
-    --color-primary: #2F8BFF;              /* Primary Blue */
-    --color-primary-container: #1E75E6;
-    --color-primary-light: #5BC0FF;        /* Secondary Blue */
+    /* Liva SIMRS Modern Clinical Clarity Palette (Clean, Calming & Accessible) */
+    --color-primary: #1E60D5;              /* Clinical Sapphire Blue */
+    --color-primary-container: #164DB0;
+    --color-primary-light: #4D8BFF;        /* Secondary Sky Blue */
+    --color-primary-subtle: #EBF2FE;       /* Ultra-soft blue tint */
     --color-on-primary: #ffffff;
-    --color-primary-fixed: #e6f1ff;
-    --color-primary-fixed-dim: #bae0ff;
+    --color-primary-fixed: #e6f0fe;
+    --color-primary-fixed-dim: #c5dcfe;
 
-    --color-secondary: #FF8A2B;            /* Primary Orange */
-    --color-secondary-container: #E67216;
-    --color-secondary-light: #FFB266;      /* Secondary Orange */
+    --color-secondary: #F97316;            /* Warm Sunset Orange */
+    --color-secondary-container: #EA580C;
+    --color-secondary-light: #FB923C;
+    --color-secondary-subtle: #FFF7ED;     /* Warm amber tint */
     --color-on-secondary: #ffffff;
-    --color-secondary-fixed: #fff0e6;
+    --color-secondary-fixed: #ffedd5;
     --color-secondary-fixed-dim: #fed7aa;
 
-    --color-surface: #F8FAFC;              /* Clean Healthcare Canvas */
+    --color-surface: #F8FAFC;              /* Clean Pearl Canvas */
     --color-surface-dim: #F1F5F9;
     --color-surface-bright: #ffffff;
     --color-surface-container-lowest: #ffffff;
@@ -37,88 +39,90 @@
     --color-surface-container-highest: #CBD5E1;
     --color-surface-variant: #E2E8F0;
     
-    --color-on-surface: #1F2937;           /* Charcoal / Navy */
-    --color-on-surface-variant: #4B5563;
-    --color-inverse-surface: #111827;
-    --color-inverse-on-surface: #F9FAFB;
+    --color-on-surface: #0F172A;           /* Deep Slate Navy (8.2:1 WCAG AAA Contrast) */
+    --color-on-surface-variant: #475569;   /* Body Slate (5.4:1 WCAG AA Contrast) */
+    --color-inverse-surface: #0F172A;
+    --color-inverse-on-surface: #F8FAFC;
     
-    --color-outline: #6B7280;
-    --color-outline-variant: #E5E7EB;
-    --color-surface-tint: #2F8BFF;
+    --color-outline: #94A3B8;
+    --color-outline-variant: #E2E8F0;
+    --color-surface-tint: #1E60D5;
 
-    /* Healthcare Compliance & Security */
-    --color-success: #10B981;
-    --color-warning: #F59E0B;
-    --color-error: #EF4444;
+    /* Healthcare Compliance Status Indicators */
+    --color-success: #059669;              /* Emerald Mint */
+    --color-success-subtle: #ECFDF5;
+    --color-warning: #D97706;              /* Amber Gold */
+    --color-warning-subtle: #FFFBEB;
+    --color-error: #DC2626;                /* Crimson Alert */
     --color-on-error: #ffffff;
-    --color-error-container: #FEE2E2;
+    --color-error-container: #FEF2F2;
 }
 
 /* ========================================================================= */
-/* PROPORTIONAL ENTERPRISE TYPOGRAPHY SCALE (Compact, Sleek, Not Oversized)   */
+/* PROPORTIONAL ENTERPRISE TYPOGRAPHY SCALE (Sleek, Scannable & Humanist)    */
 /* ========================================================================= */
 :root {
-    --fluid-hero: clamp(1.4rem, 2.2vw + 0.8rem, 2.25rem);
-    --fluid-h1: clamp(1.25rem, 1.8vw + 0.65rem, 1.85rem);
-    --fluid-h2: clamp(1.1rem, 1.3vw + 0.55rem, 1.5rem);
-    --fluid-h3: clamp(0.98rem, 0.9vw + 0.45rem, 1.25rem);
-    --fluid-h4: clamp(0.88rem, 0.6vw + 0.4rem, 1.05rem);
-    --fluid-lead: clamp(0.88rem, 0.4vw + 0.72rem, 1.05rem);
-    --fluid-body: clamp(0.8125rem, 0.25vw + 0.72rem, 0.9375rem);
-    --fluid-body-sm: clamp(0.75rem, 0.2vw + 0.65rem, 0.845rem);
-    --fluid-caption: clamp(0.6875rem, 0.15vw + 0.6rem, 0.75rem);
-    --fluid-stat: clamp(1.4rem, 2.4vw + 0.5rem, 2.2rem);
+    --fluid-hero: clamp(1.6rem, 2.8vw + 0.8rem, 2.6rem);
+    --fluid-h1: clamp(1.35rem, 2vw + 0.7rem, 2rem);
+    --fluid-h2: clamp(1.15rem, 1.4vw + 0.6rem, 1.6rem);
+    --fluid-h3: clamp(1.02rem, 1vw + 0.5rem, 1.32rem);
+    --fluid-h4: clamp(0.9rem, 0.7vw + 0.42rem, 1.1rem);
+    --fluid-lead: clamp(0.92rem, 0.4vw + 0.75rem, 1.1rem);
+    --fluid-body: clamp(0.85rem, 0.25vw + 0.75rem, 0.95rem);
+    --fluid-body-sm: clamp(0.78rem, 0.2vw + 0.68rem, 0.86rem);
+    --fluid-caption: clamp(0.72rem, 0.15vw + 0.64rem, 0.78rem);
+    --fluid-stat: clamp(1.6rem, 2.6vw + 0.6rem, 2.4rem);
 
-    --fluid-section-py: clamp(2rem, 3.5vw, 3.5rem);
-    --fluid-section-px: clamp(1rem, 2.5vw, 2.25rem);
-    --fluid-card-p: clamp(1rem, 2vw, 1.75rem);
+    --fluid-section-py: clamp(2.5rem, 4.5vw, 4.5rem);
+    --fluid-section-px: clamp(1rem, 2.8vw, 2.5rem);
+    --fluid-card-p: clamp(1.15rem, 2.2vw, 1.85rem);
 }
 
 /* Typography Utility Classes */
 .font-display-hero {
     font-family: var(--font-display);
-    font-weight: 700;
+    font-weight: 800;
     font-size: var(--fluid-hero);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.18;
+    letter-spacing: -0.025em;
 }
 
 .font-headline-xl {
     font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--fluid-h1);
-    line-height: 1.25;
-    letter-spacing: -0.015em;
+    line-height: 1.22;
+    letter-spacing: -0.02em;
 }
 
 .font-headline-lg {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 700;
     font-size: var(--fluid-h2);
-    line-height: 1.3;
-    letter-spacing: -0.01em;
+    line-height: 1.28;
+    letter-spacing: -0.015em;
 }
 
 .font-headline-md {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: var(--fluid-h3);
-    line-height: 1.35;
-    letter-spacing: -0.005em;
+    line-height: 1.32;
+    letter-spacing: -0.01em;
 }
 
 .font-headline-sm {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: var(--fluid-h4);
-    line-height: 1.4;
+    line-height: 1.38;
 }
 
 .font-body-xl {
     font-family: var(--font-body);
     font-weight: 400;
     font-size: var(--fluid-lead);
-    line-height: 1.6;
+    line-height: 1.65;
 }
 
 .font-body-lg {
@@ -146,29 +150,29 @@
     font-family: var(--font-body);
     font-weight: 600;
     font-size: var(--fluid-body);
-    letter-spacing: 0.01em;
+    letter-spacing: 0.005em;
 }
 
 .font-label-md {
     font-family: var(--font-body);
     font-weight: 600;
     font-size: var(--fluid-body-sm);
-    letter-spacing: 0.015em;
+    letter-spacing: 0.01em;
 }
 
 .font-label-sm {
     font-family: var(--font-body);
     font-weight: 500;
     font-size: var(--fluid-caption);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.015em;
 }
 
 .font-stat-number {
     font-family: var(--font-display);
     font-weight: 800;
     font-size: var(--fluid-stat);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
 }
 
 /* Fluid Layout & Spacing Utilities */
@@ -188,11 +192,11 @@
 
 .container-fluid {
     width: 100%;
-    max-width: 78rem;
+    max-width: 80rem;
     margin-left: auto;
     margin-right: auto;
-    padding-left: clamp(1rem, 2.5vw, 2rem);
-    padding-right: clamp(1rem, 2.5vw, 2rem);
+    padding-left: clamp(1rem, 2.5vw, 2.25rem);
+    padding-right: clamp(1rem, 2.5vw, 2.25rem);
 }
 
 /* Tabular numbers for clinical metrics */
@@ -202,67 +206,98 @@
 
 /* Custom Scrollbar for administrative & modal views */
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #F3F4F6;
+    background: #F1F5F9;
 }
 ::-webkit-scrollbar-thumb {
     background: #CBD5E1;
     border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #2F8BFF;
+    background: #1E60D5;
+}
+
+/* ========================================================================= */
+/* MODERN CLINICAL CLARITY CARDS & AMBIENT SHADOWS                          */
+/* ========================================================================= */
+
+.card-clinical {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 1.125rem; /* 18px */
+    box-shadow: 0 4px 16px -3px rgba(30, 96, 213, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.2s ease,
+                background-color 0.2s ease;
+}
+
+.card-clinical:hover {
+    transform: translateY(-2.5px);
+    border-color: rgba(30, 96, 213, 0.3);
+    box-shadow: 0 16px 32px -8px rgba(30, 96, 213, 0.10), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
 }
 
 /* Enterprise Clinical Elevation & Architectural Panels */
 .glass-panel {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid #E5E7EB;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(226, 232, 240, 0.85);
 }
 
 .glass-nav {
-    background: rgba(255, 255, 255, 0.97);
+    background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid #E5E7EB;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
 }
 
-/* Subtle Grid Pattern */
+/* Accessible Focus States */
+.focus-ring {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+.focus-ring:focus-visible {
+    outline: 2px solid #1E60D5;
+    outline-offset: 2px;
+}
+
+/* Soft Ambient Grids & Pearl Backgrounds */
+.bg-clinical-mesh {
+    background-color: #F8FAFC;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(30, 96, 213, 0.035) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.025) 0px, transparent 50%);
+}
+
 .bg-clinical-grid {
-    background-size: 28px 28px;
+    background-size: 32px 32px;
     background-image: 
-        linear-gradient(to right, rgba(229, 231, 235, 0.6) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(229, 231, 235, 0.6) 1px, transparent 1px);
-}
-
-.bg-clinical-dark-grid {
-    background-size: 24px 24px;
-    background-image: 
-        linear-gradient(to right, rgba(31, 41, 55, 0.8) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(31, 41, 55, 0.8) 1px, transparent 1px);
+        linear-gradient(to right, rgba(226, 232, 240, 0.65) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 232, 240, 0.65) 1px, transparent 1px);
 }
 
 /* Brand Gradients & Accents */
 .brand-gradient-text {
-    background: linear-gradient(135deg, #2F8BFF 0%, #1E75E6 60%, #FF8A2B 100%);
+    background: linear-gradient(135deg, #1E60D5 0%, #174EAE 60%, #EA580C 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .brand-gradient-bg {
-    background: linear-gradient(135deg, #2F8BFF 0%, #1E75E6 100%);
+    background: linear-gradient(135deg, #1E60D5 0%, #164DB0 100%);
 }
 
 .brand-orange-gradient-bg {
-    background: linear-gradient(135deg, #FF8A2B 0%, #FFB266 100%);
+    background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
 }
 
 /* ========================================================================= */
-/* ULTRA-SMOOTH MOTION & MICRO-INTERACTION SYSTEM                           */
+/* ULTRA-SMOOTH MOTION & TACTILE INTERACTION PHYSICS                         */
 /* ========================================================================= */
 html {
     scroll-behavior: smooth;
@@ -270,75 +305,41 @@ html {
 
 @keyframes float-subtle {
     0%, 100% {
-        transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-        transform: translateY(-6px) rotate(0.2deg);
-    }
-}
-
-@keyframes float-slow {
-    0%, 100% {
         transform: translateY(0px);
     }
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
     }
 }
 
 @keyframes pulse-glow-blue {
     0% {
-        box-shadow: 0 0 0 0 rgba(47, 139, 255, 0.45);
+        box-shadow: 0 0 0 0 rgba(30, 96, 213, 0.35);
     }
     70% {
-        box-shadow: 0 0 0 10px rgba(47, 139, 255, 0);
+        box-shadow: 0 0 0 8px rgba(30, 96, 213, 0);
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(47, 139, 255, 0);
+        box-shadow: 0 0 0 0 rgba(30, 96, 213, 0);
     }
 }
 
 @keyframes pulse-glow-emerald {
     0% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+        box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.4);
     }
     70% {
-        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+        box-shadow: 0 0 0 8px rgba(5, 150, 105, 0);
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-    }
-}
-
-@keyframes pulse-glow-orange {
-    0% {
-        box-shadow: 0 0 0 0 rgba(255, 138, 43, 0.45);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(255, 138, 43, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(255, 138, 43, 0);
-    }
-}
-
-@keyframes shimmer-slide {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
+        box-shadow: 0 0 0 0 rgba(5, 150, 105, 0);
     }
 }
 
 @keyframes scale-in-spring {
     0% {
         opacity: 0;
-        transform: scale(0.95) translateY(10px);
-    }
-    60% {
-        opacity: 1;
-        transform: scale(1.01) translateY(-1px);
+        transform: scale(0.97) translateY(8px);
     }
     100% {
         opacity: 1;
@@ -349,7 +350,7 @@ html {
 @keyframes slide-up-spring {
     0% {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(14px);
     }
     100% {
         opacity: 1;
@@ -357,35 +358,8 @@ html {
     }
 }
 
-@keyframes fade-in-smooth {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes radar-ripple {
-    0% {
-        transform: scale(0.8);
-        opacity: 0.9;
-    }
-    100% {
-        transform: scale(2.2);
-        opacity: 0;
-    }
-}
-
-/* Keyframe Classes */
 .animate-float-subtle {
-    animation: float-subtle 5s ease-in-out infinite;
-    will-change: transform;
-}
-
-.animate-float-slow {
-    animation: float-slow 7s ease-in-out infinite;
-    will-change: transform;
+    animation: float-subtle 4.5s ease-in-out infinite;
 }
 
 .animate-pulse-glow {
@@ -396,75 +370,74 @@ html {
     animation: pulse-glow-emerald 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
-.animate-pulse-glow-orange {
-    animation: pulse-glow-orange 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
 .animate-scale-in {
-    animation: scale-in-spring 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: scale-in-spring 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-slide-up {
-    animation: slide-up-spring 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.animate-fade-in {
-    animation: fade-in-smooth 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slide-up-spring 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Stagger Delays */
-.delay-stagger-1 { animation-delay: 60ms; }
-.delay-stagger-2 { animation-delay: 120ms; }
-.delay-stagger-3 { animation-delay: 180ms; }
-.delay-stagger-4 { animation-delay: 240ms; }
-.delay-stagger-5 { animation-delay: 300ms; }
+.delay-stagger-1 { animation-delay: 50ms; }
+.delay-stagger-2 { animation-delay: 100ms; }
+.delay-stagger-3 { animation-delay: 150ms; }
+.delay-stagger-4 { animation-delay: 200ms; }
 
 /* Interactive Card Physics */
 .card-interactive {
-    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.22s ease,
-                background-color 0.22s ease;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.18s ease,
+                background-color 0.18s ease;
     will-change: transform, box-shadow;
 }
 .card-interactive:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px -8px rgba(47, 139, 255, 0.12), 0 6px 14px -3px rgba(15, 23, 42, 0.05);
+    transform: translateY(-2.5px);
+    box-shadow: 0 16px 30px -6px rgba(30, 96, 213, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
 }
 .card-interactive:active {
-    transform: translateY(-1px) scale(0.99);
+    transform: translateY(0px) scale(0.99);
 }
 
-/* Tactile Spring Button Physics */
+/* Tactile Spring Buttons */
 .btn-spring {
-    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
-                background-color 0.2s ease,
-                box-shadow 0.2s ease,
-                border-color 0.2s ease;
+    transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.18s ease,
+                box-shadow 0.18s ease,
+                border-color 0.18s ease;
     will-change: transform;
 }
 .btn-spring:hover {
-    transform: translateY(-1px);
+    transform: translateY(-1.5px);
 }
 .btn-spring:active {
-    transform: scale(0.96) translateY(0);
+    transform: scale(0.97) translateY(0);
 }
 
-/* Interactive Pill & Badge Springs */
-.pill-interactive {
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-                background-color 0.18s ease,
-                color 0.18s ease,
-                border-color 0.18s ease;
+/* Primary Tactile Sapphire Button */
+.btn-sapphire {
+    background: linear-gradient(135deg, #1E60D5 0%, #164DB0 100%);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px -2px rgba(30, 96, 213, 0.32);
 }
-.pill-interactive:hover {
-    transform: scale(1.03);
-}
-.pill-interactive:active {
-    transform: scale(0.97);
+.btn-sapphire:hover {
+    box-shadow: 0 6px 20px -2px rgba(30, 96, 213, 0.42);
+    filter: brightness(1.02);
 }
 
-/* Range Slider Custom Styling */
+/* Secondary Warm Orange Button */
+.btn-amber-warm {
+    background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px -2px rgba(249, 115, 22, 0.30);
+}
+.btn-amber-warm:hover {
+    box-shadow: 0 6px 20px -2px rgba(249, 115, 22, 0.40);
+    filter: brightness(1.03);
+}
+
+/* Range Slider */
 input[type=range] {
     -webkit-appearance: none;
     appearance: none;
@@ -480,30 +453,23 @@ input[type=range]::-webkit-slider-thumb {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #2F8BFF;
+    background: #1E60D5;
     border: 2px solid #ffffff;
-    box-shadow: 0 2px 6px rgba(47, 139, 255, 0.4);
+    box-shadow: 0 2px 6px rgba(30, 96, 213, 0.35);
     cursor: pointer;
     transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
 }
 input[type=range]::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-    box-shadow: 0 4px 10px rgba(47, 139, 255, 0.6);
+    transform: scale(1.15);
+    box-shadow: 0 4px 10px rgba(30, 96, 213, 0.5);
 }
-input[type=range]::-webkit-slider-thumb:active {
-    transform: scale(1.1);
-}
-input[type=range]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #2F8BFF;
-    border: 2px solid #ffffff;
-    box-shadow: 0 2px 6px rgba(47, 139, 255, 0.4);
-    cursor: pointer;
-    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
-}
-input[type=range]::-moz-range-thumb:hover {
-    transform: scale(1.2);
-    box-shadow: 0 4px 10px rgba(47, 139, 255, 0.6);
+
+/* Accessibility Reduced Motion Guardrail */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
