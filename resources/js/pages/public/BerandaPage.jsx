@@ -452,11 +452,14 @@ export default function BerandaPage({ onNavigate }) {
             }
         ];
 
+        const activePillars = pillars && pillars.length > 0 ? pillars : defaultPillars;
+
         const scrollPillarTo = (idx) => {
             const nextIdx = Math.max(0, Math.min(activePillars.length - 1, idx));
             setActivePillarIdx(nextIdx);
             if (pillarScrollRef.current) {
-                const card = pillarScrollRef.current.children[nextIdx];
+                const container = pillarScrollRef.current;
+                const card = container.children[nextIdx];
                 if (card) {
                     card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 }
@@ -709,7 +712,8 @@ export default function BerandaPage({ onNavigate }) {
             const nextIdx = Math.max(0, Math.min(previewModules.length - 1, idx));
             setActiveModuleIdx(nextIdx);
             if (moduleScrollRef.current) {
-                const card = moduleScrollRef.current.children[nextIdx];
+                const container = moduleScrollRef.current;
+                const card = container.children[nextIdx];
                 if (card) {
                     card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 }
