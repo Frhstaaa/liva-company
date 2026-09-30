@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useSite } from '../../context/SiteContext';
 import WebpUploadButton from '../../components/WebpUploadButton';
 import SectionComprehensiveEditor from '../../components/admin/SectionComprehensiveEditor';
+import SectionLivePreview from '../../components/admin/SectionLivePreview';
 import {
     Card,
     CardHeader,
@@ -43,7 +44,8 @@ import {
     RefreshCw,
     Activity,
     ImageIcon,
-    HelpCircle
+    HelpCircle,
+    Columns
 } from 'lucide-react';
 
 // Definitions for all 6 public pages and their individual sections
@@ -191,11 +193,17 @@ export default function AdminPageLayoutBuilder({ initialPageId = 'beranda', onNa
     // Active page being customized
     const [activePageId, setActivePageId] = useState(initialPageId);
 
-    // Studio Mode: 'editor' (Sections & Content), 'design' (Visual Theme), 'simulator' (Live Viewport)
+    // Studio Mode: 'editor' (Sections & Content), 'split' (Editor & Live Preview), 'design' (Visual Theme), 'simulator' (Live Viewport)
     const [studioTab, setStudioTab] = useState('editor');
 
     // Simulator Device: 'desktop', 'tablet', 'mobile'
     const [previewDevice, setPreviewDevice] = useState('desktop');
+
+    // Section to preview in split mode: 'all' or specific secId
+    const [previewSectionId, setPreviewSectionId] = useState('all');
+
+    // Simulator Mode: 'memory' (live real-time unsaved), 'iframe' (server URL)
+    const [simulatorMode, setSimulatorMode] = useState('memory');
 
     // Expanded accordion section IDs for editing content
     const [expandedSections, setExpandedSections] = useState({ hero: true });
@@ -471,14 +479,28 @@ export default function AdminPageLayoutBuilder({ initialPageId = 'beranda', onNa
                     <button
                         type="button"
                         onClick={() => setStudioTab('editor')}
-                        className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                             studioTab === 'editor'
                                 ? 'bg-white text-[#181C32] shadow-2xs'
                                 : 'text-[#78829D] hover:text-[#181C32]'
                         }`}
                     >
                         <Edit3 className="h-3.5 w-3.5 text-[#1B84FF]" />
-                        <span>Konten &amp; Seksi</span>
+                        <span>Editor Seksi</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => setStudioTab('split')}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                            studioTab === 'split'
+                                ? 'bg-white text-[#181C32] shadow-2xs ring-1 ring-pink-300'
+                                : 'text-[#78829D] hover:text-[#181C32]'
+                        }`}
+                        title="Edit konten sambil melihat hasil tampilan langsung di samping"
+                    >
+                        <Columns className="h-3.5 w-3.5 text-pink-600" />
+                        <span>Mode Split-Screen ⚡</span>
                     </button>
 
                     <button
@@ -491,7 +513,7 @@ export default function AdminPageLayoutBuilder({ initialPageId = 'beranda', onNa
                         }`}
                     >
                         <Palette className="h-3.5 w-3.5 text-purple-600" />
-                        <span>Desain Mandiri</span>
+                        <span>Desain Tema</span>
                     </button>
 
                     <button
@@ -504,35 +526,37 @@ export default function AdminPageLayoutBuilder({ initialPageId = 'beranda', onNa
                         }`}
                     >
                         <Monitor className="h-3.5 w-3.5 text-emerald-600" />
-                        <span>Simulator Live</span>
+                        <span>Simulator Device</span>
                     </button>
                 </div>
             </div>
 
             {/* ========================================================================= */}
-            {/* 3. MODE 1: KONTEN & TATA LETAK SEKSI (ACCORDION PER SEKSI)                 */}
+            {/* 3. MODE 1 & 2: KONTEN SEKSI & SPLIT-SCREEN REAL-TIME                      */}
             {/* ========================================================================= */}
-            {studioTab === 'editor' && (
-                <div className="space-y-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F1FAFF] border border-[#BFDBFE] rounded-2xl p-4">
-                        <div className="space-y-0.5">
-                            <span className="text-xs font-bold text-[#1E60D5] flex items-center gap-1.5">
-                                <Sparkles className="h-4 w-4" />
-                                Panduan Pengaturan Tata Letak &amp; Konten
-                            </span>
-                            <p className="text-[11px] text-slate-600">
-                                Gunakan tombol panah <strong>⬆️ (Naikkan)</strong> dan <strong>⬇️ (Turunkan)</strong> untuk mengatur urutan seksi. Klik tombol mata <strong>👁️</strong> untuk menyembunyikan / menampilkan seksi. Klik tombol <strong>"Edit Isi Konten"</strong> untuk memperbarui judul, teks, gambar (auto-WebP), dan tombol seksi tersebut.
-                            </p>
+            {(studioTab === 'editor' || studioTab === 'split') && (
+                <div className={studioTab === 'split' ? 'grid grid-cols-1 lg:grid-cols-12 gap-6 items-start' : 'space-y-4'}>
+                    {/* Left Column (Sections Accordion) */}
+                    <div className={studioTab === 'split' ? 'lg:col-span-7 space-y-4' : 'space-y-4'}>
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F1FAFF] border border-[#BFDBFE] rounded-2xl p-4">
+                            <div className="space-y-0.5">
+                                <span className="text-xs font-bold text-[#1E60D5] flex items-center gap-1.5">
+                                    <Sparkles className="h-4 w-4" />
+                                    Panduan Pengaturan Tata Letak, Foto &amp; Konten
+                                </span>
+                                <p className="text-[11px] text-slate-600">
+                                    Gunakan tombol panah <strong>⬆️ / ⬇️</strong> untuk urutan seksi. Klik tombol <strong>"Edit Isi Konten"</strong> untuk membuka tab lengkap: Teks, Warna, Bentuk Layout, <strong>Upload &amp; Tata Letak Foto (Auto-WebP)</strong>, dan Tombol.
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => handleResetSections(activePageId)}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-blue-200 bg-white hover:bg-blue-50 text-[#1E60D5] text-xs font-bold shrink-0 cursor-pointer shadow-2xs self-start sm:self-auto"
+                            >
+                                <RotateCcw className="h-3.5 w-3.5" />
+                                <span>Reset Urutan</span>
+                            </button>
                         </div>
-                        <button
-                            type="button"
-                            onClick={() => handleResetSections(activePageId)}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-blue-200 bg-white hover:bg-blue-50 text-[#1E60D5] text-xs font-bold shrink-0 cursor-pointer shadow-2xs self-start sm:self-auto"
-                        >
-                            <RotateCcw className="h-3.5 w-3.5" />
-                            <span>Reset Urutan</span>
-                        </button>
-                    </div>
 
                     {/* The Sections Accordion List */}
                     <div className="space-y-3">
@@ -651,7 +675,67 @@ export default function AdminPageLayoutBuilder({ initialPageId = 'beranda', onNa
                         })}
                     </div>
                 </div>
-            )}
+
+                {/* Right Column: Sticky Real-Time Live Preview in Split Mode */}
+                {studioTab === 'split' && (
+                    <div className="lg:col-span-5 sticky top-6 space-y-3">
+                        <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs space-y-3">
+                            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                                <div className="flex items-center gap-2">
+                                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span className="text-xs font-bold text-[#181C32] font-mono">
+                                        LIVE PREVIEW REAL-TIME
+                                    </span>
+                                </div>
+                                <Badge className="bg-pink-50 text-pink-700 border-pink-200 text-[10px] font-mono">
+                                    Sync Otomatis
+                                </Badge>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs font-semibold text-slate-600 shrink-0">Pilih Seksi:</span>
+                                <select
+                                    value={previewSectionId}
+                                    onChange={(e) => setPreviewSectionId(e.target.value)}
+                                    className="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                                >
+                                    <option value="all">Semua Seksi ({currentSections.filter(s => s.visible).length} Seksi Aktif)</option>
+                                    {currentSections.map((s) => (
+                                        <option key={s.id} value={s.id}>
+                                            {s.name} {s.visible ? '' : '(Disembunyikan)'}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="max-h-[82vh] overflow-y-auto pr-1 space-y-4">
+                            {previewSectionId === 'all' ? (
+                                currentSections.filter(s => s.visible).map((s) => (
+                                    <SectionLivePreview
+                                        key={s.id}
+                                        pageId={activePageId}
+                                        secId={s.id}
+                                        sectionName={s.name}
+                                        settingsMap={settingsMap}
+                                        showDeviceToolbar={false}
+                                    />
+                                ))
+                            ) : (
+                                <SectionLivePreview
+                                    key={previewSectionId}
+                                    pageId={activePageId}
+                                    secId={previewSectionId}
+                                    sectionName={currentSections.find(s => s.id === previewSectionId)?.name || previewSectionId}
+                                    settingsMap={settingsMap}
+                                    showDeviceToolbar={true}
+                                />
+                            )}
+                        </div>
+                    </div>
+                )}
+            </div>
+        )}
 
             {/* ========================================================================= */}
             {/* 4. MODE 2: DESAIN VISUAL MANDIRI (PER-PAGE STYLING)                       */}
@@ -773,46 +857,74 @@ export default function AdminPageLayoutBuilder({ initialPageId = 'beranda', onNa
             {/* ========================================================================= */}
             {studioTab === 'simulator' && (
                 <div className="space-y-4">
-                    <div className="bg-white rounded-2xl border border-[#EFF2F5] p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
+                    <div className="bg-white rounded-2xl border border-[#EFF2F5] p-4 flex flex-col lg:flex-row items-center justify-between gap-3 shadow-xs">
                         <div className="flex items-center gap-2">
                             <Monitor className="h-4 w-4 text-[#1B84FF]" />
                             <span className="text-xs font-bold text-[#181C32]">
-                                Pratinjau Langsung: {activePageDef.name} ({activePageDef.path})
+                                Simulator Pratinjau: {activePageDef.name} ({activePageDef.path})
                             </span>
                         </div>
 
-                        {/* Device Switcher */}
-                        <div className="flex items-center gap-1.5 p-1 bg-[#F5F8FA] rounded-xl border border-[#EFF2F5]">
-                            <button
-                                type="button"
-                                onClick={() => setPreviewDevice('desktop')}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer ${
-                                    previewDevice === 'desktop' ? 'bg-white text-[#181C32] shadow-2xs' : 'text-[#78829D]'
-                                }`}
-                            >
-                                <Monitor className="h-3.5 w-3.5" />
-                                <span>Desktop</span>
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setPreviewDevice('tablet')}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer ${
-                                    previewDevice === 'tablet' ? 'bg-white text-[#181C32] shadow-2xs' : 'text-[#78829D]'
-                                }`}
-                            >
-                                <Tablet className="h-3.5 w-3.5" />
-                                <span>Tablet</span>
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setPreviewDevice('mobile')}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer ${
-                                    previewDevice === 'mobile' ? 'bg-white text-[#181C32] shadow-2xs' : 'text-[#78829D]'
-                                }`}
-                            >
-                                <Smartphone className="h-3.5 w-3.5" />
-                                <span>Mobile</span>
-                            </button>
+                        <div className="flex flex-wrap items-center gap-2">
+                            {/* Engine Switcher: Memory Canvas vs Iframe */}
+                            <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-xl border border-slate-200">
+                                <button
+                                    type="button"
+                                    onClick={() => setSimulatorMode('memory')}
+                                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                                        simulatorMode === 'memory'
+                                            ? 'bg-white text-blue-700 shadow-2xs'
+                                            : 'text-slate-600 hover:text-slate-900'
+                                    }`}
+                                >
+                                    ⚡ Canvas Real-Time
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setSimulatorMode('iframe')}
+                                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                                        simulatorMode === 'iframe'
+                                            ? 'bg-white text-blue-700 shadow-2xs'
+                                            : 'text-slate-600 hover:text-slate-900'
+                                    }`}
+                                >
+                                    🌐 URL Server
+                                </button>
+                            </div>
+
+                            {/* Device Switcher */}
+                            <div className="flex items-center gap-1 p-1 bg-[#F5F8FA] rounded-xl border border-[#EFF2F5]">
+                                <button
+                                    type="button"
+                                    onClick={() => setPreviewDevice('desktop')}
+                                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer ${
+                                        previewDevice === 'desktop' ? 'bg-white text-[#181C32] shadow-2xs' : 'text-[#78829D]'
+                                    }`}
+                                >
+                                    <Monitor className="h-3.5 w-3.5" />
+                                    <span>Desktop</span>
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setPreviewDevice('tablet')}
+                                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer ${
+                                        previewDevice === 'tablet' ? 'bg-white text-[#181C32] shadow-2xs' : 'text-[#78829D]'
+                                    }`}
+                                >
+                                    <Tablet className="h-3.5 w-3.5" />
+                                    <span>Tablet</span>
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setPreviewDevice('mobile')}
+                                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer ${
+                                        previewDevice === 'mobile' ? 'bg-white text-[#181C32] shadow-2xs' : 'text-[#78829D]'
+                                    }`}
+                                >
+                                    <Smartphone className="h-3.5 w-3.5" />
+                                    <span>Mobile</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -827,12 +939,37 @@ export default function AdminPageLayoutBuilder({ initialPageId = 'beranda', onNa
                                     : 'w-[375px] h-[750px] border-8 border-slate-700 rounded-3xl'
                             }`}
                         >
-                            <iframe
-                                key={`${activePageDef.path}-${currentTheme}`}
-                                src={activePageDef.path}
-                                title={`Live Preview ${activePageDef.name}`}
-                                className="w-full h-full border-0"
-                            />
+                            {simulatorMode === 'memory' ? (
+                                <div className="w-full h-full overflow-y-auto bg-slate-900 text-white p-3 space-y-4">
+                                    <div className="p-3 bg-blue-950/80 border border-blue-800 rounded-xl text-center space-y-0.5">
+                                        <span className="text-xs font-bold text-blue-300 flex items-center justify-center gap-1.5">
+                                            <Sparkles className="h-3.5 w-3.5 text-amber-400" />
+                                            Canvas Live Real-Time (Memory Seketika)
+                                        </span>
+                                        <p className="text-[11px] text-slate-300">
+                                            Menampilkan seluruh seksi {activePageDef.name} dengan semua kustomisasi foto, warna, dan teks terbaru bahkan sebelum tombol simpan ditekan.
+                                        </p>
+                                    </div>
+                                    {currentSections.filter((s) => s.visible).map((s) => (
+                                        <SectionLivePreview
+                                            key={s.id}
+                                            pageId={activePageId}
+                                            secId={s.id}
+                                            sectionName={s.name}
+                                            settingsMap={settingsMap}
+                                            showDeviceToolbar={false}
+                                            initialDevice={previewDevice}
+                                        />
+                                    ))}
+                                </div>
+                            ) : (
+                                <iframe
+                                    key={`${activePageDef.path}-${currentTheme}`}
+                                    src={activePageDef.path}
+                                    title={`Live Preview ${activePageDef.name}`}
+                                    className="w-full h-full border-0"
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

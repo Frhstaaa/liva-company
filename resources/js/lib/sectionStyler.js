@@ -54,10 +54,51 @@ export const BORDER_PRESETS = [
     { id: 'glass', name: 'Glassmorphism Mewah', class: 'border border-white/40 backdrop-blur-md bg-white/70 shadow-xl' },
 ];
 
+export const IMAGE_POSITION_PRESETS = [
+    { id: 'side-right', name: 'Di Kanan Teks (Split Kanan)', desc: 'Teks di sebelah kiri, media foto di kanan' },
+    { id: 'side-left', name: 'Di Kiri Teks (Split Kiri)', desc: 'Media foto di sebelah kiri, teks di kanan' },
+    { id: 'top', name: 'Di Atas Teks (Banner Top)', desc: 'Foto menjadi tajuk visual utama di atas konten' },
+    { id: 'bottom', name: 'Di Bawah Teks (Showcase)', desc: 'Teks narasi di atas, galeri foto di bawah' },
+    { id: 'background', name: 'Latar Belakang (Cover Overlay)', desc: 'Foto menjadi wallpaper latar seksi dengan gradient mask' },
+    { id: 'card-float', name: 'Kartu Melayang (Floating Card)', desc: 'Foto tampil sebagai kartu melayang dengan bayangan halus' },
+];
+
+export const IMAGE_WIDTH_PRESETS = [
+    { id: 'compact', name: 'Ringkas (33% / 1/3)', desc: 'Kolom kecil proporsional' },
+    { id: 'balanced', name: 'Seimbang (50% / 1/2)', desc: 'Dua kolom seimbang 50:50' },
+    { id: 'prominent', name: 'Menonjol (65% / 2/3)', desc: 'Fokus visual mendominasi' },
+    { id: 'full', name: 'Penuh (100% Lebar)', desc: 'Lebar maksimal container' },
+];
+
+export const GALLERY_COLUMNS_PRESETS = [
+    { id: '2', name: 'Grid 2 Kolom' },
+    { id: '3', name: 'Grid 3 Kolom' },
+    { id: '4', name: 'Grid 4 Kolom' },
+    { id: 'carousel', name: 'Carousel Strip Geser' },
+];
+
+/**
+ * Safely parse gallery images JSON
+ */
+export function parseGalleryImages(rawVal) {
+    if (!rawVal) return [];
+    if (Array.isArray(rawVal)) return rawVal;
+    try {
+        const parsed = JSON.parse(rawVal);
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+        return [];
+    }
+}
+
 /**
  * Computes all dynamic visual styles for a given section
  */
-export function getSectionCustomStyles(getSetting, pageId, secId, defaults = {}) {
+export function getSectionCustomStyles(settingProvider, pageId, secId, defaults = {}) {
+    // Helper to read setting whether settingProvider is a function getSetting(k, d) or an object map
+    const getSetting = typeof settingProvider === 'function' 
+        ? settingProvider 
+        : (k, d = '') => (settingProvider && settingProvider[k] !== undefined ? settingProvider[k] : d);
     const prefix = `sec_${pageId}_${secId}_`;
 
     // 1. Background
@@ -147,6 +188,11 @@ export function getSectionCustomStyles(getSetting, pageId, secId, defaults = {})
     const imageUrl = getSetting(prefix + 'image_url', defaults.imageUrl || '');
     const imageAspect = getSetting(prefix + 'image_aspect', defaults.imageAspect || '16/9');
     const imageStyle = getSetting(prefix + 'image_style', defaults.imageStyle || 'rounded');
+    const imagePosition = getSetting(prefix + 'image_position', defaults.imagePosition || (layout === 'split-right' ? 'side-left' : layout === 'split-left' ? 'side-right' : 'side-right'));
+    const imageWidth = getSetting(prefix + 'image_width', defaults.imageWidth || 'balanced');
+    const imageFit = getSetting(prefix + 'image_fit', defaults.imageFit || 'cover');
+    const galleryImages = parseGalleryImages(getSetting(prefix + 'gallery_images', '[]'));
+    const galleryColumns = getSetting(prefix + 'gallery_columns', defaults.galleryColumns || '3');
 
     const imageAspectClass = {
         '16/9': 'aspect-[16/9]',
@@ -220,6 +266,11 @@ export function getSectionCustomStyles(getSetting, pageId, secId, defaults = {})
         imageUrl,
         imageAspectClass,
         imageStyleClass,
+        imagePosition,
+        imageWidth,
+        imageFit,
+        galleryImages,
+        galleryColumns,
         showBadge,
         showImage,
         showCta,
